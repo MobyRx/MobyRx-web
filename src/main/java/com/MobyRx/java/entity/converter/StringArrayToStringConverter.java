@@ -15,12 +15,10 @@ import java.util.Arrays;
  */
 public class StringArrayToStringConverter implements AttributeConverter<ArrayList,String> {
 
-    @Override
     public String convertToDatabaseColumn(ArrayList arrayList) {
         return arrayList == null ? null : StringUtils.join(arrayList, ",");
     }
 
-    @Override
     public ArrayList<String> convertToEntityAttribute(String dbData) {
         ArrayList<String> data = null;
         if (!StringUtils.isBlank(dbData)){

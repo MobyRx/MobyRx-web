@@ -50,8 +50,12 @@ public class DrugService extends BaseService {
         List<DrugsEntity> drugs = commonBL.searchDrugs(query);
         return sendResponse(dataMapper.transform(drugs));
     }
-
-
+    
+    @GET
+    @Path("/add")
+    public Response addDrug(@Context UriInfo uriInfo) {
+        return sendResponse(new UserWSO());
+    }
     @POST
     @Consumes(value = MediaType.APPLICATION_FORM_URLENCODED)
     public Response saveDrug(@FormParam("abcd")String abcd){

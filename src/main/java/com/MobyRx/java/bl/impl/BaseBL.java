@@ -1,5 +1,9 @@
 package com.MobyRx.java.bl.impl;
 
+import java.util.List;
+
+import com.MobyRx.java.entity.DrugsEntity;
+
 /**
  * Created by IntelliJ IDEA.
  * User: ashqures
@@ -8,4 +12,9 @@ package com.MobyRx.java.bl.impl;
  * To change this template use File | Settings | File Templates.
  */
 public class BaseBL implements com.MobyRx.java.bl.BaseBL {
+
+	public List<DrugsEntity> searchDrugs(String query) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -27,7 +27,6 @@ public class BaseDaoImpl implements com.MobyRx.java.dao.BaseDao {
         this.sessionFactory = sessionFactory;
     }
 
-    @Override
     public void executeSQLQueryUpdate(String sqlQuery) {
         SQLQuery query =getCurrentSession().createSQLQuery(sqlQuery);
         query.executeUpdate();
@@ -37,7 +36,6 @@ public class BaseDaoImpl implements com.MobyRx.java.dao.BaseDao {
         getCurrentSession().saveOrUpdate(object);
     }
 
-    @Override
     public void saveAll(List objectList) {
         for (Object object : objectList) {
             try{
@@ -61,7 +59,6 @@ public class BaseDaoImpl implements com.MobyRx.java.dao.BaseDao {
         getCurrentSession().delete(object);
     }
 
-    @Override
     public void delete(Class clazz, Long id) {
         String hql = "delete from "+ clazz.getName() + " where id=:id";
         Query query = getCurrentSession().createQuery(hql);

@@ -26,7 +26,7 @@ public class ClinicWSO {
     private Date registrationDate;
     private String url;
     private String category;
-    private List<String> services;
+    private List<ServiceWSO> services;
     private boolean verified = false;
 
     public String getName() {
@@ -93,11 +93,11 @@ public class ClinicWSO {
         this.category = category;
     }
 
-    public List<String> getServices() {
+    public List<ServiceWSO> getServices() {
         return services;
     }
 
-    public void setServices(List<String> services) {
+    public void setServices(List<ServiceWSO> services) {
         this.services = services;
     }
 
