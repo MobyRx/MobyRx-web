@@ -32,7 +32,7 @@ public class BaseDaoImpl implements com.MobyRx.java.dao.BaseDao {
         query.executeUpdate();
     }
 
-    public void save(Object object) {
+    public void save(Object object)  throws Exception{
         getCurrentSession().saveOrUpdate(object);
     }
 

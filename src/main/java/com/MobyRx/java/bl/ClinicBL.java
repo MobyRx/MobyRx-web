@@ -8,6 +8,7 @@ import com.MobyRx.java.service.wso.StatusWSO;
 import java.util.List;
 import java.util.Map;
 public interface ClinicBL {
-	public StatusWSO addClinic(ClinicWSO clinicWSO);
+	
+	public void save(ClinicWSO clinicWSO) throws Exception;
 
 }

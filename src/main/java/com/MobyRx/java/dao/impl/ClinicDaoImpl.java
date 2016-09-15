@@ -32,27 +32,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Repository("clinicDao")
 public class ClinicDaoImpl extends BaseDaoImpl implements ClinicDao {
-	private Logger logger = LoggerFactory.getLogger(ClinicDaoImpl.class);
-
-	public StatusWSO saveClinic(ClinicEntity clinicEntity) {
-		StatusWSO statusWSO =  new StatusWSO();
-		try
-		{
-			save(clinicEntity);
-		}
-		catch(Exception Ex)
-		{
-			statusWSO.setCode(404);
-			statusWSO.setMessage("error while creating clinic");
-			logger.info("ClinicDaoImpl error="+Ex.getMessage() + "error while creating clinic");
-			return statusWSO;
-		}
-		
-		statusWSO.setCode(200);
-		statusWSO.setMessage("sucesfully added clinic");
-		return statusWSO;
-	}
-
-
-
+	
 }

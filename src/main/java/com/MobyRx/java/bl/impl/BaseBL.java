@@ -3,6 +3,7 @@ package com.MobyRx.java.bl.impl;
 import java.util.List;
 
 import com.MobyRx.java.entity.DrugsEntity;
+import com.MobyRx.java.service.wso.ClinicWSO;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,5 +17,10 @@ public class BaseBL implements com.MobyRx.java.bl.BaseBL {
 	public List<DrugsEntity> searchDrugs(String query) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void save(ClinicWSO clinicWSO) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -15,6 +15,6 @@ import com.MobyRx.java.service.wso.StatusWSO;
  * Time: 7:51 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface ClinicDao {
-	public StatusWSO saveClinic(ClinicEntity clinicEntity) ;
+public interface ClinicDao extends BaseDao{
+	
 }

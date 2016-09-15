@@ -19,6 +19,4 @@ public interface CommonBL {
 
     List<DrugsEntity> searchDrugs(String query);
 
-
-    StatusWSO save(ClinicWSO clinicWSO);
 }

@@ -16,7 +16,7 @@ public interface BaseDao {
 
     void executeSQLQueryUpdate(String sqlQuery);
 
-    void save(Object object);
+    void save(Object object) throws Exception;
 
     void saveAll(List objectList);
 

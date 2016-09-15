@@ -91,7 +91,7 @@ public class ClinicEntity extends BaseEntity{
 
     /*TODO need to remove cascade nd handle with master data*/
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id", nullable = true)
+    @JoinColumn(name = "category_id", nullable = false)
     public ClinicCategoryEntity getCategory() {
         return category;
     }

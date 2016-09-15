@@ -1,4 +1,5 @@
 package com.MobyRx.java.service;
+import com.MobyRx.java.bl.ClinicBL;
 import com.MobyRx.java.bl.CommonBL;
 import com.MobyRx.java.bl.impl.ClinicBLImpl;
 import com.MobyRx.java.dao.impl.ClinicDaoImpl;
@@ -34,59 +35,43 @@ import javax.xml.bind.annotation.XmlElement;
  * To change this template use File | Settings | File Templates.
  */
 @Component
-@Path("/Clinic")
+@Path("/clinic")
 @Transactional
 public class ClinicService extends BaseService{
 	 private Logger logger = LoggerFactory.getLogger(ClinicService.class);
 
 	    private CommonBL commonBL;
+	    
+	    private ClinicBL clinicBL;
 
 	    @Autowired(required = true)
 	    public void setCommonBL(CommonBL commonBL) {
 	        this.commonBL = commonBL;
 	    }
-	    /*
-	     {
-  "name": "Asha",
-  "address": {
-    "id": 1,
-    "buildingNumber": "1",
-    "street": "guthalu",
-    "landmark": "harlimara",
-    "city": "mandya",
-    "state": "karnata",
-    "country": null,
-    "zipCode": "5714301",
-    "latitude": 1098,
-    "longitude": 3647
-  },
-  "phoneNumber": "12345",
-  "email": "uday@gmail.com",
-  "licenceNumber": "1234",
-  "registrationDate": 689797800000,
-  "url": "www.something.com",
-  "category": "general",
-  "services": [
-    {
-      "id": 2,
-      "name": "yyy",
-      "description": "xxx"
-    },
-    {
-      "id": 3,
-      "name": "yyy1",
-      "description": "xxx1"
-    }
-  ],
-  "verified": false
-}
-	     */
+	    @Autowired(required = true)
+	    public void setCommonBL(ClinicBL clinicBL) {
+	        this.clinicBL = clinicBL;
+	    }
+	    
 	    @POST
 	    @Consumes({MediaType.APPLICATION_JSON})
 	    @Produces({MediaType.APPLICATION_JSON})
 	    @Path("/add")
 	    public Response addClinicAddress(ClinicWSO clinicWSO, @Context UriInfo uriInfo) {
-	        return sendResponse(commonBL.save(clinicWSO));
+	    	StatusWSO statusWSO = new StatusWSO();
+	    	try
+	    	{
+	    		clinicBL.save(clinicWSO);
+	    	}
+	    	catch(Exception Ex)
+	    	{
+	    		statusWSO.setCode(400);
+	    		statusWSO.setMessage(Ex.getMessage());
+	    		return sendResponse(statusWSO);
+	    	}
+	    	statusWSO.setCode(200);
+    		statusWSO.setMessage("Sucessful");
+    		return sendResponse(statusWSO);
 	    }
 	    
 	    @POST

@@ -25,9 +25,28 @@ public class ClinicWSO {
     private String licenceNumber;
     private Date registrationDate;
     private String url;
-    private String category;
+    private ClinicCategoryWSO category;
     private List<ServiceWSO> services;
     private boolean verified = false;
+	public Date createdAt;
+    public Date updatedAt;
+
+    public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
 
     public String getName() {
         return name;
@@ -85,11 +104,11 @@ public class ClinicWSO {
         this.url = url;
     }
 
-    public String getCategory() {
+    public ClinicCategoryWSO getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(ClinicCategoryWSO category) {
         this.category = category;
     }
 
