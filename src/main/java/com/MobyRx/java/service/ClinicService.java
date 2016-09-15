@@ -86,8 +86,7 @@ public class ClinicService extends BaseService{
 	    @Produces({MediaType.APPLICATION_JSON})
 	    @Path("/add")
 	    public Response addClinicAddress(ClinicWSO clinicWSO, @Context UriInfo uriInfo) {
-	    	ClinicBLImpl clinicBLImpl = new ClinicBLImpl();
-	        return sendResponse(clinicBLImpl.addClinic(clinicWSO));
+	        return sendResponse(commonBL.save(clinicWSO));
 	    }
 	    
 	    @POST

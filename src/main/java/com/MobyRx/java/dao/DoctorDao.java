@@ -13,7 +13,7 @@ import java.util.Map;
  * Time: 9:38 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface DoctorDao {
+public interface DoctorDao extends BaseDao{
 
 
     List<DrugsEntity> searchDrugs(Map<String, Object> fieldParam, String query);

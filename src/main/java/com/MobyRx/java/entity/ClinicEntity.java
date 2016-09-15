@@ -39,7 +39,7 @@ public class ClinicEntity extends BaseEntity{
         this.name = name;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", nullable = false)
     public AddressEntity getAddress() {
         return address;
@@ -89,8 +89,9 @@ public class ClinicEntity extends BaseEntity{
         this.url = url;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)
+    /*TODO need to remove cascade nd handle with master data*/
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id", nullable = true)
     public ClinicCategoryEntity getCategory() {
         return category;
     }
@@ -99,7 +100,8 @@ public class ClinicEntity extends BaseEntity{
         this.category = category;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    /*TODO need to remove cascade nd handle with master data*/
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "clinic_service", joinColumns = @JoinColumn(name = "clinic_id"),
             inverseJoinColumns = @JoinColumn(name = "service_id"))
     public List<ServiceEntity> getServices() {
