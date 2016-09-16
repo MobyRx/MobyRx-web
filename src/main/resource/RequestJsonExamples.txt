@@ -1,9 +1,14 @@
 http://localhost:8080/MobyRx/services/clinic/add
 
 {  
+   "id":null,
+   "createdAt":689797800000,
+   "updatedAt":689797800000,
    "name":"Asha",
    "address":{  
       "id":1,
+      "createdAt":689797800000,
+      "updatedAt":689797800000,
       "buildingNumber":"1",
       "street":"guthalu",
       "landmark":"harlimara",
@@ -36,7 +41,53 @@ http://localhost:8080/MobyRx/services/clinic/add
       "id":34,
       "name":"name",
       "description":"description"
-   },
-   "createdAt":1510338600000,
-   "updatedAt":1510338600000
+   }
 }
+
+http://localhost:8080/MobyRx/services/clinic/modify
+{  
+   "id":3,
+   "createdAt":689797800000,
+   "updatedAt":689797800000,
+   "name":"uc",
+   "address":{  
+      "id":1,
+      "createdAt":689797800000,
+      "updatedAt":689797800000,
+      "buildingNumber":"1",
+      "street":"guthalu",
+      "landmark":"harlimara",
+      "city":"mysore",
+      "state":"karnata",
+      "country":null,
+      "zipCode":"5714301",
+      "latitude":1098,
+      "longitude":3647
+   },
+   "phoneNumber":"12345",
+   "email":"udaychandu@gmail.com",
+   "licenceNumber":"1234",
+   "registrationDate":689797800000,
+   "url":"www.something.com",
+   "services":[  
+      {  
+         "id":2,
+         "name":"yyy",
+         "description":"xxx"
+      },
+      {  
+         "id":3,
+         "name":"yyy1",
+         "description":"xxx1"
+      }
+   ],
+   "verified":false,
+   "category":{  
+      "id":34,
+      "name":"uday",
+      "description":"description"
+   }
+}
+
+
+http://localhost:8080/MobyRx/services/clinic/delete?id=2
