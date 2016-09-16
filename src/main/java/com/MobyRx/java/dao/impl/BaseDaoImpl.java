@@ -60,6 +60,7 @@ public class BaseDaoImpl implements com.MobyRx.java.dao.BaseDao {
     }
 
     public void delete(Class clazz, Long id) {
+ 
         String hql = "delete from "+ clazz.getName() + " where id=:id";
         Query query = getCurrentSession().createQuery(hql);
         query.setParameter("id", id);

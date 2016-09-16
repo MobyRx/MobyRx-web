@@ -3,6 +3,7 @@ import com.MobyRx.java.bl.ClinicBL;
 import com.MobyRx.java.bl.CommonBL;
 import com.MobyRx.java.bl.impl.ClinicBLImpl;
 import com.MobyRx.java.dao.impl.ClinicDaoImpl;
+import com.MobyRx.java.entity.ClinicEntity;
 import com.MobyRx.java.service.wso.UserWSO;
 import com.MobyRx.java.service.wso.ClinicWSO;
 import com.MobyRx.java.service.wso.StatusWSO;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -57,7 +59,7 @@ public class ClinicService extends BaseService{
 	    @Consumes({MediaType.APPLICATION_JSON})
 	    @Produces({MediaType.APPLICATION_JSON})
 	    @Path("/add")
-	    public Response addClinicAddress(ClinicWSO clinicWSO, @Context UriInfo uriInfo) {
+	    public Response addClinic(ClinicWSO clinicWSO, @Context UriInfo uriInfo) {
 	    	StatusWSO statusWSO = new StatusWSO();
 	    	try
 	    	{
@@ -73,21 +75,70 @@ public class ClinicService extends BaseService{
     		statusWSO.setMessage("Sucessful");
     		return sendResponse(statusWSO);
 	    }
-	    
 	    @POST
-	    @Path("/UpateClinicAddress")
-	    public Response upateClinicAddress(@Context UriInfo uriInfo) {
-	        return sendResponse(new UserWSO());
+	    @Consumes({MediaType.APPLICATION_JSON})
+	    @Produces({MediaType.APPLICATION_JSON})
+	    @Path("/modify")
+	    public Response modifyClinic(ClinicWSO clinicWSO, @Context UriInfo uriInfo) {
+	    	StatusWSO statusWSO = new StatusWSO();
+	    	try
+	    	{
+	    		clinicBL.modify(clinicWSO);
+	    	}
+	    	catch(Exception Ex)
+	    	{
+	    		statusWSO.setCode(400);
+	    		statusWSO.setMessage(Ex.getMessage());
+	    		return sendResponse(statusWSO);
+	    	}
+	    	statusWSO.setCode(200);
+    		statusWSO.setMessage("Sucessful");
+    		return sendResponse(statusWSO);
 	    }
 	    
 	    @GET
-	    @Path("/GetClinicAddress")
-	    public Response getClinicAddress(@Context UriInfo uriInfo) {
-	        return sendResponse(new UserWSO());
+	    @Consumes({MediaType.APPLICATION_JSON})
+	    @Produces({MediaType.APPLICATION_JSON})
+	    @Path("/delete")
+	    public Response deleteClinic(@QueryParam("id")String id,@Context UriInfo uriInfo) {
+	    	StatusWSO statusWSO = new StatusWSO();
+	    	try
+	    	{
+	    		clinicBL.delete(Long.parseLong(id));
+	    	}
+	    	catch(Exception Ex)
+	    	{
+	    		statusWSO.setCode(400);
+	    		statusWSO.setMessage(Ex.getMessage());
+	    		return sendResponse(statusWSO);
+	    	}
+	    	statusWSO.setCode(200);
+    		statusWSO.setMessage("Sucessful");
+    		return sendResponse(statusWSO);
 	    }
-	    @POST
-	    @Path("/RemoveClinicAddress")
-	    public Response removeClinicAddress(@Context UriInfo uriInfo) {
-	        return sendResponse(new UserWSO());
+	    
+	    @GET
+	    @Consumes({MediaType.APPLICATION_JSON})
+	    @Produces({MediaType.APPLICATION_JSON})
+	    @Path("/get")
+	    public Response getClinic(@QueryParam("id")String id,@Context UriInfo uriInfo) {
+	    	StatusWSO statusWSO = new StatusWSO();
+	    	ClinicWSO clinicWSO=null;
+	    	try
+	    	{
+	    		clinicWSO = clinicBL.get(Long.parseLong(id));
+	    		logger.info("clinicWSO  ="+clinicWSO.toString());
+	    	}
+	    	catch(Exception Ex)
+	    	{
+	    		logger.info("expection="+Ex.getMessage());
+	    		statusWSO.setCode(400);
+	    		statusWSO.setMessage(Ex.getMessage());
+	    		return sendResponse(statusWSO);
+	    	}
+	        return  sendResponse(clinicWSO);
 	    }
+	    
+	   
+	    
 }

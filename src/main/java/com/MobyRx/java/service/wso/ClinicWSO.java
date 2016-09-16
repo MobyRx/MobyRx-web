@@ -1,10 +1,14 @@
 package com.MobyRx.java.service.wso;
 
 import com.MobyRx.java.entity.AddressEntity;
+import com.MobyRx.java.entity.BaseEntity;
 import com.MobyRx.java.entity.master.ClinicCategoryEntity;
 import com.MobyRx.java.entity.master.ServiceEntity;
 
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.springframework.stereotype.Repository;
+
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +20,8 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @XmlRootElement(name = "clinic")
-public class ClinicWSO {
+@Repository("clinic")
+public class ClinicWSO extends BaseEntity{
 
     private String name;
     private AddressWSO address;

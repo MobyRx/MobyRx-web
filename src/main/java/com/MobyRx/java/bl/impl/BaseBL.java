@@ -2,6 +2,8 @@ package com.MobyRx.java.bl.impl;
 
 import java.util.List;
 
+import com.MobyRx.java.entity.BaseEntity;
+import com.MobyRx.java.entity.ClinicEntity;
 import com.MobyRx.java.entity.DrugsEntity;
 import com.MobyRx.java.service.wso.ClinicWSO;
 
@@ -19,8 +21,5 @@ public class BaseBL implements com.MobyRx.java.bl.BaseBL {
 		return null;
 	}
 
-	public void save(ClinicWSO clinicWSO) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }
