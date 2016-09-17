@@ -1,5 +1,6 @@
 package com.MobyRx.java.dao;
 
+import com.MobyRx.java.bl.BaseBL;
 import com.MobyRx.java.entity.UserEntity;
 
 /**
@@ -9,7 +10,7 @@ import com.MobyRx.java.entity.UserEntity;
  * Time: 8:02 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface UserDao {
+public interface UserDao extends BaseDao{
 
 
     UserEntity getUserByUsername(String username);

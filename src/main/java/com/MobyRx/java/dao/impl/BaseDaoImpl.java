@@ -79,6 +79,7 @@ public class BaseDaoImpl implements com.MobyRx.java.dao.BaseDao {
                 .add(Restrictions.eq("prop.id", id));
         return criteria.list();
     }
+    
 
 
     protected Session getCurrentSession() {
