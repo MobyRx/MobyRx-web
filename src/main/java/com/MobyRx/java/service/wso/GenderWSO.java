@@ -1,14 +1,13 @@
 package com.MobyRx.java.service.wso;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
  * Created by IntelliJ IDEA.
  * User: ashqures
- * Date: 9/13/16
- * Time: 12:37 PM
+ * Date: 9/6/16
+ * Time: 5:50 PM
  * To change this template use File | Settings | File Templates.
  */
-@XmlRootElement(name = "doctor")
-public class DoctorWSO {
+public enum GenderWSO {
+
+   MALE, FEMALE
 }

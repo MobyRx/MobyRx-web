@@ -29,14 +29,23 @@ public class BaseDaoImpl implements com.MobyRx.java.dao.BaseDao {
 
     public void executeSQLQueryUpdate(String sqlQuery) {
         SQLQuery query =getCurrentSession().createSQLQuery(sqlQuery);
-        query.executeUpdate();
+         query.executeUpdate();
+        
+ 
     }
+    public List getSQLQuery(String sqlQuery) throws Exception{
+        SQLQuery query =getCurrentSession().createSQLQuery(sqlQuery);
+        List<Object> list = query.list();
+        return list;
+ 
+    }
+   
 
     public void save(Object object)  throws Exception{
         getCurrentSession().saveOrUpdate(object);
     }
 
-    public void saveAll(List objectList) {
+    public void saveAll(List objectList){
         for (Object object : objectList) {
             try{
                 getCurrentSession().saveOrUpdate(object);
@@ -51,11 +60,11 @@ public class BaseDaoImpl implements com.MobyRx.java.dao.BaseDao {
         }
     }
 
-    public void update(Object object){
+    public void update(Object object) {
         getCurrentSession().update(object);
     }
 
-    public void delete(Object object){
+    public void delete(Object object) {
         getCurrentSession().delete(object);
     }
 
@@ -69,11 +78,11 @@ public class BaseDaoImpl implements com.MobyRx.java.dao.BaseDao {
 
 
     
-    public <T extends BaseEntity> T get( Class<T> clazz, Long id){
+    public <T extends BaseEntity> T get( Class<T> clazz, Long id) throws Exception{
         return (T)getCurrentSession().load(clazz, id);
     }
 
-    public <T extends BaseEntity> List get( Class<T> clazz,String associatedProperty, Long id){
+    public <T extends BaseEntity> List get( Class<T> clazz,String associatedProperty, Long id) {
         Criteria criteria = getCurrentSession().createCriteria(clazz)
                 .createAlias(associatedProperty, "prop")
                 .add(Restrictions.eq("prop.id", id));
@@ -81,8 +90,7 @@ public class BaseDaoImpl implements com.MobyRx.java.dao.BaseDao {
     }
     
 
-
-    protected Session getCurrentSession() {
+    public Session getCurrentSession() {
         Session session = null;
         try{
             session = sessionFactory.getCurrentSession();

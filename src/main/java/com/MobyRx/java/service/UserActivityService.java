@@ -14,6 +14,7 @@ import com.MobyRx.java.service.*;
 import com.MobyRx.java.service.wso.*;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -55,11 +56,68 @@ public class UserActivityService extends BaseService{
     }
 
     @POST
-    @Path("/Register")
-    public Response patient(@Context UriInfo uriInfo) {
-        return sendResponse(new UserWSO());
+    @Path("/add")
+    public Response addUser(UserWSO userWSO,@Context UriInfo uriInfo) {
+    	logger.info("within add user");
+    	StatusWSO statusWSO = new StatusWSO();
+    	try
+    	{
+    		userBL.addUser(userWSO,statusWSO);
+    	}
+    	catch(Exception Ex)
+    	{
+    		logger.info(Ex.getMessage().toString());
+    		statusWSO.setCode(400);
+    		statusWSO.setMessage(Ex.getMessage()+ "statusWSO");
+    		
+    		return sendResponse(statusWSO);
+    	}
+    	
+		return sendResponse(statusWSO);
     }
     
+    @POST
+    @Path("/modify")
+    public Response modifyUser(UserWSO userWSO,@Context UriInfo uriInfo) {
+    	logger.info("within add user");
+    	StatusWSO statusWSO = new StatusWSO();
+    	try
+    	{
+    		userBL.modifyUser(userWSO,statusWSO);
+    	}
+    	catch(Exception Ex)
+    	{
+    		logger.info(Ex.getMessage().toString());
+    		statusWSO.setCode(400);
+    		statusWSO.setMessage(Ex.getMessage()+ "statusWSO");
+    		
+    		return sendResponse(statusWSO);
+    	}
+    	
+		return sendResponse(statusWSO);
+    }
+    
+    @DELETE
+    @Path("/delete")
+    public Response modifyUser(@QueryParam("userId")String userId,@Context UriInfo uriInfo) {
+    	logger.info("within add user");
+    	StatusWSO statusWSO = new StatusWSO();
+    	try
+    	{
+    		Long id=Long.parseLong(userId);
+    		userBL.deleteUser(id,statusWSO);
+    	}
+    	catch(Exception Ex)
+    	{
+    		logger.info(Ex.getMessage().toString());
+    		statusWSO.setCode(400);
+    		statusWSO.setMessage(Ex.getMessage()+ "statusWSO");
+    		
+    		return sendResponse(statusWSO);
+    	}
+    	
+		return sendResponse(statusWSO);
+    }
     @GET
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})

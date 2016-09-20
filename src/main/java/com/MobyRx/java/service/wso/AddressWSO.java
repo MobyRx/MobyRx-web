@@ -2,7 +2,7 @@ package com.MobyRx.java.service.wso;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.MobyRx.java.entity.BaseEntity;
+import com.MobyRx.java.service.wso.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,7 +12,7 @@ import com.MobyRx.java.entity.BaseEntity;
  * To change this template use File | Settings | File Templates.
  */
 @XmlRootElement(name = "address")
-public class AddressWSO extends BaseEntity{
+public class AddressWSO extends BaseWSO{
 
     public Long id;
     public String buildingNumber;

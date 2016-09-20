@@ -1,7 +1,7 @@
 package com.MobyRx.java.service.wso;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Set;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -10,45 +10,76 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Time: 1:10 PM
  * To change this template use File | Settings | File Templates.
  */
-@XmlRootElement(name = "user")
-public class UserWSO {
-    
-    private String success;
-    private String message;
-    private String authToken;
-    private String isExistingUser;
 
-    @XmlElement(name = "success")
-    public String getSuccess() {
-        return success;
+public class UserWSO extends BaseWSO{
+
+
+    private String username;
+    private String mobile;
+    private String email;
+    private String password;
+    private boolean emailVerified;
+    private boolean mobileVerified;
+    private Set<RoleWSO> roles;
+
+    public String getUsername() {
+        return username;
     }
 
-    public void setSuccess(String success) {
-        this.success = success;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getMessage() {
-        return message;
+
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
-    @XmlElement(name = "AuthToken")
-    public String getAuthToken() {
-        return authToken;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getExistingUser() {
-        return isExistingUser;
+
+    public String getPassword() {
+        return password;
     }
 
-    public void setExistingUser(String existingUser) {
-        isExistingUser = existingUser;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    public boolean isEmailVerified() {
+        return emailVerified;
+    }
+
+    public void setEmailVerified(boolean emailVerified) {
+        this.emailVerified = emailVerified;
+    }
+
+
+    public boolean isMobileVerified() {
+        return mobileVerified;
+    }
+
+    public void setMobileVerified(boolean mobileVerified) {
+        this.mobileVerified = mobileVerified;
+    }
+
+
+    public Set<RoleWSO> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<RoleWSO> roles) {
+        this.roles = roles;
     }
 }

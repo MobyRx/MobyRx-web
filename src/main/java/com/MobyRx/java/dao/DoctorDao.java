@@ -1,6 +1,6 @@
 package com.MobyRx.java.dao;
 
-import com.MobyRx.java.entity.DoctorProfileEntity;
+
 import com.MobyRx.java.entity.DrugsEntity;
 
 import java.util.List;

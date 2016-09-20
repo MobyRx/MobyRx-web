@@ -15,18 +15,22 @@ public interface BaseDao {
 
 
     void executeSQLQueryUpdate(String sqlQuery);
+    
+    List getSQLQuery(String sqlQuery) throws Exception;
 
-    void save(Object object) throws Exception;
+    void save(Object object) throws Exception ;
 
-    void saveAll(List objectList);
+    void saveAll(List objectList) ;
 
-    void update(Object object);
+    void update(Object object) ;
 
-    void delete(Object object);
+    void delete(Object object) ;
 
-    void delete(Class clazz, Long id);
+    void delete(Class clazz, Long id) ;
 
-    <T extends BaseEntity> T get( Class<T> clazz, Long id);
+    <T extends BaseEntity> T get( Class<T> clazz, Long id) throws Exception;
 
-    <T extends BaseEntity> List get( Class<T> clazz,String associatedProperty, Long id);
+    <T extends BaseEntity> List get( Class<T> clazz,String associatedProperty, Long id) ;
+    
+
 }

@@ -3,8 +3,11 @@ package com.MobyRx.java.bl.impl;
 import java.io.OutputStreamWriter;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +20,10 @@ import com.MobyRx.java.dao.UserDao;
 import com.MobyRx.java.entity.ClinicEntity;
 import com.MobyRx.java.entity.OTPEntity;
 import com.MobyRx.java.entity.UserEntity;
+import com.MobyRx.java.entity.master.RoleEntity;
+import com.MobyRx.java.service.wso.RoleWSO;
+import com.MobyRx.java.service.wso.StatusWSO;
+import com.MobyRx.java.service.wso.UserWSO;
 import com.MobyRx.java.bl.impl.CommonBLImpl;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -32,6 +39,8 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 	
 	@Autowired
     private UserDao userDao;
+
+	
 	
 	private Logger logger = LoggerFactory.getLogger(UserBLImpl.class);
 	
@@ -57,6 +66,146 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 		}
 		
 		
+	}
+	public void addUser(UserWSO userWSO,StatusWSO statusWSO) throws Exception
+	{
+
+		String userQuery = "select id from user where mobile="+userWSO.getMobile();
+		List userQueryResult= userDao.getSQLQuery(userQuery);
+		UserEntity userEntity=null;
+		if(userQueryResult!=null && userQueryResult.size()>0)
+		{
+			Long id =Long.parseLong(userQueryResult.get(0).toString());
+			userEntity=(UserEntity)userDao.get(UserEntity.class, id);
+
+			if(userEntity!=null)
+			{
+				Set<RoleEntity> roleEntity  =userEntity.getRoles();
+
+				Set<RoleWSO> roleWSO = userWSO.getRoles();
+				Iterator<RoleWSO> iteratorWSO = roleWSO.iterator(); 
+				Iterator<RoleEntity> iteratorRoleEntity = roleEntity.iterator(); 
+
+				while (iteratorWSO.hasNext()){
+					RoleWSO tmpWSORole=iteratorWSO.next();
+					while (iteratorRoleEntity.hasNext()){
+						RoleEntity tmpRoleEntity=iteratorRoleEntity.next();
+						if(tmpRoleEntity.getName().equals(tmpWSORole.getName()))
+						{
+							statusWSO.setCode(400);
+							statusWSO.setMessage("User With "+tmpWSORole.getName() + " role already present for mobile number "+userWSO.getMobile());
+							return;  
+						}
+
+					}
+					String roleQuery="select id from role where name='"+tmpWSORole.getName()+"'";
+					List roleQueryResult = userDao.getSQLQuery(roleQuery);
+					if(roleQueryResult==null || roleQueryResult.size()<=0)
+					{
+
+						RoleEntity tmpRoleEntity = new RoleEntity();
+						tmpRoleEntity.setDescription(tmpWSORole.getDescription());
+						tmpRoleEntity.setName(tmpWSORole.getName());
+						roleEntity.add(tmpRoleEntity);
+
+					}
+					else
+					{
+						Long roleId=Long.parseLong(roleQueryResult.get(0).toString());
+						RoleEntity oldRoleEntity =userDao.get(RoleEntity.class, roleId);
+						roleEntity.add(oldRoleEntity) ; 
+					}
+					userEntity.setRoles(roleEntity); 
+					userDao.save(userEntity);  
+
+				}
+			}
+		}
+		else
+		{
+			UserEntity newUserEntity = new UserEntity();
+			newUserEntity.setCreatedAt(userWSO.getCreatedAt());
+			newUserEntity.setEmail(userWSO.getEmail());
+			newUserEntity.setMobile(userWSO.getMobile());
+			newUserEntity.setEmailVerified(userWSO.isEmailVerified());
+			newUserEntity.setMobileVerified(userWSO.isMobileVerified());
+			newUserEntity.setPassword(userWSO.getPassword());
+			newUserEntity.setUpdatedAt(userWSO.getUpdatedAt());
+			newUserEntity.setUsername(userWSO.getUsername());
+
+
+			Set<RoleWSO> roleWSO = userWSO.getRoles();
+			Iterator<RoleWSO> iteratorWSO = roleWSO.iterator(); 
+			Set<RoleEntity> roleEntity = new HashSet<RoleEntity>();
+			while (iteratorWSO.hasNext()){
+				RoleWSO tmpWSORole=iteratorWSO.next();
+
+
+				String roleQuery="select id from role where name='"+tmpWSORole.getName()+"'";
+				List roleQueryResult = userDao.getSQLQuery(roleQuery);
+
+				if(roleQueryResult==null || roleQueryResult.size()<=0)
+				{
+					RoleEntity tmpRoleEntity = new RoleEntity();
+					tmpRoleEntity.setDescription(tmpWSORole.getDescription());
+					tmpRoleEntity.setName(tmpWSORole.getName());
+					roleEntity.add(tmpRoleEntity);
+				}
+				else
+				{
+					Long roleId=Long.parseLong(roleQueryResult.get(0).toString());
+					RoleEntity oldRoleEntity=userDao.get(RoleEntity.class,roleId);
+					logger.info("oldRoleEntity="+oldRoleEntity);
+					roleEntity.add(oldRoleEntity) ; 
+				}
+				newUserEntity.setRoles(roleEntity);
+				userDao.save(newUserEntity);  
+
+			}
+
+		}
+		statusWSO.setCode(200);
+		statusWSO.setMessage("Sucessful");
+		return;  
+	}
+	
+	public void modifyUser(UserWSO userWSO, StatusWSO statusWSO)  throws Exception
+	{
+		UserEntity UserEntity = userDao.get(UserEntity.class,userWSO.getId());
+		if(!userWSO.getCreatedAt().toString().isEmpty())
+		UserEntity.setCreatedAt(userWSO.getCreatedAt());
+		if(!userWSO.getEmail().toString().isEmpty())
+		UserEntity.setEmail(userWSO.getEmail());
+		if(!userWSO.getMobile().toString().isEmpty())
+		UserEntity.setMobile(userWSO.getMobile());
+		
+		UserEntity.setEmailVerified(userWSO.isEmailVerified());
+		
+		UserEntity.setMobileVerified(userWSO.isMobileVerified());
+		
+		if(!userWSO.getPassword().toString().isEmpty())
+		UserEntity.setPassword(userWSO.getPassword());
+		if(!userWSO.getUpdatedAt().toString().isEmpty())
+		UserEntity.setUpdatedAt(userWSO.getUpdatedAt());
+		if(!userWSO.getUsername().toString().isEmpty())
+		UserEntity.setUsername(userWSO.getUsername());
+		
+		userDao.update(UserEntity);
+		
+		statusWSO.setCode(200);
+		statusWSO.setMessage("Sucessful");
+		return; 
+	}
+	
+	public void deleteUser(Long id, StatusWSO statusWSO)  throws Exception
+	{
+		UserEntity UserEntity = userDao.get(UserEntity.class,id);
+		
+		userDao.delete(UserEntity);
+		
+		statusWSO.setCode(200);
+		statusWSO.setMessage("Sucessful");
+		return; 
 	}
 	
 	public boolean verifyMobileOTP(String userId,String otp) throws Exception
@@ -102,4 +251,5 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 		return sResult1;
 		
 	}
+	
 }

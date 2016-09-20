@@ -1,7 +1,7 @@
 package com.MobyRx.java.dao;
 
 import com.MobyRx.java.bl.BaseBL;
-import com.MobyRx.java.entity.UserEntity;
+import com.MobyRx.java.entity.UserEntity;;
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,5 +13,5 @@ import com.MobyRx.java.entity.UserEntity;
 public interface UserDao extends BaseDao{
 
 
-    UserEntity getUserByUsername(String username);
+    UserEntity getUserByUsername(String username) ;
 }

@@ -5,6 +5,9 @@ import com.MobyRx.java.entity.type.BloodGroup;
 import com.MobyRx.java.entity.type.Gender;
 
 import javax.persistence.*;
+
+import org.springframework.stereotype.Repository;
+
 import java.util.Date;
 import java.util.Set;
 
@@ -81,9 +84,12 @@ public class UserEntity extends BaseEntity{
     }
 
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
+    //join column and cascase to be removed later once we populte role table on load and 
+    //handle role logic from add user accordingly 
+    @JoinColumn(name = "role_id", nullable = false)
     public Set<RoleEntity> getRoles() {
         return roles;
     }

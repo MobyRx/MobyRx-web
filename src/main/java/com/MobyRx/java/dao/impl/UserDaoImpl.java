@@ -2,6 +2,7 @@ package com.MobyRx.java.dao.impl;
 
 import com.MobyRx.java.dao.UserDao;
 import com.MobyRx.java.dao.impl.*;
+import com.MobyRx.java.entity.BaseEntity;
 import com.MobyRx.java.entity.DrugsEntity;
 import com.MobyRx.java.entity.PatientProfileEntity;
 import com.MobyRx.java.entity.UserEntity;
@@ -23,14 +24,15 @@ import org.springframework.stereotype.Repository;
 public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
 
-    public UserEntity getUserByUsername(String username){
+    public UserEntity getUserByUsername(String username) {
         Criteria criteria = getCurrentSession().createCriteria(UserEntity.class)
                 .add(Restrictions.or(Restrictions.eq("email", username.trim()),
                         Restrictions.eq("mobile", username)));
         return (UserEntity)criteria.uniqueResult();
     }
-
-	public List<DrugsEntity> searchDrugs(String query) {
+    
+  
+    List<DrugsEntity> searchDrugs(String query) {
 		// TODO Auto-generated method stub
 		return null;
 	}

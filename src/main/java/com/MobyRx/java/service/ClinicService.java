@@ -96,11 +96,11 @@ public class ClinicService extends BaseService{
     		return sendResponse(statusWSO);
 	    }
 	    
-	    @GET
+	    @DELETE
 	    @Consumes({MediaType.APPLICATION_JSON})
 	    @Produces({MediaType.APPLICATION_JSON})
 	    @Path("/delete")
-	    public Response deleteClinic(@QueryParam("id")String id,@Context UriInfo uriInfo) {
+	    public Response deleteClinic(@QueryParam("userId")String id,@Context UriInfo uriInfo) {
 	    	StatusWSO statusWSO = new StatusWSO();
 	    	try
 	    	{

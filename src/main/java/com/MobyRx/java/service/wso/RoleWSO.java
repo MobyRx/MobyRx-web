@@ -1,12 +1,6 @@
-package com.MobyRx.java.entity.master;
-
-import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+package com.MobyRx.java.service.wso;
 
 import com.MobyRx.java.entity.BaseEntity;
-
-import java.io.Serializable;
 
 /**
  * Created by IntelliJ IDEA.
@@ -15,16 +9,14 @@ import java.io.Serializable;
  * Time: 5:30 PM
  * To change this template use File | Settings | File Templates.
  */
-@Entity
-@javax.persistence.Table(name = "role")
-@XmlRootElement(name = "role")
-public class RoleEntity extends BaseEntity implements Serializable {
 
-    private static final long serialVersionUID = 3256446889020622647L;
-    
-    
-    private String name;
+public class RoleWSO extends BaseWSO{
+
+   
+	private String name;
     private String description;
+
+
 
     public String getName() {
         return name;

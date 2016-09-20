@@ -1,5 +1,5 @@
 http://localhost:8080/MobyRx/services/clinic/add
-
+POST
 {  
    "id":null,
    "createdAt":689797800000,
@@ -45,6 +45,7 @@ http://localhost:8080/MobyRx/services/clinic/add
 }
 
 http://localhost:8080/MobyRx/services/clinic/modify
+POST
 {  
    "id":3,
    "createdAt":689797800000,
@@ -90,4 +91,64 @@ http://localhost:8080/MobyRx/services/clinic/modify
 }
 
 
-http://localhost:8080/MobyRx/services/clinic/delete?id=2
+
+http://localhost:8080/MobyRx/services/clinic/delete?userId=2
+DELETE
+
+
+http://localhost:8080/MobyRx/services/user/add
+POST
+{  
+   "id":5,
+   "createdAt":689797800000,
+   "updatedAt":689797800000,
+   "username":"manas",
+   "mobile":"9108249868",
+   "email":"manas@gmail.com",
+   "password":"manas",
+   "emailVerified":false,
+   "mobileVerified":false,
+   "roles":[  
+      {  
+         "id":1,
+         "createdAt":null,
+         "updatedAt":null,
+         "name":"Patient",
+         "description":"Patient"
+      }
+   ]
+}
+
+http://localhost:8080/MobyRx/services/user/modify
+
+POST
+
+{  
+   "id":2,
+   "createdAt":689797800000,
+   "updatedAt":689797800000,
+   "username":"manas",
+   "mobile":"9108249868",
+   "email":"manas_id@gmail.com",
+   "password":"manas",
+   "emailVerified":false,
+   "mobileVerified":false,
+   "roles":[  
+      {  
+         "id":1,
+         "createdAt":null,
+         "updatedAt":null,
+         "name":"Patient",
+         "description":"Patient"
+      }
+   ]
+}
+
+DELETE
+http://localhost:8080/MobyRx/services/user/delete?userId=1
+
+GET
+http://localhost:8080/MobyRx/services/user/get/mobile/otp?userId=1
+
+POST
+http://localhost:8080/MobyRx/services/user/verify/mobile/otp??userId=1&otp=2345

@@ -5,8 +5,7 @@ import java.util.Map;
 
 import com.MobyRx.java.entity.ClinicEntity;
 import com.MobyRx.java.entity.DrugsEntity;
-import com.MobyRx.java.service.wso.ClinicWSO;
-import com.MobyRx.java.service.wso.StatusWSO;
+
 
 /**
  * Created by IntelliJ IDEA.
