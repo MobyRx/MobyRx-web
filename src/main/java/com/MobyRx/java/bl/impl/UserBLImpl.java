@@ -17,10 +17,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.MobyRx.java.bl.UserBL;
 import com.MobyRx.java.dao.UserDao;
+import com.MobyRx.java.entity.AddressEntity;
 import com.MobyRx.java.entity.ClinicEntity;
+import com.MobyRx.java.entity.DoctorProfileEntity;
 import com.MobyRx.java.entity.OTPEntity;
+import com.MobyRx.java.entity.PatientProfileEntity;
 import com.MobyRx.java.entity.UserEntity;
 import com.MobyRx.java.entity.master.RoleEntity;
+import com.MobyRx.java.service.wso.DataMapper;
+import com.MobyRx.java.service.wso.DoctorProfileWSO;
+import com.MobyRx.java.service.wso.PatientProfileWSO;
 import com.MobyRx.java.service.wso.RoleWSO;
 import com.MobyRx.java.service.wso.StatusWSO;
 import com.MobyRx.java.service.wso.UserWSO;
@@ -249,6 +255,77 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 		wr.close();
 		rd.close();
 		return sResult1;
+		
+	}
+	public void addDoctor(DoctorProfileWSO doctorProfileWSO, StatusWSO statusWSO) throws Exception {
+		DoctorProfileEntity doctorProfileEntity = new DoctorProfileEntity();
+		doctorProfileEntity.setAchievements(doctorProfileWSO.getAchievements());
+		AddressEntity AddressEntity = DataMapper.addressWSOToAddressEntity(doctorProfileWSO.getAddress());
+		AddressEntity.setId(null);
+		doctorProfileEntity.setAddress(AddressEntity);
+		doctorProfileEntity.setCertificateNumber(doctorProfileWSO.getCertificateNumber());
+		doctorProfileEntity.setCertification(doctorProfileWSO.getCertification());
+		doctorProfileEntity.setClinic(null);
+		doctorProfileEntity.setCreatedAt(doctorProfileWSO.getCreatedAt());
+		doctorProfileEntity.setEmergencyContacts(DataMapper.emergencyContactToEmergencyContactEntity(doctorProfileWSO.getEmergencyContacts()));
+		doctorProfileEntity.setGender(DataMapper.genderWSOTOGenderEntity(doctorProfileWSO.getGender()));
+
+		doctorProfileEntity.setMedRegNumber(doctorProfileWSO.getMedRegNumber());
+		doctorProfileEntity.setName(doctorProfileWSO.getName());
+		doctorProfileEntity.setPracticeStartAt(doctorProfileWSO.getPracticeStartAt());
+		doctorProfileEntity.setQualification(doctorProfileWSO.getQualification());
+		doctorProfileEntity.setSpecializations(DataMapper.specializationWSOToSpecializationEntity(doctorProfileWSO.getSpecializations()));
+		doctorProfileEntity.setUpdatedAt(doctorProfileWSO.getUpdatedAt());
+		
+		Long userId= doctorProfileWSO.getUser().getId();
+		UserEntity userEntity =userEntity= userDao.get(UserEntity.class, userId);
+		doctorProfileEntity.setUser(userEntity);
+		doctorProfileEntity.setVerified(doctorProfileWSO.isVerified());
+		
+		userDao.save(doctorProfileEntity);
+		
+		statusWSO.setCode(200);
+		statusWSO.setMessage("Sucessful");
+		return; 
+		
+	}
+	public void addPatient(PatientProfileWSO patientProfileWSO,StatusWSO statusWSO) throws Exception{
+		PatientProfileEntity patientProfileEntity=new PatientProfileEntity();
+		AddressEntity addressEntity=DataMapper.addressWSOToAddressEntity(patientProfileWSO.getAddress());
+		addressEntity.setId(null);
+		patientProfileEntity.setAddress(addressEntity);
+		patientProfileEntity.setAge(patientProfileWSO.getAge());
+		patientProfileEntity.setBloodGroup(DataMapper.bloodGroupWSOToBloodGroupEntity(patientProfileWSO.getBloodGroup()));
+		patientProfileEntity.setCreatedAt(patientProfileWSO.getCreatedAt());
+		patientProfileEntity.setDob(patientProfileWSO.getDob());
+		patientProfileEntity.setEmergencyContacts(DataMapper.emergencyContactToEmergencyContactEntity(patientProfileWSO.getEmergencyContacts()));
+		patientProfileEntity.setGender(DataMapper.genderWSOTOGenderEntity(patientProfileWSO.getGender()));
+		patientProfileEntity.setId(null);
+		patientProfileEntity.setName(patientProfileWSO.getName());
+		if( patientProfileWSO.getParentPatient()!=null && patientProfileWSO.getParentPatient().getId()!=null
+				&& !patientProfileWSO.getParentPatient().getId().toString().isEmpty())
+		{
+			Long pateientId=patientProfileWSO.getParentPatient().getId();
+			PatientProfileEntity parentPatientProfileEntity= userDao.get(PatientProfileEntity.class, pateientId);
+			patientProfileEntity.setParentPatient(parentPatientProfileEntity);
+			
+			patientProfileEntity.setRelationship(DataMapper.relationshipEntityWSOToRelationshipTypeEntity(patientProfileWSO.getRelationship()));
+		}
+		else
+		{
+			patientProfileEntity.setParentPatient(null);
+			patientProfileEntity.setRelationship(null);
+		}
+		
+		patientProfileEntity.setUpdatedAt(patientProfileWSO.getUpdatedAt());
+		Long userId= patientProfileWSO.getUser().getId();
+		UserEntity userEntity =userEntity= userDao.get(UserEntity.class, userId);
+		patientProfileEntity.setUser(userEntity);
+		userDao.save(patientProfileEntity);
+		statusWSO.setCode(200);
+		statusWSO.setMessage("Sucessful");
+		return; 
+		
 		
 	}
 	

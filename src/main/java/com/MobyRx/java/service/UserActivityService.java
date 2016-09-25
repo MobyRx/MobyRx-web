@@ -173,6 +173,48 @@ public class UserActivityService extends BaseService{
     }
     
     @POST
+    @Path("/doctor/add")
+    public Response addDoctor(DoctorProfileWSO doctorProfileWSO,@Context UriInfo uriInfo) {
+    	StatusWSO statusWSO = new StatusWSO();
+    	logger.info("within add doctor");
+    	try
+    	{
+    		logger.info("within addDoctor");
+    		userBL.addDoctor(doctorProfileWSO,statusWSO);
+    	}
+    	catch(Exception Ex)
+    	{
+    		logger.info(Ex.getMessage().toString());
+    		statusWSO.setCode(400);
+    		statusWSO.setMessage(Ex.getMessage()+ "statusWSO");
+    		
+    		return sendResponse(statusWSO);
+    	}
+    	
+		return sendResponse(statusWSO);
+    }
+    @POST
+    @Path("/patient/add")
+    public Response addPatient(PatientProfileWSO patientProfileWSO,@Context UriInfo uriInfo) {
+    	StatusWSO statusWSO = new StatusWSO();
+    	logger.info("within add doctor");
+    	try
+    	{
+    		logger.info("within addDoctor");
+    		userBL.addPatient(patientProfileWSO,statusWSO);
+    	}
+    	catch(Exception Ex)
+    	{
+    		logger.info(Ex.getMessage().toString());
+    		statusWSO.setCode(400);
+    		statusWSO.setMessage(Ex.getMessage()+ "statusWSO");
+    		
+    		return sendResponse(statusWSO);
+    	}
+    	
+		return sendResponse(statusWSO);
+    }
+    @POST
     @Path("/Authenticate")
     public Response authenticate(@Context UriInfo uriInfo) {
         return sendResponse(new UserWSO());

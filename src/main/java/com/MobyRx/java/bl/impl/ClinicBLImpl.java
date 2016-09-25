@@ -19,6 +19,7 @@ import com.MobyRx.java.entity.ClinicEntity;
 import com.MobyRx.java.entity.master.ClinicCategoryEntity;
 import com.MobyRx.java.entity.master.ServiceEntity;
 import com.MobyRx.java.service.wso.ClinicWSO;
+import com.MobyRx.java.service.wso.DataMapper;
 import com.MobyRx.java.service.wso.ServiceWSO;
 import com.MobyRx.java.service.wso.StatusWSO;
 
@@ -37,7 +38,8 @@ public class ClinicBLImpl extends CommonBLImpl implements ClinicBL {
 	public void save(ClinicWSO clinicWSO)  throws Exception{
 		
 			ClinicEntity clinicEntity = new ClinicEntity();
-			AddressEntity addressEntity = new AddressEntity();
+			AddressEntity addressEntity = DataMapper.addressWSOToAddressEntity(clinicWSO.getAddress());
+			addressEntity.setId(null);
 			ClinicCategoryEntity clinicCategoryEntity = new ClinicCategoryEntity();
 			
 			List<ServiceEntity> ServiceEntityList= new ArrayList<ServiceEntity>();
@@ -49,17 +51,7 @@ public class ClinicBLImpl extends CommonBLImpl implements ClinicBL {
 
 			}
 
-			addressEntity.setBuildingNumber(clinicWSO.getAddress().getBuildingNumber());
-			addressEntity.setCity(clinicWSO.getAddress().getCity());
-			addressEntity.setCountry(clinicWSO.getAddress().getCountry());
-			addressEntity.setCreatedAt(clinicWSO.getAddress().getCreatedAt());
-			addressEntity.setLandmark(clinicWSO.getAddress().getLandmark());
-			addressEntity.setLatitude(clinicWSO.getAddress().getLatitude());
-			addressEntity.setLongitude(clinicWSO.getAddress().getLongitude());
-			addressEntity.setState(clinicWSO.getAddress().getState());
-			addressEntity.setStreet(clinicWSO.getAddress().getStreet());
-			addressEntity.setUpdatedAt(clinicWSO.getAddress().getUpdatedAt());
-			addressEntity.setZipCode(clinicWSO.getAddress().getZipCode());
+			
 			
 			clinicCategoryEntity.setDescription(clinicWSO.getCategory().getDescription());
 			clinicCategoryEntity.setName(clinicWSO.getCategory().getName());
