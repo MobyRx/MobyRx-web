@@ -8,6 +8,7 @@ import com.MobyRx.java.entity.type.BloodGroup;
 import com.MobyRx.java.entity.type.Gender;
 import com.MobyRx.java.entity.type.RelationshipType;
 
+
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -60,21 +61,22 @@ public class DataMapper {
     public static BloodGroup bloodGroupWSOToBloodGroupEntity(BloodGroupWSO bloodGroupWSO)
     {
     	 
-    		    if( bloodGroupWSO.values().equals(BloodGroup.A_NEGATIVE) )
+
+    		    if( bloodGroupWSO.equals(BloodGroup.A_NEGATIVE) )
     		    	return BloodGroup.A_NEGATIVE;
-    		    else if( bloodGroupWSO.values().equals(BloodGroup.A_POSITIVE) )
+    		    else if( bloodGroupWSO.equals(BloodGroup.A_POSITIVE) )
     		    	return BloodGroup.A_POSITIVE;
-    		    else if( bloodGroupWSO.values().equals(BloodGroup.AB_NEGATIVE) )
+    		    else if( bloodGroupWSO.equals(BloodGroup.AB_NEGATIVE) )
 		    	return BloodGroup.AB_NEGATIVE;
-    		    else if( bloodGroupWSO.values().equals(BloodGroup.AB_POSITIVE) )
+    		    else if( bloodGroupWSO.equals(BloodGroup.AB_POSITIVE) )
     		    	return BloodGroup.AB_POSITIVE;
-    		    else if( bloodGroupWSO.values().equals(BloodGroup.B_NEGATIVE) )
+    		    else if( bloodGroupWSO.equals(BloodGroup.B_NEGATIVE) )
     		    	return BloodGroup.B_NEGATIVE;
-    		    else if( bloodGroupWSO.values().equals(BloodGroup.B_POSITIVE) )
+    		    else if( bloodGroupWSO.equals(BloodGroup.B_POSITIVE) )
     		    	return BloodGroup.B_POSITIVE;
-    		    else if( bloodGroupWSO.values().equals(BloodGroup.O_NEGATIVE) )
+    		    else if( bloodGroupWSO.equals(BloodGroup.O_NEGATIVE) )
     		    	return BloodGroup.O_NEGATIVE;
-    		    else if( bloodGroupWSO.values().equals(BloodGroup.O_POSITIVE) )
+    		    else if( bloodGroupWSO.equals(BloodGroup.O_POSITIVE) )
     		    	return BloodGroup.O_POSITIVE;
 				return null;
     		   
@@ -83,17 +85,17 @@ public class DataMapper {
     public static RelationshipType relationshipEntityWSOToRelationshipTypeEntity(RelationshipWSO relationshipWSO)
     {
     	 
-    		    if( relationshipWSO.values().equals(RelationshipType.BROTHER) )
+    		    if( relationshipWSO.equals(RelationshipType.BROTHER) )
     		    	return RelationshipType.BROTHER;
-    		    else if( relationshipWSO.values().equals(RelationshipType.CHILD) )
+    		    else if( relationshipWSO.equals(RelationshipType.CHILD) )
     		    	return RelationshipType.CHILD;
-    		    else if( relationshipWSO.values().equals(RelationshipType.FATHER) )
+    		    else if( relationshipWSO.equals(RelationshipType.FATHER) )
     		    	return RelationshipType.FATHER;
-    		    else if( relationshipWSO.values().equals(RelationshipType.MOTHER) )
+    		    else if( relationshipWSO.equals(RelationshipType.MOTHER) )
     		    	return RelationshipType.MOTHER;
-    		    else if( relationshipWSO.values().equals(RelationshipType.SISTER) )
+    		    else if( relationshipWSO.equals(RelationshipType.SISTER) )
     		    	return RelationshipType.SISTER;
-    		    else if( relationshipWSO.values().equals(RelationshipType.WIFE) )
+    		    else if( relationshipWSO.equals(RelationshipType.WIFE) )
     		    	return RelationshipType.WIFE;
     		    return null;
     }
@@ -113,7 +115,7 @@ public class DataMapper {
     }
     
     public static Gender genderWSOTOGenderEntity(GenderWSO genderWSO){
-    if( genderWSO.values().equals(Gender.FEMALE) )
+    if( genderWSO.equals(Gender.FEMALE) )
     	return Gender.FEMALE;
     else
     	return Gender.MALE;
