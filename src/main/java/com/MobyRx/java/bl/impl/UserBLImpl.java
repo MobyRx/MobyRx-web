@@ -50,7 +50,7 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 	
 	private Logger logger = LoggerFactory.getLogger(UserBLImpl.class);
 	
-	public void generateMobileOTP(String userId) throws Exception
+	public void generateMobileOTP(String userId,StatusWSO statusWSO) throws Exception
 	{
 		
 		logger.info("generateMobileOTP");
@@ -71,9 +71,12 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 		sendSms(userEntity.getMobile(),otp);
 		}
 		
+		statusWSO.setCode(200);
+		statusWSO.setMessage("Sucessful");
+		
 		
 	}
-	public void addUser(UserWSO userWSO,StatusWSO statusWSO) throws Exception
+	public void save(UserWSO userWSO,StatusWSO statusWSO) throws Exception
 	{
 
 		String userQuery = "select id from user where mobile="+userWSO.getMobile();
@@ -172,10 +175,9 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 		}
 		statusWSO.setCode(200);
 		statusWSO.setMessage("Sucessful");
-		return;  
 	}
 	
-	public void modifyUser(UserWSO userWSO, StatusWSO statusWSO)  throws Exception
+	public void update(UserWSO userWSO, StatusWSO statusWSO)  throws Exception
 	{
 		UserEntity UserEntity = userDao.get(UserEntity.class,userWSO.getId());
 		if(!userWSO.getCreatedAt().toString().isEmpty())
@@ -200,10 +202,9 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 		
 		statusWSO.setCode(200);
 		statusWSO.setMessage("Sucessful");
-		return; 
 	}
 	
-	public void deleteUser(Long id, StatusWSO statusWSO)  throws Exception
+	public void delete(Long id, StatusWSO statusWSO)  throws Exception
 	{
 		UserEntity UserEntity = userDao.get(UserEntity.class,id);
 		
@@ -211,10 +212,10 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 		
 		statusWSO.setCode(200);
 		statusWSO.setMessage("Sucessful");
-		return; 
+
 	}
 	
-	public boolean verifyMobileOTP(String userId,String otp) throws Exception
+	public boolean verifyMobileOTP(String userId,String otp,StatusWSO statusWSO) throws Exception
 	{
 		boolean result=false;
 		List<OTPEntity> otpEntity = userDao.get(OTPEntity.class, "user",Long.parseLong(userId));
@@ -227,6 +228,8 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 			}
 		
 		}
+		statusWSO.setCode(200);
+		statusWSO.setMessage("Sucessful");
 		return result;
 	}
 	
@@ -257,7 +260,7 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 		return sResult1;
 		
 	}
-	public void addDoctor(DoctorProfileWSO doctorProfileWSO, StatusWSO statusWSO) throws Exception {
+	public void save(DoctorProfileWSO doctorProfileWSO, StatusWSO statusWSO) throws Exception {
 		DoctorProfileEntity doctorProfileEntity = new DoctorProfileEntity();
 		doctorProfileEntity.setAchievements(doctorProfileWSO.getAchievements());
 		AddressEntity AddressEntity = DataMapper.addressWSOToAddressEntity(doctorProfileWSO.getAddress());
@@ -286,10 +289,10 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 		
 		statusWSO.setCode(200);
 		statusWSO.setMessage("Sucessful");
-		return;
+
 
 	}
-	public void addPatient(PatientProfileWSO patientProfileWSO,StatusWSO statusWSO) throws Exception{
+	public void save(PatientProfileWSO patientProfileWSO,StatusWSO statusWSO) throws Exception{
 		PatientProfileEntity patientProfileEntity=new PatientProfileEntity();
 		AddressEntity addressEntity=DataMapper.addressWSOToAddressEntity(patientProfileWSO.getAddress());
 		addressEntity.setId(null);
@@ -324,9 +327,8 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 		userDao.save(patientProfileEntity);
 		statusWSO.setCode(200);
 		statusWSO.setMessage("Sucessful");
-		return; 
-		
-		
+
 	}
+
 	
 }

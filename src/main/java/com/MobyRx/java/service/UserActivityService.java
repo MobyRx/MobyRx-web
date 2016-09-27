@@ -57,85 +57,39 @@ public class UserActivityService extends BaseService{
 
     @POST
     @Path("/add")
-    public Response addUser(UserWSO userWSO,@Context UriInfo uriInfo) {
+    public Response addUser(UserWSO userWSO,@Context UriInfo uriInfo) throws Exception{
     	logger.info("within add user");
     	StatusWSO statusWSO = new StatusWSO();
-    	try
-    	{
-    		userBL.addUser(userWSO,statusWSO);
-    	}
-    	catch(Exception Ex)
-    	{
-    		logger.error(Ex.getMessage());
-    		statusWSO.setCode(400);
-    		statusWSO.setMessage(Ex.getMessage()+ "statusWSO");
-    		
-    		return sendResponse(statusWSO);
-    	}
     	
-		return sendResponse(statusWSO);
+    		userBL.save(userWSO,statusWSO);
+    		return sendResponse(statusWSO);
     }
     
     @POST
     @Path("/modify")
-    public Response modifyUser(UserWSO userWSO,@Context UriInfo uriInfo) {
-    	logger.info("within add user");
+    public Response modifyUser(UserWSO userWSO,@Context UriInfo uriInfo) throws Exception{
     	StatusWSO statusWSO = new StatusWSO();
-    	try
-    	{
-    		userBL.modifyUser(userWSO,statusWSO);
-    	}
-    	catch(Exception Ex)
-    	{
-    		logger.error(Ex.getMessage());
-    		statusWSO.setCode(400);
-    		statusWSO.setMessage(Ex.getMessage()+ "statusWSO");
-    		
-    		return sendResponse(statusWSO);
-    	}
-    	
-		return sendResponse(statusWSO);
+    	userBL.update(userWSO,statusWSO);
+    	return sendResponse(statusWSO);
     }
     
     @DELETE
     @Path("/delete")
-    public Response modifyUser(@QueryParam("userId")String userId,@Context UriInfo uriInfo) {
-    	logger.info("within add user");
+    public Response modifyUser(@QueryParam("userId")String userId,@Context UriInfo uriInfo) throws Exception{
+
     	StatusWSO statusWSO = new StatusWSO();
-    	try
-    	{
-    		Long id=Long.parseLong(userId);
-    		userBL.deleteUser(id,statusWSO);
-    	}
-    	catch(Exception Ex)
-    	{
-    		logger.error(Ex.getMessage());
-    		statusWSO.setCode(400);
-    		statusWSO.setMessage(Ex.getMessage()+ "statusWSO");
-    		
-    		return sendResponse(statusWSO);
-    	}
-    	
+    	Long id=Long.parseLong(userId);
+    	userBL.delete(id,statusWSO);	
 		return sendResponse(statusWSO);
     }
     @GET
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     @Path("/get/mobile/otp")
-    public Response getMobileOTP(@QueryParam("userId")String userId,@Context UriInfo uriInfo) {
+    public Response getMobileOTP(@QueryParam("userId")String userId,@Context UriInfo uriInfo) throws Exception{
     	StatusWSO statusWSO = new StatusWSO();
-    	try
-    	{
-    		userBL.generateMobileOTP(userId);
-    	}
-    	catch(Exception Ex)
-    	{
-    		statusWSO.setCode(400);
-    		statusWSO.setMessage(Ex.getMessage());
-    		return sendResponse(statusWSO);
-    	}
-    	statusWSO.setCode(200);
-		statusWSO.setMessage("Sucessful");
+    	userBL.generateMobileOTP(userId,statusWSO);
+    	
 		return sendResponse(statusWSO);
     }
     
@@ -145,19 +99,11 @@ public class UserActivityService extends BaseService{
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     @Path("/verify/mobile/otp")
-    public Response verifyMobileOTP(@QueryParam("userId")String userId,@QueryParam("otp")String otp,@Context UriInfo uriInfo) {
+    public Response verifyMobileOTP(@QueryParam("userId")String userId,@QueryParam("otp")String otp,@Context UriInfo uriInfo) throws Exception{
     	StatusWSO statusWSO = new StatusWSO();
-    	boolean result;
-    	try
-    	{
-    		 result =userBL.verifyMobileOTP(userId,otp);
-    	}
-    	catch(Exception Ex)
-    	{
-    		statusWSO.setCode(400);
-    		statusWSO.setMessage(Ex.getMessage());
-    		return sendResponse(statusWSO);
-    	}
+    	
+    	Boolean result =userBL.verifyMobileOTP(userId,otp,statusWSO);
+    	
     	if(result)
     	{
 	    	statusWSO.setCode(200);
@@ -174,43 +120,19 @@ public class UserActivityService extends BaseService{
     
     @POST
     @Path("/doctor/add")
-    public Response addDoctor(DoctorProfileWSO doctorProfileWSO,@Context UriInfo uriInfo) {
+    public Response addDoctor(DoctorProfileWSO doctorProfileWSO,@Context UriInfo uriInfo) throws Exception{
+    	
     	StatusWSO statusWSO = new StatusWSO();
-    	logger.info("within add doctor");
-    	try
-    	{
-    		logger.info("within addDoctor");
-    		userBL.addDoctor(doctorProfileWSO,statusWSO);
-    	}
-    	catch(Exception Ex)
-    	{
-    		logger.info(Ex.getMessage());
-    		statusWSO.setCode(400);
-    		statusWSO.setMessage(Ex.getMessage()+ "statusWSO");
-    		
-    		return sendResponse(statusWSO);
-    	}
+    	
+    	userBL.save(doctorProfileWSO,statusWSO);
     	
 		return sendResponse(statusWSO);
     }
     @POST
     @Path("/patient/add")
-    public Response addPatient(PatientProfileWSO patientProfileWSO,@Context UriInfo uriInfo) {
+    public Response addPatient(PatientProfileWSO patientProfileWSO,@Context UriInfo uriInfo) throws Exception{
     	StatusWSO statusWSO = new StatusWSO();
-    	logger.info("within add doctor");
-    	try
-    	{
-    		logger.info("within addDoctor");
-    		userBL.addPatient(patientProfileWSO,statusWSO);
-    	}
-    	catch(Exception Ex)
-    	{
-    		logger.info(Ex.getMessage());
-    		statusWSO.setCode(400);
-    		statusWSO.setMessage(Ex.getMessage()+ "statusWSO");
-    		
-    		return sendResponse(statusWSO);
-    	}
+    	userBL.save(patientProfileWSO,statusWSO);
     	
 		return sendResponse(statusWSO);
     }

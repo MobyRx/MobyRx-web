@@ -35,7 +35,7 @@ public class ClinicBLImpl extends CommonBLImpl implements ClinicBL {
 	
 	private Logger logger = LoggerFactory.getLogger(ClinicBLImpl.class);
 	
-	public void save(ClinicWSO clinicWSO)  throws Exception{
+	public void save(ClinicWSO clinicWSO,StatusWSO statusWSO)  throws Exception{
 		
 			ClinicEntity clinicEntity = new ClinicEntity();
 			AddressEntity addressEntity = DataMapper.addressWSOToAddressEntity(clinicWSO.getAddress());
@@ -69,12 +69,15 @@ public class ClinicBLImpl extends CommonBLImpl implements ClinicBL {
 			clinicEntity.setUrl(clinicWSO.getUrl());
 			clinicEntity.setVerified(clinicWSO.isVerified());
 			clinicDao.save(clinicEntity);
+			
+			statusWSO.setCode(200);
+			statusWSO.setMessage("Sucessful");
 
 		
 		
 	}
 	
-	public void modify(ClinicWSO clinicWSO)  throws Exception{
+	public void update(ClinicWSO clinicWSO,StatusWSO statusWSO)  throws Exception{
 		
 			ClinicEntity clinicEntity = clinicDao.get(ClinicEntity.class, clinicWSO.getId());
 			AddressEntity addressEntity = clinicEntity.getAddress();
@@ -117,13 +120,15 @@ public class ClinicBLImpl extends CommonBLImpl implements ClinicBL {
 			clinicEntity.setUrl(clinicWSO.getUrl());
 			clinicEntity.setVerified(clinicWSO.isVerified());
 			clinicDao.update(clinicEntity);
-
+			
+			statusWSO.setCode(200);
+			statusWSO.setMessage("Sucessful");
 		
 		
 	}
 	
 
-	public ClinicWSO get(long id) throws Exception {
+	public ClinicWSO get(long id,StatusWSO statusWSO) throws Exception {
 		ClinicEntity clinicEntity = clinicDao.get(ClinicEntity.class, id);
 		
 		clinic.getAddress().setBuildingNumber(clinicEntity.getAddress().getBuildingNumber());
@@ -170,14 +175,21 @@ public class ClinicBLImpl extends CommonBLImpl implements ClinicBL {
 		
 
 		logger.info("clinicWSO="+clinic.toString());
+		
+		statusWSO.setCode(200);
+		statusWSO.setMessage("Sucessful");
+		
 		return clinic;
 	}
 	
-	public void delete(long id) throws Exception {
+	public void delete(long id,StatusWSO statusWSO) throws Exception {
 
 		ClinicEntity clinicEntity = clinicDao.get(ClinicEntity.class, id);
 
 		clinicDao.delete(clinicEntity);
+		
+		statusWSO.setCode(200);
+		statusWSO.setMessage("Sucessful");
 
 		}
 

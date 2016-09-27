@@ -59,84 +59,44 @@ public class ClinicService extends BaseService{
 	    @Consumes({MediaType.APPLICATION_JSON})
 	    @Produces({MediaType.APPLICATION_JSON})
 	    @Path("/add")
-	    public Response addClinic(ClinicWSO clinicWSO, @Context UriInfo uriInfo) {
+	    public Response addClinic(ClinicWSO clinicWSO, @Context UriInfo uriInfo) throws Exception{
 	    	StatusWSO statusWSO = new StatusWSO();
-	    	try
-	    	{
-	    		clinicBL.save(clinicWSO);
+	    	clinicBL.save(clinicWSO,statusWSO);
+	    	return  sendResponse(statusWSO);
 	    	}
-	    	catch(Exception Ex)
-	    	{
-	    		statusWSO.setCode(400);
-	    		statusWSO.setMessage(Ex.getMessage());
-	    		return sendResponse(statusWSO);
-	    	}
-	    	statusWSO.setCode(200);
-    		statusWSO.setMessage("Sucessful");
-    		return sendResponse(statusWSO);
-	    }
+	    
 	    @POST
 	    @Consumes({MediaType.APPLICATION_JSON})
 	    @Produces({MediaType.APPLICATION_JSON})
 	    @Path("/modify")
-	    public Response modifyClinic(ClinicWSO clinicWSO, @Context UriInfo uriInfo) {
+	    public Response modifyClinic(ClinicWSO clinicWSO, @Context UriInfo uriInfo) throws Exception{
 	    	StatusWSO statusWSO = new StatusWSO();
-	    	try
-	    	{
-	    		clinicBL.modify(clinicWSO);
-	    	}
-	    	catch(Exception Ex)
-	    	{
-	    		statusWSO.setCode(400);
-	    		statusWSO.setMessage(Ex.getMessage());
-	    		return sendResponse(statusWSO);
-	    	}
-	    	statusWSO.setCode(200);
-    		statusWSO.setMessage("Sucessful");
-    		return sendResponse(statusWSO);
+	    		clinicBL.update(clinicWSO,statusWSO);
+	    		return  sendResponse(statusWSO);
+	    	
 	    }
 	    
 	    @DELETE
 	    @Consumes({MediaType.APPLICATION_JSON})
 	    @Produces({MediaType.APPLICATION_JSON})
 	    @Path("/delete")
-	    public Response deleteClinic(@QueryParam("userId")String id,@Context UriInfo uriInfo) {
+	    public Response deleteClinic(@QueryParam("userId")String id,@Context UriInfo uriInfo) throws Exception{
 	    	StatusWSO statusWSO = new StatusWSO();
-	    	try
-	    	{
-	    		clinicBL.delete(Long.parseLong(id));
-	    	}
-	    	catch(Exception Ex)
-	    	{
-	    		statusWSO.setCode(400);
-	    		statusWSO.setMessage(Ex.getMessage());
-	    		return sendResponse(statusWSO);
-	    	}
-	    	statusWSO.setCode(200);
-    		statusWSO.setMessage("Sucessful");
-    		return sendResponse(statusWSO);
+	    		clinicBL.delete(Long.parseLong(id),statusWSO);
+	    		return  sendResponse(statusWSO);
+	    	
 	    }
 	    
 	    @GET
 	    @Consumes({MediaType.APPLICATION_JSON})
 	    @Produces({MediaType.APPLICATION_JSON})
 	    @Path("/get")
-	    public Response getClinic(@QueryParam("id")String id,@Context UriInfo uriInfo) {
+	    public Response getClinic(@QueryParam("id")String id,@Context UriInfo uriInfo) throws Exception{
 	    	StatusWSO statusWSO = new StatusWSO();
 	    	ClinicWSO clinicWSO=null;
-	    	try
-	    	{
-	    		clinicWSO = clinicBL.get(Long.parseLong(id));
-	    		logger.info("clinicWSO  ="+clinicWSO.toString());
-	    	}
-	    	catch(Exception Ex)
-	    	{
-	    		logger.info("expection="+Ex.getMessage());
-	    		statusWSO.setCode(400);
-	    		statusWSO.setMessage(Ex.getMessage());
-	    		return sendResponse(statusWSO);
-	    	}
-	        return  sendResponse(clinicWSO);
+	    	clinicWSO = clinicBL.get(Long.parseLong(id),statusWSO);
+	    	logger.info("clinicWSO  ="+clinicWSO.toString());
+	    	return  sendResponse(clinicWSO);
 	    }
 	    
 	   
