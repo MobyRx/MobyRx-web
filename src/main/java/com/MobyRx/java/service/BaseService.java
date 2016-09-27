@@ -1,5 +1,7 @@
 package com.MobyRx.java.service;
 
+import com.MobyRx.java.service.wso.StatusWSO;
+
 import javax.ws.rs.core.Response;
 
 /**
@@ -15,5 +17,10 @@ public class BaseService {
 
     protected Response sendResponse(Object object) {
         return Response.ok(object).build();
+    }
+
+
+    protected Response sendResponse(StatusWSO statusWSO) {
+        return Response.status(statusWSO.getCode()).entity(statusWSO).build();
     }
 }

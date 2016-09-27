@@ -278,7 +278,7 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 		doctorProfileEntity.setUpdatedAt(doctorProfileWSO.getUpdatedAt());
 		
 		Long userId= doctorProfileWSO.getUser().getId();
-		UserEntity userEntity =userEntity= userDao.get(UserEntity.class, userId);
+		UserEntity userEntity = userDao.get(UserEntity.class, userId);
 		doctorProfileEntity.setUser(userEntity);
 		doctorProfileEntity.setVerified(doctorProfileWSO.isVerified());
 		
@@ -286,8 +286,8 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 		
 		statusWSO.setCode(200);
 		statusWSO.setMessage("Sucessful");
-		return; 
-		
+		return;
+
 	}
 	public void addPatient(PatientProfileWSO patientProfileWSO,StatusWSO statusWSO) throws Exception{
 		PatientProfileEntity patientProfileEntity=new PatientProfileEntity();

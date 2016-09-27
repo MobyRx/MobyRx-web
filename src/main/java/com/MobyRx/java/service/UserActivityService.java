@@ -66,7 +66,7 @@ public class UserActivityService extends BaseService{
     	}
     	catch(Exception Ex)
     	{
-    		logger.info(Ex.getMessage().toString());
+    		logger.error(Ex.getMessage());
     		statusWSO.setCode(400);
     		statusWSO.setMessage(Ex.getMessage()+ "statusWSO");
     		
@@ -87,7 +87,7 @@ public class UserActivityService extends BaseService{
     	}
     	catch(Exception Ex)
     	{
-    		logger.info(Ex.getMessage().toString());
+    		logger.error(Ex.getMessage());
     		statusWSO.setCode(400);
     		statusWSO.setMessage(Ex.getMessage()+ "statusWSO");
     		
@@ -109,7 +109,7 @@ public class UserActivityService extends BaseService{
     	}
     	catch(Exception Ex)
     	{
-    		logger.info(Ex.getMessage().toString());
+    		logger.error(Ex.getMessage());
     		statusWSO.setCode(400);
     		statusWSO.setMessage(Ex.getMessage()+ "statusWSO");
     		
@@ -184,7 +184,7 @@ public class UserActivityService extends BaseService{
     	}
     	catch(Exception Ex)
     	{
-    		logger.info(Ex.getMessage().toString());
+    		logger.info(Ex.getMessage());
     		statusWSO.setCode(400);
     		statusWSO.setMessage(Ex.getMessage()+ "statusWSO");
     		
@@ -205,7 +205,7 @@ public class UserActivityService extends BaseService{
     	}
     	catch(Exception Ex)
     	{
-    		logger.info(Ex.getMessage().toString());
+    		logger.info(Ex.getMessage());
     		statusWSO.setCode(400);
     		statusWSO.setMessage(Ex.getMessage()+ "statusWSO");
     		
