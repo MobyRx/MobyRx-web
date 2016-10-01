@@ -7,5 +7,6 @@ package com.MobyRx.java.dao;
  * Time: 7:02 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface CommonDao {
+public interface CommonDao extends BaseDao{
+
 }

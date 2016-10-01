@@ -1,6 +1,7 @@
 package com.MobyRx.java.bl.impl;
 
 import com.MobyRx.java.bl.CommonBL;
+import com.MobyRx.java.dao.CommonDao;
 import com.MobyRx.java.dao.DoctorDao;
 import com.MobyRx.java.dao.impl.ClinicDaoImpl;
 import com.MobyRx.java.entity.AddressEntity;
@@ -36,6 +37,14 @@ public class CommonBLImpl extends BaseBL implements CommonBL{
     
     @Autowired
     private DoctorDao doctorDao;
+
+    @Autowired
+    private CommonDao commonDao;
+
+    @Override
+    public void executeSQLQueryUpdate(String sqlQuery) {
+        commonDao.executeSQLQueryUpdate(sqlQuery);
+    }
     
     @Override
     public List<DrugsEntity> searchDrugs(String query) {
