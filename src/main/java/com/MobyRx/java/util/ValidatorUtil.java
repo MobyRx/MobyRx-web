@@ -3,6 +3,7 @@ package com.MobyRx.java.util;
 import com.MobyRx.java.service.wso.ClinicWSO;
 import com.MobyRx.java.service.wso.StatusWSO;
 import com.MobyRx.java.service.wso.UserWSO;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -29,7 +30,11 @@ public class ValidatorUtil {
     public static final String DATE_FORMAT = "dd/MM/yyyy";
 
     public void validate(UserWSO userWSO, StatusWSO status) {
-
+        if(StringUtils.isEmpty(userWSO.getEmail())){
+            status.addError("Email required");
+        }else if(!isValidEmail(userWSO.getEmail())){
+            status.addError("Invalid Email Address");
+        }
     }
 
     public void validate(ClinicWSO clinicWSO, StatusWSO status) {

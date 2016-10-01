@@ -49,4 +49,11 @@ public class StatusWSO {
             setErrors(new ArrayList<String>());
         getErrors().add(error);
     }
+
+    public void addErrors(List<String> errors) {
+        if (null ==getErrors()) {
+            setErrors(new ArrayList<String>());
+        }
+        getErrors().addAll(errors);
+    }
 }
