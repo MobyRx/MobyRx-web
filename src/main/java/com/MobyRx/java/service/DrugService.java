@@ -1,9 +1,11 @@
 package com.MobyRx.java.service;
 
+import com.MobyRx.java.bl.ClinicBL;
 import com.MobyRx.java.bl.CommonBL;
 import com.MobyRx.java.entity.DrugsEntity;
-import com.MobyRx.java.service.wso.DataMapper;
+import com.MobyRx.java.service.wso.WSOToEntityConversion;
 import com.MobyRx.java.service.wso.DrugWSO;
+import com.MobyRx.java.service.wso.StatusWSO;
 import com.MobyRx.java.service.wso.UserWSO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +37,14 @@ public class DrugService extends BaseService {
     private Logger logger = LoggerFactory.getLogger(DrugService.class);
 
     private CommonBL commonBL;
+    
+    private ClinicBL clinicBL;
+
+    
+    @Autowired(required = true)
+    public void setCommonBL(ClinicBL clinicBL) {
+        this.clinicBL = clinicBL;
+    }
 
     @Autowired(required = true)
     public void setCommonBL(CommonBL commonBL) {
@@ -42,26 +52,36 @@ public class DrugService extends BaseService {
     }
 
     @Autowired
-    private DataMapper dataMapper;
+    private WSOToEntityConversion wSOToEntityConversion;
 
 
     @GET
     public Response getDrugs(@QueryParam("query")String query, @QueryParam("filter")String filterParams){
         List<DrugsEntity> drugs = commonBL.searchDrugs(query);
-        return sendResponse(dataMapper.transform(drugs));
+        return sendResponse(wSOToEntityConversion.transform(drugs));
     }
     
-    @GET
-    @Path("/add")
-    public Response addDrug(@Context UriInfo uriInfo) {
-        return sendResponse(new UserWSO());
-    }
     @POST
-    @Consumes(value = MediaType.APPLICATION_FORM_URLENCODED)
-    public Response saveDrug(@FormParam("abcd")String abcd){
-
-        return null;
-    }
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("/drug/add")
+    public Response addDrug(DrugWSO drugWSO, @Context UriInfo uriInfo) throws Exception{
+    	StatusWSO statusWSO = new StatusWSO();
+    	
+    	clinicBL.save(drugWSO,statusWSO);
+    	return  sendResponse(statusWSO);
+    	}
+    
+    @DELETE
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("/drug/delete")
+    public Response deleteDrug(@QueryParam("drugId")String drugId, @Context UriInfo uriInfo) throws Exception{
+    	StatusWSO statusWSO = new StatusWSO();
+    	
+    	clinicBL.delete(Long.parseLong(drugId),statusWSO);
+    	return  sendResponse(statusWSO);
+    	}
 
 
     

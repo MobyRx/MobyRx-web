@@ -26,21 +26,21 @@ POST
    "url":"www.something.com",
    "services":[  
       {  
-         "id":2,
-         "name":"yyy",
-         "description":"xxx"
+         "id":1,
+         "name":"Emergency",
+         "description":"Emergency"
       },
       {  
-         "id":3,
-         "name":"yyy1",
-         "description":"xxx1"
+         "id":2,
+         "name":"Maternity",
+         "description":"Maternity"
       }
    ],
    "verified":false,
    "category":{  
-      "id":34,
-      "name":"name",
-      "description":"description"
+      "id":1,
+      "name":"Allopathic",
+      "description":"Allopathic"
    }
 }
 

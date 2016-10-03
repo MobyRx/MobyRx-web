@@ -28,9 +28,9 @@ public interface BaseDao {
 
     void delete(Class clazz, Long id) ;
 
-    <T extends BaseEntity> T get( Class<T> clazz, Long id) throws Exception;
+    <T extends Object> T get( Class<T> clazz, Long id) throws Exception;
 
-    <T extends BaseEntity> List get( Class<T> clazz,String associatedProperty, Long id) ;
+    <T extends Object> List get( Class<T> clazz,String associatedProperty, Long id) ;
     
 
 }

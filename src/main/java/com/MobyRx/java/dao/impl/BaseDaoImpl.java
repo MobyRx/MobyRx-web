@@ -43,6 +43,7 @@ public class BaseDaoImpl implements com.MobyRx.java.dao.BaseDao {
 
     public void save(Object object)  throws Exception{
         getCurrentSession().saveOrUpdate(object);
+       
     }
 
     public void saveAll(List objectList){
@@ -78,11 +79,13 @@ public class BaseDaoImpl implements com.MobyRx.java.dao.BaseDao {
 
 
     
-    public <T extends BaseEntity> T get( Class<T> clazz, Long id) throws Exception{
+    public <T extends Object> T get( Class<T> clazz, Long id) throws Exception{
         return (T)getCurrentSession().load(clazz, id);
     }
 
-    public <T extends BaseEntity> List get( Class<T> clazz,String associatedProperty, Long id) {
+    
+  
+    public <T extends Object> List get( Class<T> clazz,String associatedProperty, Long id) {
         Criteria criteria = getCurrentSession().createCriteria(clazz)
                 .createAlias(associatedProperty, "prop")
                 .add(Restrictions.eq("prop.id", id));
