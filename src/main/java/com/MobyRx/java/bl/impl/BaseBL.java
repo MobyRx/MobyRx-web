@@ -21,5 +21,10 @@ public class BaseBL implements com.MobyRx.java.bl.BaseBL {
 		return null;
 	}
 
+	public void executeSQLQueryUpdate(String sqlQuery) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }

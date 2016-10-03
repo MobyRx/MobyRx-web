@@ -37,6 +37,23 @@ public class ValidatorUtil {
         }
     }
 
+    public void validateClinic(ClinicWSO clinicWSO, StatusWSO status) {
+        if(StringUtils.isEmpty(clinicWSO.getEmail())){
+        	status.setCode(400);
+            status.addError("Email required");
+        }else if(!isValidEmail(clinicWSO.getEmail())){
+        	status.setCode(400);
+            status.addError("Invalid Email Address");
+        }
+        else if(StringUtils.isEmpty(clinicWSO.getPhoneNumber()) ){
+        	status.setCode(400);
+            status.addError("PhoneNumber Required");
+        }
+        else if(!isValidMobile(clinicWSO.getPhoneNumber())){
+        	status.setCode(400);
+            status.addError("Invalid PhoneNumber");
+        }
+    }
     public void validate(ClinicWSO clinicWSO, StatusWSO status) {
 
     }

@@ -24,7 +24,7 @@ import com.MobyRx.java.entity.OTPEntity;
 import com.MobyRx.java.entity.PatientProfileEntity;
 import com.MobyRx.java.entity.UserEntity;
 import com.MobyRx.java.entity.master.RoleEntity;
-import com.MobyRx.java.service.wso.DataMapper;
+import com.MobyRx.java.service.wso.WSOToEntityConversion;
 import com.MobyRx.java.service.wso.DoctorProfileWSO;
 import com.MobyRx.java.service.wso.PatientProfileWSO;
 import com.MobyRx.java.service.wso.RoleWSO;
@@ -234,50 +234,56 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 	}
 	
 	public static String sendSms(String phonenumber,String otp) throws Exception{
-		String sResult = null;
-
-		String data="user=" + URLEncoder.encode("udaychandu", "UTF-8");
-		data +="&password=" + URLEncoder.encode("Nagaraju1987", "UTF-8");
-		data +="&message=" + URLEncoder.encode(otp, "UTF-8");
-		data +="&sender=" + URLEncoder.encode("MobyRx", "UTF-8");
-		data +="&mobile=" + URLEncoder.encode(phonenumber, "UTF-8");
-		data +="&type=" + URLEncoder.encode("3", "UTF-8");
-		URL url = new URL("http://login.bulksmsgateway.in/sendmessage.php?"+data);
-		URLConnection conn = url.openConnection();
-		conn.setDoOutput(true);
-		OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-		wr.write(data);
-		wr.flush();
-		BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-		String line;
-		String sResult1="";
-		while ((line = rd.readLine()) != null) 
+		String sResult = "";
+		OutputStreamWriter wr=null;
+		BufferedReader rd=null;
+		try
 		{
-		sResult1=sResult1+line+" ";
+			String data="user=" + URLEncoder.encode("udaychandu", "UTF-8");
+			data +="&password=" + URLEncoder.encode("Nagaraju1987", "UTF-8");
+			data +="&message=" + URLEncoder.encode(otp, "UTF-8");
+			data +="&sender=" + URLEncoder.encode("MobyRx", "UTF-8");
+			data +="&mobile=" + URLEncoder.encode(phonenumber, "UTF-8");
+			data +="&type=" + URLEncoder.encode("3", "UTF-8");
+			URL url = new URL("http://login.bulksmsgateway.in/sendmessage.php?"+data);
+			URLConnection conn = url.openConnection();
+			conn.setDoOutput(true);
+			wr = new OutputStreamWriter(conn.getOutputStream());
+			wr.write(data);
+			wr.flush();
+			rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			String line;
+			while ((line = rd.readLine()) != null) 
+			{
+				sResult=sResult+line+" ";
+			}
 		}
-		wr.close();
-		rd.close();
-		return sResult1;
-		
+		finally
+		{
+			wr.close();
+			rd.close();
+		}
+		return sResult;
+
 	}
 	public void save(DoctorProfileWSO doctorProfileWSO, StatusWSO statusWSO) throws Exception {
 		DoctorProfileEntity doctorProfileEntity = new DoctorProfileEntity();
 		doctorProfileEntity.setAchievements(doctorProfileWSO.getAchievements());
-		AddressEntity AddressEntity = DataMapper.addressWSOToAddressEntity(doctorProfileWSO.getAddress());
+		AddressEntity AddressEntity = WSOToEntityConversion.addressWSOToAddressEntity(doctorProfileWSO.getAddress());
 		AddressEntity.setId(null);
 		doctorProfileEntity.setAddress(AddressEntity);
 		doctorProfileEntity.setCertificateNumber(doctorProfileWSO.getCertificateNumber());
 		doctorProfileEntity.setCertification(doctorProfileWSO.getCertification());
 		doctorProfileEntity.setClinic(null);
 		doctorProfileEntity.setCreatedAt(doctorProfileWSO.getCreatedAt());
-		doctorProfileEntity.setEmergencyContacts(DataMapper.emergencyContactToEmergencyContactEntity(doctorProfileWSO.getEmergencyContacts()));
-		doctorProfileEntity.setGender(DataMapper.genderWSOTOGenderEntity(doctorProfileWSO.getGender()));
+		doctorProfileEntity.setEmergencyContacts(WSOToEntityConversion.emergencyContactToEmergencyContactEntity(doctorProfileWSO.getEmergencyContacts()));
+		doctorProfileEntity.setGender(WSOToEntityConversion.genderWSOTOGenderEntity(doctorProfileWSO.getGender()));
 
 		doctorProfileEntity.setMedRegNumber(doctorProfileWSO.getMedRegNumber());
 		doctorProfileEntity.setName(doctorProfileWSO.getName());
 		doctorProfileEntity.setPracticeStartAt(doctorProfileWSO.getPracticeStartAt());
 		doctorProfileEntity.setQualification(doctorProfileWSO.getQualification());
-		doctorProfileEntity.setSpecializations(DataMapper.specializationWSOToSpecializationEntity(doctorProfileWSO.getSpecializations()));
+		doctorProfileEntity.setSpecializations(WSOToEntityConversion.specializationWSOToSpecializationEntity(doctorProfileWSO.getSpecializations()));
 		doctorProfileEntity.setUpdatedAt(doctorProfileWSO.getUpdatedAt());
 		
 		Long userId= doctorProfileWSO.getUser().getId();
@@ -294,15 +300,15 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 	}
 	public void save(PatientProfileWSO patientProfileWSO,StatusWSO statusWSO) throws Exception{
 		PatientProfileEntity patientProfileEntity=new PatientProfileEntity();
-		AddressEntity addressEntity=DataMapper.addressWSOToAddressEntity(patientProfileWSO.getAddress());
+		AddressEntity addressEntity=WSOToEntityConversion.addressWSOToAddressEntity(patientProfileWSO.getAddress());
 		addressEntity.setId(null);
 		patientProfileEntity.setAddress(addressEntity);
 		patientProfileEntity.setAge(patientProfileWSO.getAge());
-		patientProfileEntity.setBloodGroup(DataMapper.bloodGroupWSOToBloodGroupEntity(patientProfileWSO.getBloodGroup()));
+		patientProfileEntity.setBloodGroup(WSOToEntityConversion.bloodGroupWSOToBloodGroupEntity(patientProfileWSO.getBloodGroup()));
 		patientProfileEntity.setCreatedAt(patientProfileWSO.getCreatedAt());
 		patientProfileEntity.setDob(patientProfileWSO.getDob());
-		patientProfileEntity.setEmergencyContacts(DataMapper.emergencyContactToEmergencyContactEntity(patientProfileWSO.getEmergencyContacts()));
-		patientProfileEntity.setGender(DataMapper.genderWSOTOGenderEntity(patientProfileWSO.getGender()));
+		patientProfileEntity.setEmergencyContacts(WSOToEntityConversion.emergencyContactToEmergencyContactEntity(patientProfileWSO.getEmergencyContacts()));
+		patientProfileEntity.setGender(WSOToEntityConversion.genderWSOTOGenderEntity(patientProfileWSO.getGender()));
 		patientProfileEntity.setId(null);
 		patientProfileEntity.setName(patientProfileWSO.getName());
 		if( patientProfileWSO.getParentPatient()!=null && patientProfileWSO.getParentPatient().getId()!=null
@@ -312,7 +318,7 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 			PatientProfileEntity parentPatientProfileEntity= userDao.get(PatientProfileEntity.class, pateientId);
 			patientProfileEntity.setParentPatient(parentPatientProfileEntity);
 			
-			patientProfileEntity.setRelationship(DataMapper.relationshipEntityWSOToRelationshipTypeEntity(patientProfileWSO.getRelationship()));
+			patientProfileEntity.setRelationship(WSOToEntityConversion.relationshipEntityWSOToRelationshipTypeEntity(patientProfileWSO.getRelationship()));
 		}
 		else
 		{
