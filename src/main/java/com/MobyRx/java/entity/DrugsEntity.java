@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 @javax.persistence.Table(name = "drugs")
 public class DrugsEntity extends BaseEntity{
 
+    private String name;
     private String manufacturer;
     private String brandName;
     private String drugType;
@@ -21,6 +22,13 @@ public class DrugsEntity extends BaseEntity{
     private String packageUnit;
     private Double price;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getManufacturer() {
         return manufacturer;
