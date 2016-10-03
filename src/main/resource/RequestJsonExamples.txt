@@ -1,3 +1,6 @@
+Repo Details: https://github.com/MobyRx/MobyRx-web
+
+
 http://localhost:8080/MobyRx/services/clinic/add
 POST
 {  
