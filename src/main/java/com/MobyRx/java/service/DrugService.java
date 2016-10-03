@@ -2,6 +2,7 @@ package com.MobyRx.java.service;
 
 import com.MobyRx.java.bl.ClinicBL;
 import com.MobyRx.java.bl.CommonBL;
+import com.MobyRx.java.bl.DrugBL;
 import com.MobyRx.java.entity.DrugsEntity;
 import com.MobyRx.java.service.wso.WSOToEntityConversion;
 import com.MobyRx.java.service.wso.DrugWSO;
@@ -38,12 +39,12 @@ public class DrugService extends BaseService {
 
     private CommonBL commonBL;
     
-    private ClinicBL clinicBL;
+    private DrugBL drugBL;
 
     
     @Autowired(required = true)
-    public void setCommonBL(ClinicBL clinicBL) {
-        this.clinicBL = clinicBL;
+    public void setDrugBL(DrugBL drugBL) {
+        this.drugBL = drugBL;
     }
 
     @Autowired(required = true)
@@ -56,47 +57,36 @@ public class DrugService extends BaseService {
 
 
     @GET
-    public Response getDrugs(@QueryParam("query")String query, @QueryParam("filter")String filterParams){
-        List<DrugsEntity> drugs = commonBL.searchDrugs(query);
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getDrugs(@QueryParam("query")String query, @QueryParam("filter")String filterParams) throws Exception{
+        List<DrugsEntity> drugs = drugBL.searchDrugs(query);
         return sendResponse(wSOToEntityConversion.transform(drugs));
     }
     
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    @Path("/drug/add")
+    @Path("/add")
     public Response addDrug(DrugWSO drugWSO, @Context UriInfo uriInfo) throws Exception{
     	StatusWSO statusWSO = new StatusWSO();
     	
-    	clinicBL.save(drugWSO,statusWSO);
+    	drugBL.save(drugWSO,statusWSO);
     	return  sendResponse(statusWSO);
     	}
     
     @DELETE
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
-    @Path("/drug/delete")
+    @Path("/delete")
     public Response deleteDrug(@QueryParam("drugId")String drugId, @Context UriInfo uriInfo) throws Exception{
     	StatusWSO statusWSO = new StatusWSO();
     	
-    	clinicBL.delete(Long.parseLong(drugId),statusWSO);
+    	drugBL.delete(Long.parseLong(drugId),statusWSO);
     	return  sendResponse(statusWSO);
     	}
 
 
     
-
-    /*@POST
-    @Path("/addDrug")
-    public Response addDrug(@Context UriInfo uriInfo) {
-        return sendResponse(new UserWSO());
-    }
-
-    @POST
-    @Path("/AddUnRegisteredPatient")
-    public Response addUnRegisteredPatient(@Context UriInfo uriInfo) {
-        return sendResponse(new UserWSO());
-    }*/
-
 
 }

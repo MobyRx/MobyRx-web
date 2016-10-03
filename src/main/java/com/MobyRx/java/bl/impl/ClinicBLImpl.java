@@ -31,11 +31,11 @@ import com.MobyRx.java.util.ValidatorUtil;
 public class ClinicBLImpl extends CommonBLImpl implements ClinicBL {
 
 	@Autowired
-    private ClinicDao clinicDao;
-	
-	
+	private ClinicDao clinicDao;
+
+
 	private Logger logger = LoggerFactory.getLogger(ClinicBLImpl.class);
-	
+
 	public void save(ClinicWSO clinicWSO,StatusWSO statusWSO)  throws Exception{
 
 		ValidatorUtil validatorUtil = new ValidatorUtil();
@@ -75,55 +75,55 @@ public class ClinicBLImpl extends CommonBLImpl implements ClinicBL {
 		statusWSO.setMessage("Sucessful");
 
 	}
-	
+
 	public void update(ClinicWSO clinicWSO,StatusWSO statusWSO)  throws Exception{
-		
-			ClinicEntity clinicEntity = clinicDao.get(ClinicEntity.class, clinicWSO.getId());
-			AddressEntity addressEntity = clinicEntity.getAddress();
-			ClinicCategoryEntity clinicCategoryEntity = clinicEntity.getCategory();
-			List<ServiceEntity> ServiceEntityList= clinicEntity.getServices();
-			
-			for (ServiceWSO Service : clinicWSO.getServices()) {
-				ServiceEntity serviceEntity = clinicDao.get(ServiceEntity.class,Service.getId() );
-				ServiceEntityList.add(serviceEntity);
 
-			}
+		ClinicEntity clinicEntity = clinicDao.get(ClinicEntity.class, clinicWSO.getId());
+		AddressEntity addressEntity = clinicEntity.getAddress();
+		ClinicCategoryEntity clinicCategoryEntity = clinicEntity.getCategory();
+		List<ServiceEntity> ServiceEntityList= clinicEntity.getServices();
 
-			addressEntity.setBuildingNumber(clinicWSO.getAddress().getBuildingNumber());
-			addressEntity.setCity(clinicWSO.getAddress().getCity());
-			addressEntity.setCountry(clinicWSO.getAddress().getCountry());
-			addressEntity.setCreatedAt(clinicWSO.getCreatedAt());
-			addressEntity.setLandmark(clinicWSO.getAddress().getLandmark());
-			addressEntity.setLatitude(clinicWSO.getAddress().getLatitude());
-			addressEntity.setLongitude(clinicWSO.getAddress().getLongitude());
-			addressEntity.setState(clinicWSO.getAddress().getState());
-			addressEntity.setStreet(clinicWSO.getAddress().getStreet());
-			addressEntity.setUpdatedAt(clinicWSO.getUpdatedAt());
-			addressEntity.setZipCode(clinicWSO.getAddress().getZipCode());
-			
-			clinicCategoryEntity.setDescription(clinicWSO.getCategory().getDescription());
-			clinicCategoryEntity.setName(clinicWSO.getCategory().getName());
-			
-			clinicEntity.setAddress(addressEntity);
-			clinicEntity.setCategory(clinicCategoryEntity);
-			clinicEntity.setCreatedAt(clinicWSO.getCreatedAt());
-			clinicEntity.setEmail(clinicWSO.getEmail());
-			clinicEntity.setLicenceNumber(clinicWSO.getLicenceNumber());
-			clinicEntity.setName(clinicWSO.getName());
-			clinicEntity.setPhoneNumber(clinicWSO.getPhoneNumber());
-			clinicEntity.setRegistrationDate(clinicWSO.getRegistrationDate());
-			clinicEntity.setServices(ServiceEntityList);
-			clinicEntity.setUpdatedAt(clinicWSO.getUpdatedAt());
-			clinicEntity.setUrl(clinicWSO.getUrl());
-			clinicEntity.setVerified(clinicWSO.isVerified());
-			clinicDao.update(clinicEntity);
-			
-			statusWSO.setCode(200);
-			statusWSO.setMessage("Sucessful");
-		
-		
+		for (ServiceWSO Service : clinicWSO.getServices()) {
+			ServiceEntity serviceEntity = clinicDao.get(ServiceEntity.class,Service.getId() );
+			ServiceEntityList.add(serviceEntity);
+
+		}
+
+		addressEntity.setBuildingNumber(clinicWSO.getAddress().getBuildingNumber());
+		addressEntity.setCity(clinicWSO.getAddress().getCity());
+		addressEntity.setCountry(clinicWSO.getAddress().getCountry());
+		addressEntity.setCreatedAt(clinicWSO.getCreatedAt());
+		addressEntity.setLandmark(clinicWSO.getAddress().getLandmark());
+		addressEntity.setLatitude(clinicWSO.getAddress().getLatitude());
+		addressEntity.setLongitude(clinicWSO.getAddress().getLongitude());
+		addressEntity.setState(clinicWSO.getAddress().getState());
+		addressEntity.setStreet(clinicWSO.getAddress().getStreet());
+		addressEntity.setUpdatedAt(clinicWSO.getUpdatedAt());
+		addressEntity.setZipCode(clinicWSO.getAddress().getZipCode());
+
+		clinicCategoryEntity.setDescription(clinicWSO.getCategory().getDescription());
+		clinicCategoryEntity.setName(clinicWSO.getCategory().getName());
+
+		clinicEntity.setAddress(addressEntity);
+		clinicEntity.setCategory(clinicCategoryEntity);
+		clinicEntity.setCreatedAt(clinicWSO.getCreatedAt());
+		clinicEntity.setEmail(clinicWSO.getEmail());
+		clinicEntity.setLicenceNumber(clinicWSO.getLicenceNumber());
+		clinicEntity.setName(clinicWSO.getName());
+		clinicEntity.setPhoneNumber(clinicWSO.getPhoneNumber());
+		clinicEntity.setRegistrationDate(clinicWSO.getRegistrationDate());
+		clinicEntity.setServices(ServiceEntityList);
+		clinicEntity.setUpdatedAt(clinicWSO.getUpdatedAt());
+		clinicEntity.setUrl(clinicWSO.getUrl());
+		clinicEntity.setVerified(clinicWSO.isVerified());
+		clinicDao.update(clinicEntity);
+
+		statusWSO.setCode(200);
+		statusWSO.setMessage("Sucessful");
+
+
 	}
-	
+
 
 	public ClinicEntity get(long id,StatusWSO statusWSO) throws Exception {
 		ClinicEntity clinicEntity = clinicDao.get(ClinicEntity.class, id);
@@ -131,37 +131,21 @@ public class ClinicBLImpl extends CommonBLImpl implements ClinicBL {
 		statusWSO.setMessage("Sucessful");
 		return clinicEntity;
 	}
-	
+
 	public void delete(long id,StatusWSO statusWSO) throws Exception {
 
-		ClinicEntity clinicEntity = clinicDao.get(ClinicEntity.class, id);
+		clinicDao.delete(ClinicEntity.class, id);
 
-		clinicDao.delete(clinicEntity);
-		
 		statusWSO.setCode(200);
 		statusWSO.setMessage("Sucessful");
 
-		}
-
-	public void save(DrugWSO drugWSO, StatusWSO statusWSO) throws Exception{
-		DrugsEntity drugsEntity=WSOToEntityConversion.drugWSOToDrugsEntity(drugWSO);
-		clinicDao.save(drugsEntity);
-		
-		statusWSO.setCode(200);
-		statusWSO.setMessage("Sucessful");
-		}
-
-	public void delete(Long drugId , StatusWSO statusWSO) throws Exception {
-		
-		clinicDao.delete(DrugsEntity.class, drugId);
-		
-		statusWSO.setCode(200);
-		statusWSO.setMessage("Sucessful");
-		}
-		
 	}
 
-	
+
+
+}
+
+
 
 
 

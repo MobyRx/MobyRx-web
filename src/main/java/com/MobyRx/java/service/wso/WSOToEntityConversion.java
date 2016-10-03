@@ -6,6 +6,7 @@ import com.MobyRx.java.entity.ClinicEntity;
 import com.MobyRx.java.entity.DrugsEntity;
 import com.MobyRx.java.entity.EmergencyContact;
 import com.MobyRx.java.entity.master.ClinicCategoryEntity;
+import com.MobyRx.java.entity.master.RoleEntity;
 import com.MobyRx.java.entity.master.ServiceEntity;
 import com.MobyRx.java.entity.master.SpecializationEntity;
 import com.MobyRx.java.entity.type.BloodGroup;
@@ -35,6 +36,15 @@ public class WSOToEntityConversion {
 	public DrugWSO transform(DrugsEntity drugsEntity){
 		DrugWSO drug = new DrugWSO();
 		drug.setId(drugsEntity.getId());
+		drug.setBrandName(drugsEntity.getBrandName());
+		drug.setConstituent(drugsEntity.getConstituent());
+		drug.setCreatedAt(drugsEntity.getCreatedAt());
+		drug.setDrugType(drugsEntity.getDrugType());
+		drug.setManufacturer(drugsEntity.getManufacturer());
+		drug.setPackageUnit(drugsEntity.getPackageUnit());
+		drug.setPrice(drugsEntity.getPrice());
+		drug.setUpdatedAt(drugsEntity.getUpdatedAt());
+		drug.setName(drugsEntity.getName());
 		return drug;
 	}
 
@@ -191,6 +201,7 @@ public class WSOToEntityConversion {
 	public static DrugsEntity drugWSOToDrugsEntity(DrugWSO drugWSO)
 	{
 		DrugsEntity drugEntity = new DrugsEntity();
+		drugEntity.setName(drugWSO.getName());
 		drugEntity.setBrandName(drugWSO.getBrandName());
 		drugEntity.setConstituent(drugWSO.getConstituent());
 		drugEntity.setCreatedAt(drugWSO.getCreatedAt());
@@ -202,5 +213,11 @@ public class WSOToEntityConversion {
 		drugEntity.setPrice(drugWSO.getPrice());
 		drugEntity.setUpdatedAt(drugWSO.getUpdatedAt());
 		return drugEntity;
+	}
+	
+	
+	public static RoleWSO transform(RoleEntity role){
+		RoleWSO roleWSO = new RoleWSO();
+		return roleWSO;
 	}
 }

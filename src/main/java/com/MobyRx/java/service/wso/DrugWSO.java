@@ -14,8 +14,7 @@ import com.MobyRx.java.entity.BaseEntity;
 @XmlRootElement(name = "drug")
 public class DrugWSO extends BaseWSO{
     
-    
-    private Long id;
+    private String name;
     private String manufacturer;
     private String brandName;
     private String drugType;
@@ -87,4 +86,12 @@ public class DrugWSO extends BaseWSO{
     public void setPrice(Double price) {
         this.price = price;
     }
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }
