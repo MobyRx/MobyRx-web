@@ -30,8 +30,7 @@ public class DoctorDaoImpl extends BaseDaoImpl implements DoctorDao {
             }
         }
         criteria.add(Restrictions.disjunction()
-                .add(Restrictions.ilike("name", query, MatchMode.START))
-                .add(Restrictions.ilike("category.name", query, MatchMode.START)));
+                .add(Restrictions.ilike("name", query, MatchMode.START)));
         return criteria.list();
     }
 
