@@ -3,6 +3,8 @@ package com.MobyRx.java.dao.impl;
 import com.MobyRx.java.dao.CommonDao;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created by IntelliJ IDEA.
  * User: ashqures
@@ -12,4 +14,10 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("commonDao")
 public class CommonDaoImpl extends BaseDaoImpl implements CommonDao{
+
+    @Override
+    public List getMasterData(String className) {
+        String hql = "From "+ className;
+        return getCurrentSession().createQuery(hql).list();
+    }
 }

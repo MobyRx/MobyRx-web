@@ -17,6 +17,8 @@ import java.util.Map;
 public interface CommonBL {
 
     void executeSQLQueryUpdate(String sqlQuery);
+    
+    List getMasterData(String className);
 
     List<DrugsEntity> searchDrugs(String query);
 

@@ -45,7 +45,12 @@ public class CommonBLImpl extends BaseBL implements CommonBL{
     public void executeSQLQueryUpdate(String sqlQuery) {
         commonDao.executeSQLQueryUpdate(sqlQuery);
     }
-    
+
+    @Override
+    public List getMasterData(String className) {
+        return commonDao.getMasterData(className);
+    }
+
     @Override
     public List<DrugsEntity> searchDrugs(String query) {
         Map<String,Object> param = new HashMap<String, Object>();
