@@ -1,6 +1,10 @@
 package com.MobyRx.java.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import com.MobyRx.java.bl.BaseBL;
+import com.MobyRx.java.entity.DrugsEntity;
 import com.MobyRx.java.entity.UserEntity;;
 
 /**
@@ -14,4 +18,6 @@ public interface UserDao extends BaseDao{
 
 
     UserEntity getUserByUsername(String username) ;
+    
+    UserEntity searchUser(Map<String, Object> param, String query);
 }

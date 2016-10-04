@@ -3,9 +3,11 @@ package com.MobyRx.java.bl.impl;
 import java.io.OutputStreamWriter;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -20,11 +22,13 @@ import com.MobyRx.java.dao.UserDao;
 import com.MobyRx.java.entity.AddressEntity;
 import com.MobyRx.java.entity.ClinicEntity;
 import com.MobyRx.java.entity.DoctorProfileEntity;
+import com.MobyRx.java.entity.DrugsEntity;
 import com.MobyRx.java.entity.OTPEntity;
 import com.MobyRx.java.entity.PatientProfileEntity;
 import com.MobyRx.java.entity.UserEntity;
 import com.MobyRx.java.entity.master.RoleEntity;
 import com.MobyRx.java.service.wso.WSOToEntityConversion;
+import com.MobyRx.java.util.ValidatorUtil;
 import com.MobyRx.java.service.wso.DoctorProfileWSO;
 import com.MobyRx.java.service.wso.PatientProfileWSO;
 import com.MobyRx.java.service.wso.RoleWSO;
@@ -78,7 +82,12 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 	}
 	public void save(UserWSO userWSO,StatusWSO statusWSO) throws Exception
 	{
-
+		ValidatorUtil validatorUtil = new ValidatorUtil();
+		validatorUtil.validateUser(userWSO,statusWSO);
+		if(statusWSO.getCode()==400)
+		{
+			return;
+		}
 		String userQuery = "select id from user where mobile="+userWSO.getMobile();
 		List userQueryResult= userDao.getSQLQuery(userQuery);
 		UserEntity userEntity=null;
@@ -179,6 +188,12 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 	
 	public void update(UserWSO userWSO, StatusWSO statusWSO)  throws Exception
 	{
+		ValidatorUtil validatorUtil = new ValidatorUtil();
+		validatorUtil.validateUser(userWSO,statusWSO);
+		if(statusWSO.getCode()==400)
+		{
+			return;
+		}
 		UserEntity UserEntity = userDao.get(UserEntity.class,userWSO.getId());
 		if(!userWSO.getCreatedAt().toString().isEmpty())
 		UserEntity.setCreatedAt(userWSO.getCreatedAt());
@@ -241,7 +256,7 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 		{
 			String data="user=" + URLEncoder.encode("udaychandu", "UTF-8");
 			data +="&password=" + URLEncoder.encode("Nagaraju1987", "UTF-8");
-			data +="&message=" + URLEncoder.encode(otp, "UTF-8");
+			data +="&message=" + URLEncoder.encode("MobyRx OTP:"+otp, "UTF-8");
 			data +="&sender=" + URLEncoder.encode("MobyRx", "UTF-8");
 			data +="&mobile=" + URLEncoder.encode(phonenumber, "UTF-8");
 			data +="&type=" + URLEncoder.encode("3", "UTF-8");
@@ -334,6 +349,11 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 		statusWSO.setCode(200);
 		statusWSO.setMessage("Sucessful");
 
+	}
+	public UserEntity searchUser(String query) throws Exception {
+		Map<String,Object> param = new HashMap<String, Object>();
+		UserEntity user = userDao.searchUser(param, query);
+		return user;
 	}
 
 	

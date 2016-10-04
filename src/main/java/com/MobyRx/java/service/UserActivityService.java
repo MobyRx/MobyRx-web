@@ -10,8 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.MobyRx.java.bl.ClinicBL;
 import com.MobyRx.java.bl.CommonBL;
 import com.MobyRx.java.bl.UserBL;
+import com.MobyRx.java.entity.DrugsEntity;
+import com.MobyRx.java.entity.UserEntity;
 import com.MobyRx.java.service.*;
 import com.MobyRx.java.service.wso.*;
+
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -56,6 +60,8 @@ public class UserActivityService extends BaseService{
     }
 
     @POST
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     @Path("/add")
     public Response addUser(UserWSO userWSO,@Context UriInfo uriInfo) throws Exception{
     	logger.info("within add user");
@@ -66,6 +72,8 @@ public class UserActivityService extends BaseService{
     }
     
     @POST
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     @Path("/modify")
     public Response modifyUser(UserWSO userWSO,@Context UriInfo uriInfo) throws Exception{
     	StatusWSO statusWSO = new StatusWSO();
@@ -74,6 +82,8 @@ public class UserActivityService extends BaseService{
     }
     
     @DELETE
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     @Path("/delete")
     public Response modifyUser(@QueryParam("userId")String userId,@Context UriInfo uriInfo) throws Exception{
 
@@ -85,8 +95,19 @@ public class UserActivityService extends BaseService{
     @GET
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
+    @Path("/get")
+    public Response getUser(@QueryParam("query")String query, @QueryParam("filter")String filterParams) throws Exception{
+       UserEntity user = userBL.searchUser(query);
+        
+        return sendResponse(user);
+    }
+    
+    @GET
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     @Path("/get/mobile/otp")
     public Response getMobileOTP(@QueryParam("userId")String userId,@Context UriInfo uriInfo) throws Exception{
+    	logger.info("within");
     	StatusWSO statusWSO = new StatusWSO();
     	userBL.generateMobileOTP(userId,statusWSO);
     	
@@ -120,6 +141,8 @@ public class UserActivityService extends BaseService{
     
     @POST
     @Path("/doctor/add")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     public Response addDoctor(DoctorProfileWSO doctorProfileWSO,@Context UriInfo uriInfo) throws Exception{
     	
     	StatusWSO statusWSO = new StatusWSO();
@@ -129,6 +152,8 @@ public class UserActivityService extends BaseService{
 		return sendResponse(statusWSO);
     }
     @POST
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     @Path("/patient/add")
     public Response addPatient(PatientProfileWSO patientProfileWSO,@Context UriInfo uriInfo) throws Exception{
     	StatusWSO statusWSO = new StatusWSO();

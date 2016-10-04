@@ -8,8 +8,10 @@ import com.MobyRx.java.entity.PatientProfileEntity;
 import com.MobyRx.java.entity.UserEntity;
 
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -32,10 +34,18 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     }
     
   
-    List<DrugsEntity> searchDrugs(String query) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public UserEntity searchUser(Map<String, Object> fieldParam, String query){
+
+        Criteria criteria = getCurrentSession().createCriteria(DrugsEntity.class);
+        if (null != fieldParam) {
+            for (String filedName : fieldParam.keySet()) {
+                criteria.add(Restrictions.eq(filedName, fieldParam.get(filedName)));
+            }
+        }
+        criteria.add(Restrictions.disjunction()
+                .add(Restrictions.eq("mobile", query.trim())));
+        return (UserEntity)criteria.list();
     
+    }
     
 }

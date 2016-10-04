@@ -134,7 +134,7 @@ POST
    "username":"manas",
    "mobile":"9108249868",
    "email":"manas@gmail.com",
-   "password":"manas",
+   "password":"Chandu123!!",
    "emailVerified":false,
    "mobileVerified":false,
    "roles":[  

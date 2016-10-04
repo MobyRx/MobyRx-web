@@ -36,7 +36,33 @@ public class ValidatorUtil {
             status.addError("Invalid Email Address");
         }
     }
-
+    
+    public void validateUser(UserWSO userWSO, StatusWSO status) {
+        if(StringUtils.isEmpty(userWSO.getEmail())){
+        	status.setCode(400);
+            status.addError("Email required");
+        }else if(!isValidEmail(userWSO.getEmail())){
+        	status.setCode(400);
+            status.addError("Invalid Email Address");
+        }
+        else if(StringUtils.isEmpty(userWSO.getMobile()) ){
+        	status.setCode(400);
+            status.addError("PhoneNumber Required");
+        }
+        else if(!isValidMobile(userWSO.getMobile())){
+        	status.setCode(400);
+            status.addError("Invalid PhoneNumber");
+        }
+        else if(StringUtils.isEmpty(userWSO.getPassword()) ){
+        	status.setCode(400);
+            status.addError("Password Required");
+        }
+        else if(!isValidPassword(userWSO.getPassword())){
+        	status.setCode(400);
+            status.addError("Invalid Password");
+        }
+    }
+    
     public void validateClinic(ClinicWSO clinicWSO, StatusWSO status) {
         if(StringUtils.isEmpty(clinicWSO.getEmail())){
         	status.setCode(400);

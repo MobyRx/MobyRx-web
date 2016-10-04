@@ -77,7 +77,12 @@ public class ClinicBLImpl extends CommonBLImpl implements ClinicBL {
 	}
 
 	public void update(ClinicWSO clinicWSO,StatusWSO statusWSO)  throws Exception{
-
+		ValidatorUtil validatorUtil = new ValidatorUtil();
+		validatorUtil.validateClinic(clinicWSO,statusWSO);
+		if(statusWSO.getCode()==400)
+		{
+			return;
+		}
 		ClinicEntity clinicEntity = clinicDao.get(ClinicEntity.class, clinicWSO.getId());
 		AddressEntity addressEntity = clinicEntity.getAddress();
 		ClinicCategoryEntity clinicCategoryEntity = clinicEntity.getCategory();

@@ -1,5 +1,8 @@
 package com.MobyRx.java.bl;
 
+import java.util.List;
+
+import com.MobyRx.java.entity.UserEntity;
 import com.MobyRx.java.service.wso.DoctorProfileWSO;
 import com.MobyRx.java.service.wso.PatientProfileWSO;
 import com.MobyRx.java.service.wso.StatusWSO;
@@ -19,5 +22,7 @@ public interface UserBL {
 
 	void save(DoctorProfileWSO doctorProfileWSO, StatusWSO statusWSO)throws Exception;
 	void save(PatientProfileWSO PatientProfileWSO, StatusWSO statusWSO)throws Exception;
+
+	UserEntity searchUser(String query) throws Exception;
 
 }
