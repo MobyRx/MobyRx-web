@@ -1,7 +1,10 @@
+Repo Details: https://github.com/MobyRx/MobyRx-web
+
+
 http://localhost:8080/MobyRx/services/clinic/add
 POST
 {  
-   "id":null,
+   "id":1,
    "createdAt":689797800000,
    "updatedAt":689797800000,
    "name":"Asha",
@@ -19,7 +22,7 @@ POST
       "latitude":1098,
       "longitude":3647
    },
-   "phoneNumber":"12345",
+   "phoneNumber":"9108249868",
    "email":"uday@gmail.com",
    "licenceNumber":"1234",
    "registrationDate":689797800000,
@@ -43,58 +46,84 @@ POST
       "description":"Allopathic"
    }
 }
-
 http://localhost:8080/MobyRx/services/clinic/modify
 POST
 {  
-   "id":3,
+   "id":5,
    "createdAt":689797800000,
    "updatedAt":689797800000,
-   "name":"uc",
+   "name":"Asha",
    "address":{  
       "id":1,
       "createdAt":689797800000,
       "updatedAt":689797800000,
       "buildingNumber":"1",
-      "street":"guthalu",
+      "street":"guthaluuu",
       "landmark":"harlimara",
-      "city":"mysore",
+      "city":"mandya",
       "state":"karnata",
       "country":null,
       "zipCode":"5714301",
       "latitude":1098,
       "longitude":3647
    },
-   "phoneNumber":"12345",
+   "phoneNumber":"8970209096",
    "email":"udaychandu@gmail.com",
    "licenceNumber":"1234",
    "registrationDate":689797800000,
    "url":"www.something.com",
    "services":[  
       {  
-         "id":2,
-         "name":"yyy",
-         "description":"xxx"
+         "id":1,
+         "name":"Emergency",
+         "description":"Emergency"
       },
       {  
-         "id":3,
-         "name":"yyy1",
-         "description":"xxx1"
+         "id":2,
+         "name":"Maternity",
+         "description":"Maternity"
       }
    ],
    "verified":false,
    "category":{  
-      "id":34,
-      "name":"uday",
-      "description":"description"
+      "id":1,
+      "name":"Allopathic",
+      "description":"Allopathic"
    }
 }
 
 
-
-http://localhost:8080/MobyRx/services/clinic/delete?userId=2
+http://localhost:8080/MobyRx/services/clinic/delete?clinicId=2
 DELETE
 
+http://localhost:8080/MobyRx/services/clinic/get?clinicId=2
+GET
+
+
+DRUG
+http://localhost:8080/MobyRx/services/drug?query=name
+GET
+
+
+http://localhost:8080/MobyRx/services/drug/add
+POST
+{
+"id":null,
+"manufacturer":"udsy",
+"name":"name",
+"brandName":"brandName",
+"drugType":"drugType",
+"measurementUnit":"measurementUnit",
+"constituent":"constituent",
+"packageUnit":"packageUnit",
+"price":1234,
+"createdAt":689797800000,
+ "updatedAt":689797800000
+
+}
+
+http://localhost:8080/MobyRx/services/drug/delete?drugId=103347
+DELETE
 
 http://localhost:8080/MobyRx/services/user/add
 POST

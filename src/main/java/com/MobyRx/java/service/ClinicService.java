@@ -107,26 +107,6 @@ public class ClinicService extends BaseService{
 	    	return  sendResponse(clinicWSO);
 	    }
 	    
-	    @POST
-	    @Consumes({MediaType.APPLICATION_JSON})
-	    @Produces({MediaType.APPLICATION_JSON})
-	    @Path("/drug/add")
-	    public Response addDrug(DrugWSO drugWSO, @Context UriInfo uriInfo) throws Exception{
-	    	StatusWSO statusWSO = new StatusWSO();
-	    	
-	    	clinicBL.save(drugWSO,statusWSO);
-	    	return  sendResponse(statusWSO);
-	    	}
 	    
-	    @DELETE
-	    @Consumes({MediaType.APPLICATION_JSON})
-	    @Produces({MediaType.APPLICATION_JSON})
-	    @Path("/drug/delete")
-	    public Response deleteDrug(@QueryParam("drugId")String drugId, @Context UriInfo uriInfo) throws Exception{
-	    	StatusWSO statusWSO = new StatusWSO();
-	    	
-	    	clinicBL.delete(Long.parseLong(drugId),statusWSO);
-	    	return  sendResponse(statusWSO);
-	    	}
 	    
 }
