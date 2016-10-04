@@ -104,4 +104,6 @@ public class BaseDaoImpl implements com.MobyRx.java.dao.BaseDao {
             session = sessionFactory.openSession();
         return session;
     }
+
+	
 }

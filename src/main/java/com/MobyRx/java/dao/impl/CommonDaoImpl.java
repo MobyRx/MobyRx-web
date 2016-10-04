@@ -15,7 +15,6 @@ import java.util.List;
 @Repository("commonDao")
 public class CommonDaoImpl extends BaseDaoImpl implements CommonDao{
 
-    @Override
     public List getMasterData(String className) {
         String hql = "From "+ className;
         return getCurrentSession().createQuery(hql).list();

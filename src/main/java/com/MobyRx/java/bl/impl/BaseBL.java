@@ -16,14 +16,19 @@ import com.MobyRx.java.service.wso.ClinicWSO;
  */
 public class BaseBL implements com.MobyRx.java.bl.BaseBL {
 
+	public void executeSQLQueryUpdate(String sqlQuery) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public List<DrugsEntity> searchDrugs(String query) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public void executeSQLQueryUpdate(String sqlQuery) {
+	public List getMasterData(String className) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	

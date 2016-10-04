@@ -13,5 +13,4 @@ import com.MobyRx.java.entity.DrugsEntity;
  */
 public interface BaseBL {
 
-	List<DrugsEntity> searchDrugs(String query) ;
 }

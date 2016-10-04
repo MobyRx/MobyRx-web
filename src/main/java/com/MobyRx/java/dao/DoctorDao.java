@@ -15,9 +15,4 @@ import java.util.Map;
  */
 public interface DoctorDao extends BaseDao{
 
-
-    List<DrugsEntity> searchDrugs(Map<String, Object> fieldParam, String query);
-
-
-
 }

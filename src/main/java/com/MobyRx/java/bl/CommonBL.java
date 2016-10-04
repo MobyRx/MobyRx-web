@@ -20,6 +20,5 @@ public interface CommonBL {
     
     List getMasterData(String className);
 
-    List<DrugsEntity> searchDrugs(String query);
 
 }
