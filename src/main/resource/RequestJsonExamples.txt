@@ -181,3 +181,66 @@ http://localhost:8080/MobyRx/services/user/get/mobile/otp?userId=1
 
 POST
 http://localhost:8080/MobyRx/services/user/verify/mobile/otp??userId=1&otp=2345
+
+POST
+http://localhost:8080/MobyRx/services/user/doctor/add
+{  
+   "id": 3,
+   "createdAt":595189800000,
+   "updatedAt":595189800000,
+   "name":"udaychandu",
+   "address":{  
+      "id":1,
+      "createdAt":689797800000,
+      "updatedAt":689797800000,
+      "buildingNumber":"1",
+      "street":"guthalu",
+      "landmark":"harlimara",
+      "city":"mandya",
+      "state":"karnata",
+      "country":"India",
+      "zipCode":"5714301",
+      "latitude":1098,
+      "longitude":3647
+   },
+   "gender":"MALE",
+   "emergencyContacts":[  
+      {  
+         "name":"Dad",
+         "mobile":"2345666778"
+      }
+   ],
+   "user":{  
+      "id":4
+},
+   "medRegNumber":"123456",
+   "specializations":[  
+      {  
+         "id":1,
+         "name":"Audiologist",
+         "description":"Audiologist"
+      }
+   ],
+   "qualification":[  
+      "MBBS"
+   ],
+   "achievements":[  
+      "MBBS",
+      "MD"
+   ],
+   "certification":[  
+      "adb",
+      "avf"
+   ],
+   "certificateNumber":[  
+      "12",
+      "13"
+   ],
+   "practiceStartAt":595189800000,
+   "clinic":[  
+      {  
+         "id":1
+}
+],
+   "verified":false
+}

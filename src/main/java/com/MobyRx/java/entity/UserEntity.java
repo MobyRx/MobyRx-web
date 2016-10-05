@@ -19,7 +19,7 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@javax.persistence.Table(name = "user")
+@Table(name = "user")
 public class UserEntity extends BaseEntity{
 
 
@@ -87,9 +87,7 @@ public class UserEntity extends BaseEntity{
     @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    //join column and cascase to be removed later once we populte role table on load and 
-    //handle role logic from add user accordingly 
-    @JoinColumn(name = "role_id", nullable = false)
+ 
     public Set<RoleEntity> getRoles() {
         return roles;
     }
@@ -97,4 +95,61 @@ public class UserEntity extends BaseEntity{
     public void setRoles(Set<RoleEntity> roles) {
         this.roles = roles;
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + (emailVerified ? 1231 : 1237);
+		result = prime * result + ((mobile == null) ? 0 : mobile.hashCode());
+		result = prime * result + (mobileVerified ? 1231 : 1237);
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((roles == null) ? 0 : roles.hashCode());
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserEntity other = (UserEntity) obj;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (emailVerified != other.emailVerified)
+			return false;
+		if (mobile == null) {
+			if (other.mobile != null)
+				return false;
+		} else if (!mobile.equals(other.mobile))
+			return false;
+		if (mobileVerified != other.mobileVerified)
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (roles == null) {
+			if (other.roles != null)
+				return false;
+		} else if (!roles.equals(other.roles))
+			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
+	}
+    
+    
 }

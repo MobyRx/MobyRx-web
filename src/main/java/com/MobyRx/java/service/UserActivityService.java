@@ -144,7 +144,7 @@ public class UserActivityService extends BaseService{
     @Consumes({MediaType.APPLICATION_JSON})
     @Produces({MediaType.APPLICATION_JSON})
     public Response addDoctor(DoctorProfileWSO doctorProfileWSO,@Context UriInfo uriInfo) throws Exception{
-    	
+    	logger.info("within add doctor");
     	StatusWSO statusWSO = new StatusWSO();
     	
     	userBL.save(doctorProfileWSO,statusWSO);

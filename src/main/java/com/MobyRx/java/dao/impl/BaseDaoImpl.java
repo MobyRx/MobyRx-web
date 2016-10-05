@@ -1,6 +1,8 @@
 package com.MobyRx.java.dao.impl;
 
 import com.MobyRx.java.entity.BaseEntity;
+import com.MobyRx.java.entity.UserEntity;
+
 import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -42,7 +44,14 @@ public class BaseDaoImpl implements com.MobyRx.java.dao.BaseDao {
    
 
     public void save(Object object)  throws Exception{
+    	try
+    	{
         getCurrentSession().saveOrUpdate(object);
+    	}
+    	catch(Exception Ex)
+    	{
+    		logger.error(Ex.getMessage());
+    	}
        
     }
 
@@ -80,6 +89,17 @@ public class BaseDaoImpl implements com.MobyRx.java.dao.BaseDao {
 
     
     public <T extends Object> T get( Class<T> clazz, Long id) throws Exception{
+//    	Criteria criteria = getCurrentSession().createCriteria(UserEntity.class)
+//    			.add(Restrictions.eq("id", id));
+//    	criteria.uniqueResult();
+//    	String hql = "From UserEntity where id=3";
+//    	getCurrentSession().createQuery("From UserEntity where id=3").list();
+//    	
+//    	
+//    	getCurrentSession().get(clazz, id);
+//    	UserEntity u = (UserEntity)getCurrentSession().createCriteria(clazz)
+ //   	.add(Restrictions.eq("id", 5l)).uniqueResult();
+  //  	u.getEmail();
         return (T)getCurrentSession().load(clazz, id);
     }
 

@@ -27,11 +27,14 @@ import com.MobyRx.java.entity.OTPEntity;
 import com.MobyRx.java.entity.PatientProfileEntity;
 import com.MobyRx.java.entity.UserEntity;
 import com.MobyRx.java.entity.master.RoleEntity;
+import com.MobyRx.java.entity.master.SpecializationEntity;
 import com.MobyRx.java.service.wso.WSOToEntityConversion;
 import com.MobyRx.java.util.ValidatorUtil;
+import com.MobyRx.java.service.wso.ClinicWSO;
 import com.MobyRx.java.service.wso.DoctorProfileWSO;
 import com.MobyRx.java.service.wso.PatientProfileWSO;
 import com.MobyRx.java.service.wso.RoleWSO;
+import com.MobyRx.java.service.wso.SpecializationWSO;
 import com.MobyRx.java.service.wso.StatusWSO;
 import com.MobyRx.java.service.wso.UserWSO;
 import com.MobyRx.java.bl.impl.CommonBLImpl;
@@ -240,6 +243,9 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 			{
 				result=true;
 				userDao.delete(OTPEntity.class, otpEntity.get(i).getId());
+				UserEntity userEntity = userDao.get(UserEntity.class, Long.parseLong(userId));
+				userEntity.setMobileVerified(true);
+				userDao.update(userEntity);
 			}
 		
 		}
@@ -282,34 +288,75 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 
 	}
 	public void save(DoctorProfileWSO doctorProfileWSO, StatusWSO statusWSO) throws Exception {
+		try
+		{
+			logger.info("c1");
 		DoctorProfileEntity doctorProfileEntity = new DoctorProfileEntity();
 		doctorProfileEntity.setAchievements(doctorProfileWSO.getAchievements());
-		AddressEntity AddressEntity = WSOToEntityConversion.addressWSOToAddressEntity(doctorProfileWSO.getAddress());
-		AddressEntity.setId(null);
-		doctorProfileEntity.setAddress(AddressEntity);
+		AddressEntity addressEntity = WSOToEntityConversion.addressWSOToAddressEntity(doctorProfileWSO.getAddress());
+		//AddressEntity.setId(null);
+		logger.info("c2");
+		doctorProfileEntity.setAddress(addressEntity);
 		doctorProfileEntity.setCertificateNumber(doctorProfileWSO.getCertificateNumber());
 		doctorProfileEntity.setCertification(doctorProfileWSO.getCertification());
+		logger.info("c3");
+		if(doctorProfileWSO.getClinic().size()>0)
+		{
 		doctorProfileEntity.setClinic(null);
+		logger.info("c4");
+		Set<ClinicEntity> clinicEntityList = new HashSet<ClinicEntity>();
+		for(ClinicWSO clinicWSO : doctorProfileWSO.getClinic())
+		{
+			logger.info("c5");
+			logger.info("clinicWSO.getId()="+clinicWSO.getId());
+			ClinicEntity clinicEntity = userDao.get(ClinicEntity.class, clinicWSO.getId());
+			clinicEntityList.add(clinicEntity);
+		}
+		logger.info("u1");
+		doctorProfileEntity.setClinic(clinicEntityList);
+		}
+		logger.info("u2");
 		doctorProfileEntity.setCreatedAt(doctorProfileWSO.getCreatedAt());
 		doctorProfileEntity.setEmergencyContacts(WSOToEntityConversion.emergencyContactToEmergencyContactEntity(doctorProfileWSO.getEmergencyContacts()));
 		doctorProfileEntity.setGender(WSOToEntityConversion.genderWSOTOGenderEntity(doctorProfileWSO.getGender()));
-
+		logger.info("c6");
 		doctorProfileEntity.setMedRegNumber(doctorProfileWSO.getMedRegNumber());
 		doctorProfileEntity.setName(doctorProfileWSO.getName());
 		doctorProfileEntity.setPracticeStartAt(doctorProfileWSO.getPracticeStartAt());
 		doctorProfileEntity.setQualification(doctorProfileWSO.getQualification());
-		doctorProfileEntity.setSpecializations(WSOToEntityConversion.specializationWSOToSpecializationEntity(doctorProfileWSO.getSpecializations()));
+		logger.info("c7");
+		Set<SpecializationEntity> specializationEntityList = new HashSet<SpecializationEntity>();
+		if(doctorProfileWSO.getSpecializations().size()>0)
+		{
+			for(SpecializationWSO specializationWSO : doctorProfileWSO.getSpecializations())
+			{
+				logger.info("c8");
+				SpecializationEntity SpecializationEntity = userDao.get(SpecializationEntity.class, specializationWSO.getId());
+				specializationEntityList.add(SpecializationEntity);
+			}
+			doctorProfileEntity.setSpecializations(specializationEntityList);
+		}
+		else
+		{
+			doctorProfileEntity.setSpecializations(null);
+		}
 		doctorProfileEntity.setUpdatedAt(doctorProfileWSO.getUpdatedAt());
-		
+		logger.info("c9");
 		Long userId= doctorProfileWSO.getUser().getId();
-		UserEntity userEntity = userDao.get(UserEntity.class, userId);
+		UserEntity userEntity = (UserEntity)userDao.get(UserEntity.class, userId);
 		doctorProfileEntity.setUser(userEntity);
+		//doctorProfileEntity.setId(null);
 		doctorProfileEntity.setVerified(doctorProfileWSO.isVerified());
-		
+		logger.info("c10");
 		userDao.save(doctorProfileEntity);
 		
 		statusWSO.setCode(200);
 		statusWSO.setMessage("Sucessful");
+		}
+		catch(Exception Ex)
+		{
+			logger.error(Ex.getMessage());
+		}
 
 
 	}
