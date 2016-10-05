@@ -57,32 +57,7 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 	
 	private Logger logger = LoggerFactory.getLogger(UserBLImpl.class);
 	
-	public void generateMobileOTP(String userId,StatusWSO statusWSO) throws Exception
-	{
-		
-		logger.info("generateMobileOTP");
-		UserEntity userEntity = userDao.get(UserEntity.class, Long.parseLong(userId));
-
-		if(userEntity!=null)
-		{
-		Random rand = new Random();
-		String otp = String.format("%04d", rand.nextInt(10000));
-		OTPEntity otpEntity = new OTPEntity();
-		otpEntity.setOtp(otp);
-		otpEntity.setSendFrom("MobyRx");
-		otpEntity.setSentTo(userEntity.getMobile());
-		otpEntity.setUser(userEntity);
-		
-		userDao.save(otpEntity);
-		logger.info("sendSms");
-		sendSms(userEntity.getMobile(),otp);
-		}
-		
-		statusWSO.setCode(200);
-		statusWSO.setMessage("Sucessful");
-		
-		
-	}
+	
 	public void save(UserWSO userWSO,StatusWSO statusWSO) throws Exception
 	{
 		ValidatorUtil validatorUtil = new ValidatorUtil();
@@ -233,6 +208,32 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 
 	}
 	
+	public void generateMobileOTP(String userId,StatusWSO statusWSO) throws Exception
+	{
+		
+		logger.info("generateMobileOTP");
+		UserEntity userEntity = userDao.get(UserEntity.class, Long.parseLong(userId));
+
+		if(userEntity!=null)
+		{
+		Random rand = new Random();
+		String otp = String.format("%04d", rand.nextInt(10000));
+		OTPEntity otpEntity = new OTPEntity();
+		otpEntity.setOtp(otp);
+		otpEntity.setSendFrom("MobyRx");
+		otpEntity.setSentTo(userEntity.getMobile());
+		otpEntity.setUser(userEntity);
+		
+		userDao.save(otpEntity);
+		logger.info("sendSms");
+		sendSms(userEntity.getMobile(),otp);
+		}
+		
+		statusWSO.setCode(200);
+		statusWSO.setMessage("Sucessful");
+		
+		
+	}
 	public boolean verifyMobileOTP(String userId,String otp,StatusWSO statusWSO) throws Exception
 	{
 		boolean result=false;
@@ -287,121 +288,12 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 		return sResult;
 
 	}
-	public void save(DoctorProfileWSO doctorProfileWSO, StatusWSO statusWSO) throws Exception {
-		try
-		{
-			logger.info("c1");
-		DoctorProfileEntity doctorProfileEntity = new DoctorProfileEntity();
-		doctorProfileEntity.setAchievements(doctorProfileWSO.getAchievements());
-		AddressEntity addressEntity = WSOToEntityConversion.addressWSOToAddressEntity(doctorProfileWSO.getAddress());
-		//AddressEntity.setId(null);
-		logger.info("c2");
-		doctorProfileEntity.setAddress(addressEntity);
-		doctorProfileEntity.setCertificateNumber(doctorProfileWSO.getCertificateNumber());
-		doctorProfileEntity.setCertification(doctorProfileWSO.getCertification());
-		logger.info("c3");
-		if(doctorProfileWSO.getClinic().size()>0)
-		{
-		doctorProfileEntity.setClinic(null);
-		logger.info("c4");
-		Set<ClinicEntity> clinicEntityList = new HashSet<ClinicEntity>();
-		for(ClinicWSO clinicWSO : doctorProfileWSO.getClinic())
-		{
-			logger.info("c5");
-			logger.info("clinicWSO.getId()="+clinicWSO.getId());
-			ClinicEntity clinicEntity = userDao.get(ClinicEntity.class, clinicWSO.getId());
-			clinicEntityList.add(clinicEntity);
-		}
-		logger.info("u1");
-		doctorProfileEntity.setClinic(clinicEntityList);
-		}
-		logger.info("u2");
-		doctorProfileEntity.setCreatedAt(doctorProfileWSO.getCreatedAt());
-		doctorProfileEntity.setEmergencyContacts(WSOToEntityConversion.emergencyContactToEmergencyContactEntity(doctorProfileWSO.getEmergencyContacts()));
-		doctorProfileEntity.setGender(WSOToEntityConversion.genderWSOTOGenderEntity(doctorProfileWSO.getGender()));
-		logger.info("c6");
-		doctorProfileEntity.setMedRegNumber(doctorProfileWSO.getMedRegNumber());
-		doctorProfileEntity.setName(doctorProfileWSO.getName());
-		doctorProfileEntity.setPracticeStartAt(doctorProfileWSO.getPracticeStartAt());
-		doctorProfileEntity.setQualification(doctorProfileWSO.getQualification());
-		logger.info("c7");
-		Set<SpecializationEntity> specializationEntityList = new HashSet<SpecializationEntity>();
-		if(doctorProfileWSO.getSpecializations().size()>0)
-		{
-			for(SpecializationWSO specializationWSO : doctorProfileWSO.getSpecializations())
-			{
-				logger.info("c8");
-				SpecializationEntity SpecializationEntity = userDao.get(SpecializationEntity.class, specializationWSO.getId());
-				specializationEntityList.add(SpecializationEntity);
-			}
-			doctorProfileEntity.setSpecializations(specializationEntityList);
-		}
-		else
-		{
-			doctorProfileEntity.setSpecializations(null);
-		}
-		doctorProfileEntity.setUpdatedAt(doctorProfileWSO.getUpdatedAt());
-		logger.info("c9");
-		Long userId= doctorProfileWSO.getUser().getId();
-		UserEntity userEntity = (UserEntity)userDao.get(UserEntity.class, userId);
-		doctorProfileEntity.setUser(userEntity);
-		//doctorProfileEntity.setId(null);
-		doctorProfileEntity.setVerified(doctorProfileWSO.isVerified());
-		logger.info("c10");
-		userDao.save(doctorProfileEntity);
-		
-		statusWSO.setCode(200);
-		statusWSO.setMessage("Sucessful");
-		}
-		catch(Exception Ex)
-		{
-			logger.error(Ex.getMessage());
-		}
 
-
-	}
-	public void save(PatientProfileWSO patientProfileWSO,StatusWSO statusWSO) throws Exception{
-		PatientProfileEntity patientProfileEntity=new PatientProfileEntity();
-		AddressEntity addressEntity=WSOToEntityConversion.addressWSOToAddressEntity(patientProfileWSO.getAddress());
-		addressEntity.setId(null);
-		patientProfileEntity.setAddress(addressEntity);
-		patientProfileEntity.setAge(patientProfileWSO.getAge());
-		patientProfileEntity.setBloodGroup(WSOToEntityConversion.bloodGroupWSOToBloodGroupEntity(patientProfileWSO.getBloodGroup()));
-		patientProfileEntity.setCreatedAt(patientProfileWSO.getCreatedAt());
-		patientProfileEntity.setDob(patientProfileWSO.getDob());
-		patientProfileEntity.setEmergencyContacts(WSOToEntityConversion.emergencyContactToEmergencyContactEntity(patientProfileWSO.getEmergencyContacts()));
-		patientProfileEntity.setGender(WSOToEntityConversion.genderWSOTOGenderEntity(patientProfileWSO.getGender()));
-		patientProfileEntity.setId(null);
-		patientProfileEntity.setName(patientProfileWSO.getName());
-		if( patientProfileWSO.getParentPatient()!=null && patientProfileWSO.getParentPatient().getId()!=null
-				&& !patientProfileWSO.getParentPatient().getId().toString().isEmpty())
-		{
-			Long pateientId=patientProfileWSO.getParentPatient().getId();
-			PatientProfileEntity parentPatientProfileEntity= userDao.get(PatientProfileEntity.class, pateientId);
-			patientProfileEntity.setParentPatient(parentPatientProfileEntity);
-			
-			patientProfileEntity.setRelationship(WSOToEntityConversion.relationshipEntityWSOToRelationshipTypeEntity(patientProfileWSO.getRelationship()));
-		}
-		else
-		{
-			patientProfileEntity.setParentPatient(null);
-			patientProfileEntity.setRelationship(null);
-		}
-		
-		patientProfileEntity.setUpdatedAt(patientProfileWSO.getUpdatedAt());
-		Long userId= patientProfileWSO.getUser().getId();
-		UserEntity userEntity =userEntity= userDao.get(UserEntity.class, userId);
-		patientProfileEntity.setUser(userEntity);
-		userDao.save(patientProfileEntity);
-		statusWSO.setCode(200);
-		statusWSO.setMessage("Sucessful");
-
-	}
 	public UserEntity searchUser(String query) throws Exception {
 		Map<String,Object> param = new HashMap<String, Object>();
 		UserEntity user = userDao.searchUser(param, query);
 		return user;
 	}
-
+	
 	
 }

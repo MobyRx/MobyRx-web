@@ -139,28 +139,8 @@ public class UserActivityService extends BaseService{
     	}
     }
     
-    @POST
-    @Path("/doctor/add")
-    @Consumes({MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON})
-    public Response addDoctor(DoctorProfileWSO doctorProfileWSO,@Context UriInfo uriInfo) throws Exception{
-    	logger.info("within add doctor");
-    	StatusWSO statusWSO = new StatusWSO();
-    	
-    	userBL.save(doctorProfileWSO,statusWSO);
-    	
-		return sendResponse(statusWSO);
-    }
-    @POST
-    @Consumes({MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON})
-    @Path("/patient/add")
-    public Response addPatient(PatientProfileWSO patientProfileWSO,@Context UriInfo uriInfo) throws Exception{
-    	StatusWSO statusWSO = new StatusWSO();
-    	userBL.save(patientProfileWSO,statusWSO);
-    	
-		return sendResponse(statusWSO);
-    }
+   
+   
     @POST
     @Path("/Authenticate")
     public Response authenticate(@Context UriInfo uriInfo) {

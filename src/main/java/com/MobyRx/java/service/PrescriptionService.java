@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlElement;
  * To change this template use File | Settings | File Templates.
  */
 @Component
-@Path("/MobyRx/Prescription")
+@Path("/prescription")
 @Transactional
 public class PrescriptionService extends BaseService{
 	 private Logger logger = LoggerFactory.getLogger(PrescriptionService.class);

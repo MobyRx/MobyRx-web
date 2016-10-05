@@ -1,6 +1,9 @@
 
 package com.MobyRx.java.service;
 import com.MobyRx.java.bl.CommonBL;
+import com.MobyRx.java.bl.PatientBL;
+import com.MobyRx.java.service.wso.PatientProfileWSO;
+import com.MobyRx.java.service.wso.StatusWSO;
 import com.MobyRx.java.service.wso.UserWSO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,12 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.xml.bind.annotation.XmlElement;
@@ -27,46 +33,36 @@ import javax.xml.bind.annotation.XmlElement;
  * To change this template use File | Settings | File Templates.
  */
 @Component
-@Path("/MobyRx/PatientFamily")
+@Path("/Patient")
 @Transactional
-public class PatientFamilyService extends BaseService{
-	 private Logger logger = LoggerFactory.getLogger(PatientFamilyService.class);
+public class PatientService extends BaseService{
+	 private Logger logger = LoggerFactory.getLogger(PatientService.class);
 
 	    private CommonBL commonBL;
+	    
+	    private PatientBL patientBL;
 
 	    @Autowired(required = true)
 	    public void setCommonBL(CommonBL commonBL) {
 	        this.commonBL = commonBL;
 	    }
 	    
-	    @POST
-	    @Path("/SendFriendRequest")
-	    public Response sendFriendRequest( @Context UriInfo uriInfo) {
-	        return sendResponse(new UserWSO());
+
+	    @Autowired(required = true)
+	    public void setCommonBL(PatientBL patientBL) {
+	        this.patientBL = patientBL;
 	    }
 	    
 	    @POST
-	    @Path("/AcceptFriendRequest")
-	    public Response acceptFriendRequest(@Context UriInfo uriInfo) {
-	        return sendResponse(new UserWSO());
+	    @Consumes({MediaType.APPLICATION_JSON})
+	    @Produces({MediaType.APPLICATION_JSON})
+	    @Path("/add")
+	    public Response addPatient(PatientProfileWSO patientProfileWSO,@Context UriInfo uriInfo) throws Exception{
+	    	StatusWSO statusWSO = new StatusWSO();
+	    	patientBL.save(patientProfileWSO,statusWSO);
+	    	
+			return sendResponse(statusWSO);
 	    }
-	    
-	    @GET
-	    @Path("/ApprovedFriendList")
-	    public Response approvedFriendList(@Context UriInfo uriInfo) {
-	        return sendResponse(new UserWSO());
-	    }
-	    @GET
-	    @Path("/PendingRequestList")
-	    public Response pendingRequestList(@Context UriInfo uriInfo) {
-	        return sendResponse(new UserWSO());
-	    }
-	    @GET
-	    @Path("/GetRequestSentList")
-	    public Response getRequestSentList(@Context UriInfo uriInfo) {
-	        return sendResponse(new UserWSO());
-	    }
-	    
 }
 
 

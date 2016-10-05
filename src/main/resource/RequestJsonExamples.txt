@@ -183,7 +183,7 @@ POST
 http://localhost:8080/MobyRx/services/user/verify/mobile/otp??userId=1&otp=2345
 
 POST
-http://localhost:8080/MobyRx/services/user/doctor/add
+http://localhost:8080/MobyRx/services/doctor/add
 {  
    "id": 3,
    "createdAt":595189800000,

@@ -20,8 +20,6 @@ public interface UserBL {
 	
 	void delete(Long id, StatusWSO statusWSO)  throws Exception;
 
-	void save(DoctorProfileWSO doctorProfileWSO, StatusWSO statusWSO)throws Exception;
-	void save(PatientProfileWSO PatientProfileWSO, StatusWSO statusWSO)throws Exception;
 
 	UserEntity searchUser(String query) throws Exception;
 
