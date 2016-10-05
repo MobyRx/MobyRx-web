@@ -1,5 +1,7 @@
 Repo Details: https://github.com/MobyRx/MobyRx-web
 
+To check all rest call :
+http://localhost:8080/MobyRx/services/application.wadl
 
 http://localhost:8080/MobyRx/services/clinic/add
 POST
