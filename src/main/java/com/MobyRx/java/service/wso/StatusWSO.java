@@ -1,7 +1,5 @@
 package com.MobyRx.java.service.wso;
 
-import com.sun.org.apache.bcel.internal.generic.LSTORE;
-
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +17,7 @@ public class StatusWSO {
     private int code;
     private String message;
     private List<String> errors;
+    private boolean error=false;
 
     public int getCode() {
         return code;
@@ -55,5 +54,9 @@ public class StatusWSO {
             setErrors(new ArrayList<String>());
         }
         getErrors().addAll(errors);
+    }
+
+    public boolean hasError(){
+        return error|| null!=getErrors() && getErrors().size()>0;
     }
 }

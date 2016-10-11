@@ -6,6 +6,8 @@ import com.MobyRx.java.entity.BaseEntity;
 import com.MobyRx.java.entity.ClinicEntity;
 import com.MobyRx.java.entity.DrugsEntity;
 import com.MobyRx.java.service.wso.ClinicWSO;
+import com.MobyRx.java.service.wso.StatusWSO;
+import org.springframework.http.HttpStatus;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,22 +16,20 @@ import com.MobyRx.java.service.wso.ClinicWSO;
  * Time: 6:58 PM
  * To change this template use File | Settings | File Templates.
  */
-public class BaseBL implements com.MobyRx.java.bl.BaseBL {
+public class BaseBL{
 
-	public void executeSQLQueryUpdate(String sqlQuery) {
-		// TODO Auto-generated method stub
-		
-	}
+    protected void saveErrorMessage(StatusWSO status, int code) {
+        status.setCode(code);
+    }
 
-	public List<DrugsEntity> searchDrugs(String query) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    protected void saveSuccessMessage(StatusWSO status, String message) {
+        status.setCode(HttpStatus.OK.value());
+        status.setMessage(message);
+    }
 
-	public List getMasterData(String className) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    protected void saveSuccessMessage(StatusWSO status) {
+        status.setCode(HttpStatus.OK.value());
+    }
 
-	
+
 }

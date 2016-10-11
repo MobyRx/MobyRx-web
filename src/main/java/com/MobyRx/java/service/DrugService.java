@@ -37,19 +37,12 @@ import java.util.List;
 public class DrugService extends BaseService {
     private Logger logger = LoggerFactory.getLogger(DrugService.class);
 
-    private CommonBL commonBL;
-    
     private DrugBL drugBL;
 
-    
+
     @Autowired(required = true)
     public void setDrugBL(DrugBL drugBL) {
         this.drugBL = drugBL;
-    }
-
-    @Autowired(required = true)
-    public void setCommonBL(CommonBL commonBL) {
-        this.commonBL = commonBL;
     }
 
     @Autowired
@@ -57,36 +50,34 @@ public class DrugService extends BaseService {
 
 
     @GET
-    @Consumes({MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON})
-    public Response getDrugs(@QueryParam("query")String query, @QueryParam("filter")String filterParams) throws Exception{
+    public Response getDrugs(@QueryParam("query") String query, @QueryParam("filter") String filterParams) throws Exception {
         List<DrugsEntity> drugs = drugBL.searchDrugs(query);
         return sendResponse(wSOToEntityConversion.transform(drugs));
     }
-    
+
+
+
     @POST
     @Consumes({MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON})
     @Path("/add")
-    public Response addDrug(DrugWSO drugWSO, @Context UriInfo uriInfo) throws Exception{
-    	StatusWSO statusWSO = new StatusWSO();
-    	
-    	drugBL.save(drugWSO,statusWSO);
-    	return  sendResponse(statusWSO);
-    	}
-    
+    public Response addDrug(DrugWSO drugWSO, @Context UriInfo uriInfo) throws Exception {
+        StatusWSO statusWSO = new StatusWSO();
+        drugBL.save(drugWSO, statusWSO);
+        return sendResponse(statusWSO);
+    }
+
     @DELETE
-    @Consumes({MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON})
     @Path("/delete")
-    public Response deleteDrug(@QueryParam("drugId")String drugId, @Context UriInfo uriInfo) throws Exception{
-    	StatusWSO statusWSO = new StatusWSO();
-    	
-    	drugBL.delete(Long.parseLong(drugId),statusWSO);
-    	return  sendResponse(statusWSO);
-    	}
+    public Response deleteDrug(@QueryParam("drugId") String drugId) throws Exception {
+        StatusWSO statusWSO = new StatusWSO();
+        drugBL.delete(Long.parseLong(drugId), statusWSO);
+        return sendResponse(statusWSO);
+    }
 
-
-    
-
+    @GET
+    @Path("/drug")
+    public Response getDrug(@QueryParam("id") Long id) throws Exception {
+        DrugsEntity drug = drugBL.get(id);
+        return sendResponse(wSOToEntityConversion.transform(drug));
+    }
 }

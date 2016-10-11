@@ -233,7 +233,7 @@
                     <archive>
                         <addMavenDescriptor>false</addMavenDescriptor>
                     </archive>
-                    <outputDirectory>${application.server.deploy.dir}</outputDirectory>
+                    <!--<outputDirectory>${application.server.deploy.dir}</outputDirectory>-->
                 </configuration>
             </plugin>
         </plugins>

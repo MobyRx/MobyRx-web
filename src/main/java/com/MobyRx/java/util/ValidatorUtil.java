@@ -1,6 +1,7 @@
 package com.MobyRx.java.util;
 
 import com.MobyRx.java.service.wso.ClinicWSO;
+import com.MobyRx.java.service.wso.DrugWSO;
 import com.MobyRx.java.service.wso.StatusWSO;
 import com.MobyRx.java.service.wso.UserWSO;
 import org.apache.commons.lang.StringUtils;
@@ -28,6 +29,21 @@ public class ValidatorUtil {
     private final static String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     private final static String PATTERN_MOBILE = "^((\\+[1-9]?[0-9])|0)?[7-9][0-9]{9}$";
     public static final String DATE_FORMAT = "dd/MM/yyyy";
+
+
+    public static void validate(DrugWSO drugWSO, StatusWSO status){
+         if(StringUtils.isEmpty(drugWSO.getName()))
+             status.addError("Drug Name is required");
+        if(StringUtils.isEmpty(drugWSO.getBrandName()))
+            status.addError("Brand name is required");
+        if(StringUtils.isEmpty(drugWSO.getDrugType()))
+            status.addError("Drub type is required");
+        if(StringUtils.isEmpty(drugWSO.getPackageUnit()))
+            status.addError("Package Unit is required");
+        if(StringUtils.isEmpty(drugWSO.getManufacturer()))
+            status.addError("Manufacturer is required");
+    }
+
 
     public void validate(UserWSO userWSO, StatusWSO status) {
         if(StringUtils.isEmpty(userWSO.getEmail())){

@@ -1,10 +1,7 @@
 package com.MobyRx.java.dao;
 
-import java.util.List;
 import java.util.Map;
 
-import com.MobyRx.java.bl.BaseBL;
-import com.MobyRx.java.entity.DrugsEntity;
 import com.MobyRx.java.entity.UserEntity;;
 
 /**
