@@ -2,6 +2,7 @@ package com.MobyRx.java.bl.impl;
 
 import java.util.List;
 
+import com.MobyRx.java.entity.ProfileEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,5 +80,15 @@ public class PatientBLImpl extends CommonBLImpl implements PatientBL{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+    @Override
+    public PatientProfileEntity getPatient(Long id) throws Exception {
+        return patientDao.get(PatientProfileEntity.class, id);
+    }
+
+    @Override
+    public List<PatientProfileEntity> getDependentPatient(Long id) throws Exception {
+        return patientDao.get(PatientProfileEntity.class, "parentPatient", id);
+    }
 
 }

@@ -1,7 +1,8 @@
-
 package com.MobyRx.java.service;
+
 import com.MobyRx.java.bl.CommonBL;
 import com.MobyRx.java.bl.PatientBL;
+import com.MobyRx.java.service.wso.DataMapper;
 import com.MobyRx.java.service.wso.PatientProfileWSO;
 import com.MobyRx.java.service.wso.StatusWSO;
 import com.MobyRx.java.service.wso.UserWSO;
@@ -33,36 +34,37 @@ import javax.xml.bind.annotation.XmlElement;
  * To change this template use File | Settings | File Templates.
  */
 @Component
-@Path("/Patient")
+@Path("/patient")
 @Transactional
-public class PatientService extends BaseService{
-	 private Logger logger = LoggerFactory.getLogger(PatientService.class);
+public class PatientService extends BaseService {
+    private Logger logger = LoggerFactory.getLogger(PatientService.class);
 
-	    private CommonBL commonBL;
-	    
-	    private PatientBL patientBL;
+    private PatientBL patientBL;
 
-	    @Autowired(required = true)
-	    public void setCommonBL(CommonBL commonBL) {
-	        this.commonBL = commonBL;
-	    }
-	    
 
-	    @Autowired(required = true)
-	    public void setCommonBL(PatientBL patientBL) {
-	        this.patientBL = patientBL;
-	    }
-	    
-	    @POST
-	    @Consumes({MediaType.APPLICATION_JSON})
-	    @Produces({MediaType.APPLICATION_JSON})
-	    @Path("/add")
-	    public Response addPatient(PatientProfileWSO patientProfileWSO,@Context UriInfo uriInfo) throws Exception{
-	    	StatusWSO statusWSO = new StatusWSO();
-	    	patientBL.save(patientProfileWSO,statusWSO);
-	    	
-			return sendResponse(statusWSO);
-	    }
+    @Autowired(required = true)
+    public void setCommonBL(PatientBL patientBL) {
+        this.patientBL = patientBL;
+    }
+
+    @GET
+    public Response get(@QueryParam("id")Long id) throws Exception {
+        return sendResponse(DataMapper.transform(patientBL.getPatient(id)));
+    }
+
+    @GET
+    @Path("/dependent")
+    public Response getDependent(@QueryParam("id")Long id) throws Exception {
+        return sendResponse(DataMapper.transformPatients(patientBL.getDependentPatient(id)));
+    }
+
+    @POST
+    @Path("/add")
+    public Response addPatient(PatientProfileWSO patientProfileWSO, @Context UriInfo uriInfo) throws Exception {
+        StatusWSO statusWSO = new StatusWSO();
+        patientBL.save(patientProfileWSO, statusWSO);
+        return sendResponse(statusWSO);
+    }
 }
 
 

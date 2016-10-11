@@ -1,13 +1,9 @@
 package com.MobyRx.java.service;
 import com.MobyRx.java.bl.ClinicBL;
 import com.MobyRx.java.bl.CommonBL;
-import com.MobyRx.java.bl.impl.ClinicBLImpl;
-import com.MobyRx.java.dao.impl.ClinicDaoImpl;
 import com.MobyRx.java.entity.ClinicEntity;
-import com.MobyRx.java.service.wso.UserWSO;
 import com.MobyRx.java.service.wso.ClinicWSO;
-import com.MobyRx.java.service.wso.DrugWSO;
-import com.MobyRx.java.service.wso.EntityToWSOConversion;
+import com.MobyRx.java.service.wso.DataMapper;
 import com.MobyRx.java.service.wso.StatusWSO;
 
 import org.slf4j.Logger;
@@ -18,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -28,7 +23,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import javax.xml.bind.annotation.XmlElement;
 
 
 /**
@@ -102,7 +96,7 @@ public class ClinicService extends BaseService{
 	    	StatusWSO statusWSO = new StatusWSO();
 	    	ClinicEntity clinicEntity=null;
 	    	clinicEntity = clinicBL.get(Long.parseLong(clinicId),statusWSO);
-	    	ClinicWSO  clinicWSO = EntityToWSOConversion.clinicEntityToClinicWSo(clinicEntity);
+	    	ClinicWSO  clinicWSO = DataMapper.clinicEntityToClinicWSo(clinicEntity);
 	    	logger.info("clinicWSO  ="+clinicWSO.toString());
 	    	return  sendResponse(clinicWSO);
 	    }

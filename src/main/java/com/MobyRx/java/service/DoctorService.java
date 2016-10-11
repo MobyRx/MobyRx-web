@@ -1,12 +1,9 @@
 package com.MobyRx.java.service;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -18,13 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.MobyRx.java.bl.ClinicBL;
 import com.MobyRx.java.bl.CommonBL;
 import com.MobyRx.java.bl.DoctorBL;
-import com.MobyRx.java.entity.ClinicEntity;
-import com.MobyRx.java.service.wso.ClinicWSO;
 import com.MobyRx.java.service.wso.DoctorProfileWSO;
-import com.MobyRx.java.service.wso.EntityToWSOConversion;
 import com.MobyRx.java.service.wso.StatusWSO;
 
 @Component
