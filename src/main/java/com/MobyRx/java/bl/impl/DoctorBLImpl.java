@@ -53,7 +53,8 @@ public class DoctorBLImpl extends CommonBLImpl implements DoctorBL{
 	for(ClinicWSO clinicWSO : doctorProfileWSO.getClinic())
 	{
 		logger.info("clinicWSO.getId()="+clinicWSO.getId());
-		ClinicEntity clinicEntity = doctorDao.get(ClinicEntity.class, clinicWSO.getId());
+		ClinicEntity clinicEntity = new ClinicEntity();//doctorDao.get(ClinicEntity.class, clinicWSO.getId());
+		clinicEntity.setId(1L);
 		clinicEntityList.add(clinicEntity);
 	}
 	doctorProfileEntity.setClinic(clinicEntityList);

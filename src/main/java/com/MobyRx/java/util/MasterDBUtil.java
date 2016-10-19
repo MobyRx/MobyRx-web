@@ -34,7 +34,7 @@ public class MasterDBUtil {
     @Value("${hibernate.hbm2ddl.auto}")
     private String HBM2_DDL = "";
 
-    private boolean isProcessing = true;
+    private boolean isProcessing = false;
 
 
     public String getMASTER_QUERY_FILE() {
@@ -68,6 +68,7 @@ public class MasterDBUtil {
         }
         isProcessing = true;
         logger.info("hbm command:- " + getHBM2_DDL());
+        logger.info("hbm getMASTER_QUERY_FILE:- " + getMASTER_QUERY_FILE());
         if (null == getHBM2_DDL() || !"create".equalsIgnoreCase(getHBM2_DDL().trim()))
             return;
         StringBuilder sb = new StringBuilder();
@@ -78,9 +79,10 @@ public class MasterDBUtil {
             String s = "";
             while ((s = br.readLine()) != null) {
                 sb.append(s);
+                sb.append("QuerySeperator");
             }
             br.close();
-            String[] queries = sb.toString().split(";");
+            String[] queries = sb.toString().split("QuerySeperator");
             for (String query : queries) {
                 if (!query.trim().equals("")) {
                     commonBL.executeSQLQueryUpdate(query.trim());

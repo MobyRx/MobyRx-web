@@ -81,12 +81,10 @@ public class PatientBLImpl extends CommonBLImpl implements PatientBL{
 		return null;
 	}
 
-    @Override
     public PatientProfileEntity getPatient(Long id) throws Exception {
         return patientDao.get(PatientProfileEntity.class, id);
     }
 
-    @Override
     public List<PatientProfileEntity> getDependentPatient(Long id) throws Exception {
         return patientDao.get(PatientProfileEntity.class, "parentPatient", id);
     }

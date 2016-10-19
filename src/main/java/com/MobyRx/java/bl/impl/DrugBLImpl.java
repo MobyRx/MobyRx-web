@@ -52,7 +52,6 @@ public class DrugBLImpl extends BaseBL implements DrugBL {
 		return this.drugDao.searchDrugs(param, query);
 	}
 
-    @Override
     public DrugsEntity get(Long id) throws Exception {
         return drugDao.get(DrugsEntity.class, id);
     }

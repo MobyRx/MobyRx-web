@@ -31,5 +31,20 @@ public class BaseBL{
         status.setCode(HttpStatus.OK.value());
     }
 
+	public void executeSQLQueryUpdate(String sqlQuery) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public List getMasterData(String className) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<DrugsEntity> searchDrugs(String query) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }
