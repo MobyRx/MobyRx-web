@@ -58,8 +58,6 @@ public class DrugService extends BaseService {
 
 
     @POST
-    @Consumes({MediaType.APPLICATION_JSON})
-    @Path("/add")
     public Response addDrug(DrugWSO drugWSO, @Context UriInfo uriInfo) throws Exception {
         StatusWSO statusWSO = new StatusWSO();
         drugBL.save(drugWSO, statusWSO);
@@ -67,17 +65,16 @@ public class DrugService extends BaseService {
     }
 
     @DELETE
-    @Path("/delete")
     public Response deleteDrug(@QueryParam("drugId") String drugId) throws Exception {
         StatusWSO statusWSO = new StatusWSO();
         drugBL.delete(Long.parseLong(drugId), statusWSO);
         return sendResponse(statusWSO);
     }
 
-    @GET
+  /*  @GET
     @Path("/drug")
     public Response getDrug(@QueryParam("id") Long id) throws Exception {
         DrugsEntity drug = drugBL.get(id);
         return sendResponse(wSOToEntityConversion.transform(drug));
-    }
+    }*/
 }

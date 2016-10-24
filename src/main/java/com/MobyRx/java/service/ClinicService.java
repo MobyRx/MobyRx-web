@@ -16,6 +16,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -54,22 +55,13 @@ public class ClinicService extends BaseService{
 	    }
 	    
 	    @POST
-	    @Consumes({MediaType.APPLICATION_JSON})
-	    @Produces({MediaType.APPLICATION_JSON})
-	    @Path("/add")
 	    public Response addClinic(ClinicWSO clinicWSO, @Context UriInfo uriInfo) throws Exception{
 	    	StatusWSO statusWSO = new StatusWSO();
-	   
-	    	
 	    	clinicBL.save(clinicWSO,statusWSO);
-	    	
 	    	return  sendResponse(statusWSO);
 	    	}
 	    
-	    @POST
-	    @Consumes({MediaType.APPLICATION_JSON})
-	    @Produces({MediaType.APPLICATION_JSON})
-	    @Path("/modify")
+	    @PUT
 	    public Response modifyClinic(ClinicWSO clinicWSO, @Context UriInfo uriInfo) throws Exception{
 	    	StatusWSO statusWSO = new StatusWSO();
 	    		clinicBL.update(clinicWSO,statusWSO);
@@ -78,9 +70,6 @@ public class ClinicService extends BaseService{
 	    }
 	    
 	    @DELETE
-	    @Consumes({MediaType.APPLICATION_JSON})
-	    @Produces({MediaType.APPLICATION_JSON})
-	    @Path("/delete")
 	    public Response deleteClinic(@QueryParam("clinicId")String clinicId,@Context UriInfo uriInfo) throws Exception{
 	    	StatusWSO statusWSO = new StatusWSO();
 	    		clinicBL.delete(Long.parseLong(clinicId),statusWSO);
@@ -89,9 +78,6 @@ public class ClinicService extends BaseService{
 	    }
 	    
 	    @GET
-	    @Consumes({MediaType.APPLICATION_JSON})
-	    @Produces({MediaType.APPLICATION_JSON})
-	    @Path("/get")
 	    public Response getClinic(@QueryParam("clinicId")String clinicId,@Context UriInfo uriInfo) throws Exception{
 	    	StatusWSO statusWSO = new StatusWSO();
 	    	ClinicEntity clinicEntity=null;

@@ -59,7 +59,6 @@ public class PatientService extends BaseService {
     }
 
     @POST
-    @Path("/add")
     public Response addPatient(PatientProfileWSO patientProfileWSO, @Context UriInfo uriInfo) throws Exception {
         StatusWSO statusWSO = new StatusWSO();
         patientBL.save(patientProfileWSO, statusWSO);

@@ -45,15 +45,8 @@ public class ValidatorUtil {
     }
 
 
-    public void validate(UserWSO userWSO, StatusWSO status) {
-        if(StringUtils.isEmpty(userWSO.getEmail())){
-            status.addError("Email required");
-        }else if(!isValidEmail(userWSO.getEmail())){
-            status.addError("Invalid Email Address");
-        }
-    }
     
-    public void validateUser(UserWSO userWSO, StatusWSO status) {
+    public void validate(UserWSO userWSO, StatusWSO status) {
         if(StringUtils.isEmpty(userWSO.getEmail())){
         	status.setCode(400);
             status.addError("Email required");
@@ -79,7 +72,7 @@ public class ValidatorUtil {
         }
     }
     
-    public void validateClinic(ClinicWSO clinicWSO, StatusWSO status) {
+    public void validate(ClinicWSO clinicWSO, StatusWSO status) {
         if(StringUtils.isEmpty(clinicWSO.getEmail())){
         	status.setCode(400);
             status.addError("Email required");
@@ -96,10 +89,7 @@ public class ValidatorUtil {
             status.addError("Invalid PhoneNumber");
         }
     }
-    public void validate(ClinicWSO clinicWSO, StatusWSO status) {
-
-    }
-
+   
     public static boolean isValidEmail(String email) {
         return email.matches(PATTERN_EMAIL);
     }

@@ -22,6 +22,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -60,9 +61,6 @@ public class UserActivityService extends BaseService{
     }
 
     @POST
-    @Consumes({MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON})
-    @Path("/add")
     public Response addUser(UserWSO userWSO,@Context UriInfo uriInfo) throws Exception{
     	logger.info("within add user");
     	StatusWSO statusWSO = new StatusWSO();
@@ -71,10 +69,7 @@ public class UserActivityService extends BaseService{
     		return sendResponse(statusWSO);
     }
     
-    @POST
-    @Consumes({MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON})
-    @Path("/modify")
+    @PUT
     public Response modifyUser(UserWSO userWSO,@Context UriInfo uriInfo) throws Exception{
     	StatusWSO statusWSO = new StatusWSO();
     	userBL.update(userWSO,statusWSO);
@@ -82,9 +77,6 @@ public class UserActivityService extends BaseService{
     }
     
     @DELETE
-    @Consumes({MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON})
-    @Path("/delete")
     public Response modifyUser(@QueryParam("userId")String userId,@Context UriInfo uriInfo) throws Exception{
 
     	StatusWSO statusWSO = new StatusWSO();
@@ -92,10 +84,8 @@ public class UserActivityService extends BaseService{
     	userBL.delete(id,statusWSO);	
 		return sendResponse(statusWSO);
     }
+    
     @GET
-    @Consumes({MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON})
-    @Path("/get")
     public Response getUser(@QueryParam("query")String query, @QueryParam("filter")String filterParams) throws Exception{
        UserEntity user = userBL.searchUser(query);
         
@@ -103,9 +93,7 @@ public class UserActivityService extends BaseService{
     }
     
     @GET
-    @Consumes({MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON})
-    @Path("/get/mobile/otp")
+    @Path("/generate/otp")
     public Response getMobileOTP(@QueryParam("userId")String userId,@Context UriInfo uriInfo) throws Exception{
     	logger.info("within");
     	StatusWSO statusWSO = new StatusWSO();
@@ -114,12 +102,8 @@ public class UserActivityService extends BaseService{
 		return sendResponse(statusWSO);
     }
     
-    
-    
     @POST
-    @Consumes({MediaType.APPLICATION_JSON})
-    @Produces({MediaType.APPLICATION_JSON})
-    @Path("/verify/mobile/otp")
+    @Path("/verify/otp")
     public Response verifyMobileOTP(@QueryParam("userId")String userId,@QueryParam("otp")String otp,@Context UriInfo uriInfo) throws Exception{
     	StatusWSO statusWSO = new StatusWSO();
     	

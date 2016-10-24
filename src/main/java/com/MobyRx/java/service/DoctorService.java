@@ -42,15 +42,10 @@ public class DoctorService extends BaseService{
 	    }
 	    
 	    @POST
-	    @Path("/add")
-	    @Consumes({MediaType.APPLICATION_JSON})
-	    @Produces({MediaType.APPLICATION_JSON})
 	    public Response addDoctor(DoctorProfileWSO doctorProfileWSO,@Context UriInfo uriInfo) throws Exception{
 	    	logger.info("within add doctor");
 	    	StatusWSO statusWSO = new StatusWSO();
-	    	
 	    	doctorBL.save(doctorProfileWSO,statusWSO);
-	    	
 			return sendResponse(statusWSO);
 	    }
 	    

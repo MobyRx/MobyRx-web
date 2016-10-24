@@ -39,7 +39,7 @@ public class ClinicBLImpl extends CommonBLImpl implements ClinicBL {
 	public void save(ClinicWSO clinicWSO,StatusWSO statusWSO)  throws Exception{
 
 		ValidatorUtil validatorUtil = new ValidatorUtil();
-		validatorUtil.validateClinic(clinicWSO,statusWSO);
+		validatorUtil.validate(clinicWSO,statusWSO);
 		if(statusWSO.getCode()==400)
 		{
 			return;
@@ -78,7 +78,7 @@ public class ClinicBLImpl extends CommonBLImpl implements ClinicBL {
 
 	public void update(ClinicWSO clinicWSO,StatusWSO statusWSO)  throws Exception{
 		ValidatorUtil validatorUtil = new ValidatorUtil();
-		validatorUtil.validateClinic(clinicWSO,statusWSO);
+		validatorUtil.validate(clinicWSO,statusWSO);
 		if(statusWSO.getCode()==400)
 		{
 			return;
@@ -93,7 +93,6 @@ public class ClinicBLImpl extends CommonBLImpl implements ClinicBL {
 			ServiceEntityList.add(serviceEntity);
 
 		}
-
 		addressEntity.setBuildingNumber(clinicWSO.getAddress().getBuildingNumber());
 		addressEntity.setCity(clinicWSO.getAddress().getCity());
 		addressEntity.setCountry(clinicWSO.getAddress().getCountry());
@@ -105,10 +104,8 @@ public class ClinicBLImpl extends CommonBLImpl implements ClinicBL {
 		addressEntity.setStreet(clinicWSO.getAddress().getStreet());
 		addressEntity.setUpdatedAt(clinicWSO.getUpdatedAt());
 		addressEntity.setZipCode(clinicWSO.getAddress().getZipCode());
-
 		clinicCategoryEntity.setDescription(clinicWSO.getCategory().getDescription());
 		clinicCategoryEntity.setName(clinicWSO.getCategory().getName());
-
 		clinicEntity.setAddress(addressEntity);
 		clinicEntity.setCategory(clinicCategoryEntity);
 		clinicEntity.setCreatedAt(clinicWSO.getCreatedAt());
@@ -138,9 +135,7 @@ public class ClinicBLImpl extends CommonBLImpl implements ClinicBL {
 	}
 
 	public void delete(long id,StatusWSO statusWSO) throws Exception {
-
 		clinicDao.delete(ClinicEntity.class, id);
-
 		statusWSO.setCode(200);
 		statusWSO.setMessage("Sucessful");
 

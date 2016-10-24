@@ -3,7 +3,7 @@ Repo Details: https://github.com/MobyRx/MobyRx-web
 To check all rest call :
 http://localhost:8080/MobyRx/services/application.wadl
 
-http://localhost:8080/MobyRx/services/clinic/add
+http://localhost:8080/MobyRx/services/clinic/
 POST
 {  
    "id":1,
@@ -48,8 +48,8 @@ POST
       "description":"Allopathic"
    }
 }
-http://localhost:8080/MobyRx/services/clinic/modify
-POST
+http://localhost:8080/MobyRx/services/clinic/
+PUT
 {  
    "id":5,
    "createdAt":689797800000,
@@ -95,10 +95,10 @@ POST
 }
 
 
-http://localhost:8080/MobyRx/services/clinic/delete?clinicId=2
+http://localhost:8080/MobyRx/services/clinic?clinicId=2
 DELETE
 
-http://localhost:8080/MobyRx/services/clinic/get?clinicId=2
+http://localhost:8080/MobyRx/services/clinic?clinicId=2
 GET
 
 
@@ -107,7 +107,7 @@ http://localhost:8080/MobyRx/services/drug?query=name
 GET
 
 
-http://localhost:8080/MobyRx/services/drug/add
+http://localhost:8080/MobyRx/services/drug/
 POST
 {
 "id":null,
@@ -124,10 +124,10 @@ POST
 
 }
 
-http://localhost:8080/MobyRx/services/drug/delete?drugId=103347
+http://localhost:8080/MobyRx/services/drug?drugId=103347
 DELETE
 
-http://localhost:8080/MobyRx/services/user/add
+http://localhost:8080/MobyRx/services/user
 POST
 {  
    "id":5,
@@ -150,9 +150,9 @@ POST
    ]
 }
 
-http://localhost:8080/MobyRx/services/user/modify
+http://localhost:8080/MobyRx/services/user
 
-POST
+PUT
 
 {  
    "id":2,
@@ -176,16 +176,16 @@ POST
 }
 
 DELETE
-http://localhost:8080/MobyRx/services/user/delete?userId=1
+http://localhost:8080/MobyRx/services/user?userId=1
 
 GET
-http://localhost:8080/MobyRx/services/user/get/mobile/otp?userId=1
+http://localhost:8080/MobyRx/services/user/generate/otp?userId=1
 
 POST
-http://localhost:8080/MobyRx/services/user/verify/mobile/otp??userId=1&otp=2345
+http://localhost:8080/MobyRx/services/user/verify/mobile/otp?userId=1&otp=2345
 
 POST
-http://localhost:8080/MobyRx/services/doctor/add
+http://localhost:8080/MobyRx/services/doctor
 {  
    "id": 3,
    "createdAt":595189800000,

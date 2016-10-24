@@ -61,7 +61,7 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 	public void save(UserWSO userWSO,StatusWSO statusWSO) throws Exception
 	{
 		ValidatorUtil validatorUtil = new ValidatorUtil();
-		validatorUtil.validateUser(userWSO,statusWSO);
+		validatorUtil.validate(userWSO,statusWSO);
 		if(statusWSO.getCode()==400)
 		{
 			return;
@@ -167,7 +167,7 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 	public void update(UserWSO userWSO, StatusWSO statusWSO)  throws Exception
 	{
 		ValidatorUtil validatorUtil = new ValidatorUtil();
-		validatorUtil.validateUser(userWSO,statusWSO);
+		validatorUtil.validate(userWSO,statusWSO);
 		if(statusWSO.getCode()==400)
 		{
 			return;

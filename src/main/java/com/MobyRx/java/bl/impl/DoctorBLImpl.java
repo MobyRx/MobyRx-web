@@ -29,74 +29,67 @@ import com.MobyRx.java.service.wso.WSOToEntityConversion;
 @Repository("doctorBL")
 @Transactional
 public class DoctorBLImpl extends CommonBLImpl implements DoctorBL{
-	
+
 	@Autowired
 	private DoctorDao doctorDao;
 
 
 	private Logger logger = LoggerFactory.getLogger(DoctorBLImpl.class);
-	
+
 	public void save(DoctorProfileWSO doctorProfileWSO, StatusWSO statusWSO) throws Exception {
-
-	DoctorProfileEntity doctorProfileEntity = new DoctorProfileEntity();
-	doctorProfileEntity.setAchievements(doctorProfileWSO.getAchievements());
-	AddressEntity addressEntity = WSOToEntityConversion.addressWSOToAddressEntity(doctorProfileWSO.getAddress());
-	//AddressEntity.setId(null);
-
-	doctorProfileEntity.setAddress(addressEntity);
-	doctorProfileEntity.setCertificateNumber(doctorProfileWSO.getCertificateNumber());
-	doctorProfileEntity.setCertification(doctorProfileWSO.getCertification());
-	if(doctorProfileWSO.getClinic().size()>0)
-	{
-	doctorProfileEntity.setClinic(null);
-	Set<ClinicEntity> clinicEntityList = new HashSet<ClinicEntity>();
-	for(ClinicWSO clinicWSO : doctorProfileWSO.getClinic())
-	{
-		logger.info("clinicWSO.getId()="+clinicWSO.getId());
-		ClinicEntity clinicEntity = doctorDao.get(ClinicEntity.class, clinicWSO.getId());
-		clinicEntity.setId(1L);
-		clinicEntityList.add(clinicEntity);
-	}
-	doctorProfileEntity.setClinic(clinicEntityList);
-	}
-	doctorProfileEntity.setCreatedAt(doctorProfileWSO.getCreatedAt());
-	doctorProfileEntity.setEmergencyContacts(WSOToEntityConversion.emergencyContactToEmergencyContactEntity(doctorProfileWSO.getEmergencyContacts()));
-	doctorProfileEntity.setGender(WSOToEntityConversion.genderWSOTOGenderEntity(doctorProfileWSO.getGender()));
-	doctorProfileEntity.setMedRegNumber(doctorProfileWSO.getMedRegNumber());
-	doctorProfileEntity.setName(doctorProfileWSO.getName());
-	doctorProfileEntity.setPracticeStartAt(doctorProfileWSO.getPracticeStartAt());
-	doctorProfileEntity.setQualification(doctorProfileWSO.getQualification());
-	Set<SpecializationEntity> specializationEntityList = new HashSet<SpecializationEntity>();
-	if(doctorProfileWSO.getSpecializations().size()>0)
-	{
-		for(SpecializationWSO specializationWSO : doctorProfileWSO.getSpecializations())
+		DoctorProfileEntity doctorProfileEntity = new DoctorProfileEntity();
+		doctorProfileEntity.setAchievements(doctorProfileWSO.getAchievements());
+		AddressEntity addressEntity = WSOToEntityConversion.addressWSOToAddressEntity(doctorProfileWSO.getAddress());
+		doctorProfileEntity.setAddress(addressEntity);
+		doctorProfileEntity.setCertificateNumber(doctorProfileWSO.getCertificateNumber());
+		doctorProfileEntity.setCertification(doctorProfileWSO.getCertification());
+		if(doctorProfileWSO.getClinic().size()>0)
 		{
-			SpecializationEntity SpecializationEntity = doctorDao.get(SpecializationEntity.class, specializationWSO.getId());
-			specializationEntityList.add(SpecializationEntity);
+			doctorProfileEntity.setClinic(null);
+			Set<ClinicEntity> clinicEntityList = new HashSet<ClinicEntity>();
+			for(ClinicWSO clinicWSO : doctorProfileWSO.getClinic())
+			{
+				logger.info("clinicWSO.getId()="+clinicWSO.getId());
+				ClinicEntity clinicEntity = doctorDao.get(ClinicEntity.class, clinicWSO.getId());
+				clinicEntityList.add(clinicEntity);
+			}
+			doctorProfileEntity.setClinic(clinicEntityList);
 		}
-		doctorProfileEntity.setSpecializations(specializationEntityList);
-	}
-	else
-	{
-		doctorProfileEntity.setSpecializations(null);
-	}
-	doctorProfileEntity.setUpdatedAt(doctorProfileWSO.getUpdatedAt());
-	Long userId= doctorProfileWSO.getUser().getId();
-	UserEntity userEntity = (UserEntity)doctorDao.get(UserEntity.class, userId);
-	doctorProfileEntity.setUser(userEntity);
-	//doctorProfileEntity.setId(null);
-	doctorProfileEntity.setVerified(doctorProfileWSO.isVerified());
-	doctorDao.save(doctorProfileEntity);
-	
-	statusWSO.setCode(200);
-	statusWSO.setMessage("Sucessful");
-	
-		
+		doctorProfileEntity.setCreatedAt(doctorProfileWSO.getCreatedAt());
+		doctorProfileEntity.setEmergencyContacts(WSOToEntityConversion.emergencyContactToEmergencyContactEntity(doctorProfileWSO.getEmergencyContacts()));
+		doctorProfileEntity.setGender(WSOToEntityConversion.genderWSOTOGenderEntity(doctorProfileWSO.getGender()));
+		doctorProfileEntity.setMedRegNumber(doctorProfileWSO.getMedRegNumber());
+		doctorProfileEntity.setName(doctorProfileWSO.getName());
+		doctorProfileEntity.setPracticeStartAt(doctorProfileWSO.getPracticeStartAt());
+		doctorProfileEntity.setQualification(doctorProfileWSO.getQualification());
+		Set<SpecializationEntity> specializationEntityList = new HashSet<SpecializationEntity>();
+		if(doctorProfileWSO.getSpecializations().size()>0)
+		{
+			for(SpecializationWSO specializationWSO : doctorProfileWSO.getSpecializations())
+			{
+				SpecializationEntity SpecializationEntity = doctorDao.get(SpecializationEntity.class, specializationWSO.getId());
+				specializationEntityList.add(SpecializationEntity);
+			}
+			doctorProfileEntity.setSpecializations(specializationEntityList);
+		}
+		else
+		{
+			doctorProfileEntity.setSpecializations(null);
+		}
+		doctorProfileEntity.setUpdatedAt(doctorProfileWSO.getUpdatedAt());
+		Long userId= doctorProfileWSO.getUser().getId();
+		UserEntity userEntity = (UserEntity)doctorDao.get(UserEntity.class, userId);
+		doctorProfileEntity.setUser(userEntity);
+		doctorProfileEntity.setVerified(doctorProfileWSO.isVerified());
+		doctorDao.save(doctorProfileEntity);
+		statusWSO.setCode(200);
+		statusWSO.setMessage("Sucessful");
+
 	}
 
 	public void update(DoctorProfileWSO doctorProfileWSO, StatusWSO statusWSO) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public List<DoctorProfileWSO> searchDoctor(String query) throws Exception {
@@ -104,6 +97,6 @@ public class DoctorBLImpl extends CommonBLImpl implements DoctorBL{
 		return null;
 	}
 
-	
+
 
 }

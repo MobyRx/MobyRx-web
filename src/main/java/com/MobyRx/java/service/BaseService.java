@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
  * To change this template use File | Settings | File Templates.
  */
 
+@Consumes({MediaType.APPLICATION_JSON})
 @Produces({MediaType.APPLICATION_JSON})
 public class BaseService {
 
