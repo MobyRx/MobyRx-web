@@ -88,7 +88,7 @@ public class BaseDaoImpl implements com.MobyRx.java.dao.BaseDao {
 
 
     
-    public <T extends Object> T get( Class<T> clazz, Long id) throws Exception{
+    public <T extends Object> T get( Class<T> clazz, Long id){
 //    	Criteria criteria = getCurrentSession().createCriteria(UserEntity.class)
 //    			.add(Restrictions.eq("id", id));
 //    	criteria.uniqueResult();
