@@ -15,6 +15,10 @@ public interface DoctorBL {
 
     public List<DoctorProfileEntity> searchDoctor(Map<String,String> filterParam) throws Exception;
     
-    public DoctorProfileEntity get(Long id) throws Exception;
+    DoctorProfileEntity get(Long id) throws Exception;
+
+    void deleteDoctor(Long id);
+
+
 
 }

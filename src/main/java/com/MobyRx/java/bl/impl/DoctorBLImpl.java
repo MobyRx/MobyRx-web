@@ -100,5 +100,9 @@ public class DoctorBLImpl extends CommonBLImpl implements DoctorBL {
         return doctorProfile;
     }
 
+    @Override
+    public void deleteDoctor(Long id) {
+        this.doctorDao.softDelete(DoctorProfileEntity.class, id);
+    }
 
 }

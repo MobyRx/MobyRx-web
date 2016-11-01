@@ -2,8 +2,8 @@ package com.MobyRx.java.entity;
 
 
 import com.MobyRx.java.entity.converter.EmergencyContactConverter;
-import com.MobyRx.java.entity.converter.StringArrayToStringConverter;
 import com.MobyRx.java.entity.type.Gender;
+import com.MobyRx.java.entity.type.Status;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -27,6 +27,7 @@ public class ProfileEntity extends BaseEntity{
     private AddressEntity address;
     private Gender gender;
     private List<EmergencyContact> emergencyContacts;
+    private Status status;
 
     public String getName() {
         return name;
@@ -73,5 +74,14 @@ public class ProfileEntity extends BaseEntity{
 
     public void setEmergencyContacts(List<EmergencyContact> emergencyContacts) {
         this.emergencyContacts = emergencyContacts;
+    }
+
+    @Enumerated(EnumType.STRING)
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

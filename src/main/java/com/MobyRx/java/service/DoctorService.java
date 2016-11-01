@@ -64,4 +64,12 @@ public class DoctorService extends BaseService {
         return sendResponse(DataMapper.transform(doctorProfile));
     }
 
+
+    @DELETE
+    @Path("/{doctorId}")
+    public Response deleteDoctor(@PathParam("doctorId")Long id) throws Exception{
+        this.doctorBL.deleteDoctor(id);
+        return Response.ok().build();
+    }
+
 }

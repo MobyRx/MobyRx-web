@@ -1,8 +1,6 @@
 package com.MobyRx.java.dao.impl;
 
-import com.MobyRx.java.entity.BaseEntity;
-import com.MobyRx.java.entity.UserEntity;
-
+import com.MobyRx.java.entity.type.Status;
 import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
@@ -30,40 +28,34 @@ public class BaseDaoImpl implements com.MobyRx.java.dao.BaseDao {
     }
 
     public void executeSQLQueryUpdate(String sqlQuery) {
-        SQLQuery query =getCurrentSession().createSQLQuery(sqlQuery);
-         query.executeUpdate();
-        
- 
+        SQLQuery query = getCurrentSession().createSQLQuery(sqlQuery);
+        query.executeUpdate();
     }
-    public List getSQLQuery(String sqlQuery) throws Exception{
-        SQLQuery query =getCurrentSession().createSQLQuery(sqlQuery);
+
+    public List getSQLQuery(String sqlQuery) throws Exception {
+        SQLQuery query = getCurrentSession().createSQLQuery(sqlQuery);
         List<Object> list = query.list();
         return list;
- 
-    }
-   
 
-    public void save(Object object)  throws Exception{
-    	try
-    	{
-        getCurrentSession().saveOrUpdate(object);
-    	}
-    	catch(Exception Ex)
-    	{
-    		logger.error(Ex.getMessage());
-    	}
-       
     }
 
-    public void saveAll(List objectList){
+    public void save(Object object) throws Exception {
+        try {
+            getCurrentSession().saveOrUpdate(object);
+        } catch (Exception Ex) {
+            logger.error(Ex.getMessage());
+        }
+    }
+
+    public void saveAll(List objectList) {
         for (Object object : objectList) {
-            try{
+            try {
                 getCurrentSession().saveOrUpdate(object);
-            }catch (JDBCException jdbce){
+            } catch (JDBCException jdbce) {
                 logger.error(jdbce.toString());
-                if(jdbce.getErrorCode()==1062 && jdbce.getSQLState().equals("23000")){
-                    logger.error("Duplicate Object :- "+ object.toString());
-                }else{
+                if (jdbce.getErrorCode() == 1062 && jdbce.getSQLState().equals("23000")) {
+                    logger.error("Duplicate Object :- " + object.toString());
+                } else {
                     //throw jdbce;
                 }
             }
@@ -79,16 +71,23 @@ public class BaseDaoImpl implements com.MobyRx.java.dao.BaseDao {
     }
 
     public void delete(Class clazz, Long id) {
- 
-        String hql = "delete from "+ clazz.getName() + " where id=:id";
+        String hql = "delete from " + clazz.getName() + " where id=:id";
         Query query = getCurrentSession().createQuery(hql);
         query.setParameter("id", id);
         query.executeUpdate();
     }
-
-
     
-    public <T extends Object> T get( Class<T> clazz, Long id){
+    public void softDelete(Class clazz, Long id){
+        String hql = "update DoctorProfileEntity d set d.status =:status where d.id=:id";
+        Query query = getCurrentSession().createQuery(hql);
+        query.setParameter("id", id);
+        query.setParameter("status", Status.DELETED);
+        query.executeUpdate();
+    }
+        
+
+
+    public <T extends Object> T get(Class<T> clazz, Long id) {
 //    	Criteria criteria = getCurrentSession().createCriteria(UserEntity.class)
 //    			.add(Restrictions.eq("id", id));
 //    	criteria.uniqueResult();
@@ -98,32 +97,31 @@ public class BaseDaoImpl implements com.MobyRx.java.dao.BaseDao {
 //    	
 //    	getCurrentSession().get(clazz, id);
 //    	UserEntity u = (UserEntity)getCurrentSession().createCriteria(clazz)
- //   	.add(Restrictions.eq("id", 5l)).uniqueResult();
-  //  	u.getEmail();
-        return (T)getCurrentSession().load(clazz, id);
+        //   	.add(Restrictions.eq("id", 5l)).uniqueResult();
+        //  	u.getEmail();
+        return (T) getCurrentSession().load(clazz, id);
     }
 
-    
-  
-    public <T extends Object> List get( Class<T> clazz,String associatedProperty, Long id) {
+
+    public <T extends Object> List get(Class<T> clazz, String associatedProperty, Long id) {
         Criteria criteria = getCurrentSession().createCriteria(clazz)
                 .createAlias(associatedProperty, "prop")
                 .add(Restrictions.eq("prop.id", id));
         return criteria.list();
     }
-    
+
 
     public Session getCurrentSession() {
         Session session = null;
-        try{
+        try {
             session = sessionFactory.getCurrentSession();
-        }catch (HibernateException he){
+        } catch (HibernateException he) {
             session = sessionFactory.openSession();
         }
-        if(null == session)
+        if (null == session)
             session = sessionFactory.openSession();
         return session;
     }
 
-	
+
 }
