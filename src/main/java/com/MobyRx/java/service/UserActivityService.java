@@ -77,7 +77,7 @@ public class UserActivityService extends BaseService{
     }
     
     @DELETE
-    public Response modifyUser(@QueryParam("userId")String userId,@Context UriInfo uriInfo) throws Exception{
+    public Response deleteUser(@QueryParam("userId")String userId,@Context UriInfo uriInfo) throws Exception{
 
     	StatusWSO statusWSO = new StatusWSO();
     	Long id=Long.parseLong(userId);

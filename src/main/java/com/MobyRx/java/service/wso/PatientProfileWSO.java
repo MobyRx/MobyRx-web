@@ -3,6 +3,8 @@ package com.MobyRx.java.service.wso;
 
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +15,7 @@ import java.util.List;
  * Time: 11:05 PM
  * To change this template use File | Settings | File Templates.
  */
-
+@XmlRootElement(name = "patient")
 public class PatientProfileWSO extends ProfileWSO{
 
     private Date dob;

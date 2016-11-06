@@ -11,5 +11,6 @@ public interface ClinicBL {
 	public void update(ClinicWSO clinicWSO,StatusWSO statusWSO) throws Exception;
 	public ClinicEntity get(long id,StatusWSO statusWSO) throws Exception;
 	public void delete(long id,StatusWSO statusWSO) throws Exception;
+	public ClinicEntity getClinicByDoctorId(long parseLong, StatusWSO statusWSO) throws Exception;
 
 }

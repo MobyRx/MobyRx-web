@@ -5,6 +5,7 @@ import com.MobyRx.java.entity.type.BloodGroup;
 import com.MobyRx.java.entity.type.Gender;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +21,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "user")
+@XmlRootElement(name = "UserEntity")
 public class UserEntity extends BaseEntity{
 
 

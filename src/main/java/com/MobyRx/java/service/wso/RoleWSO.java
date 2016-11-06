@@ -1,5 +1,7 @@
 package com.MobyRx.java.service.wso;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import com.MobyRx.java.entity.BaseEntity;
 
 /**
@@ -9,7 +11,7 @@ import com.MobyRx.java.entity.BaseEntity;
  * Time: 5:30 PM
  * To change this template use File | Settings | File Templates.
  */
-
+@XmlRootElement(name = "role")
 public class RoleWSO extends BaseWSO{
 
    

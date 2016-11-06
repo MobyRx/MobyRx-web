@@ -5,6 +5,8 @@ import com.MobyRx.java.entity.type.Gender;
 import com.MobyRx.java.entity.type.RelationshipType;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +18,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
+@XmlRootElement(name = "PatientProfileEntity")
 public class PatientProfileEntity extends ProfileEntity{
 
     private Date dob;
@@ -54,7 +57,7 @@ public class PatientProfileEntity extends ProfileEntity{
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parents_id", nullable = false)
+    @JoinColumn(name = "parents_id", nullable=true)
     public PatientProfileEntity getParentPatient() {
         return parentPatient;
     }

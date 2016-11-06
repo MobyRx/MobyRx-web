@@ -1,6 +1,7 @@
 package com.MobyRx.java.dao;
 
 
+import com.MobyRx.java.entity.DoctorProfileEntity;
 import com.MobyRx.java.entity.DrugsEntity;
 
 import java.util.List;
@@ -14,5 +15,7 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public interface DoctorDao extends BaseDao{
+
+	List<DoctorProfileEntity> searchDoctor(Map<String, Object> param, String query);
 
 }

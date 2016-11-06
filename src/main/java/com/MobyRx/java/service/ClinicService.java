@@ -82,7 +82,17 @@ public class ClinicService extends BaseService{
 	    	StatusWSO statusWSO = new StatusWSO();
 	    	ClinicEntity clinicEntity=null;
 	    	clinicEntity = clinicBL.get(Long.parseLong(clinicId),statusWSO);
-	    	ClinicWSO  clinicWSO = DataMapper.clinicEntityToClinicWSo(clinicEntity);
+	    	ClinicWSO  clinicWSO = DataMapper.transform(clinicEntity);
+	    	logger.info("clinicWSO  ="+clinicWSO.toString());
+	    	return  sendResponse(clinicWSO);
+	    }
+	    @GET
+	    @Path("/byDoctor")
+	    public Response getClinicByDoctor(@QueryParam("doctorId")String clinicId,@Context UriInfo uriInfo) throws Exception{
+	    	StatusWSO statusWSO = new StatusWSO();
+	    	ClinicEntity clinicEntity=null;
+	    	clinicEntity = clinicBL.getClinicByDoctorId(Long.parseLong(clinicId),statusWSO);
+	    	ClinicWSO  clinicWSO = DataMapper.transform(clinicEntity);
 	    	logger.info("clinicWSO  ="+clinicWSO.toString());
 	    	return  sendResponse(clinicWSO);
 	    }

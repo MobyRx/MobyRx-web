@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * Time: 6:07 PM
  * To change this template use File | Settings | File Templates.
  */
-
+@XmlRootElement(name = "specialization")
 public class SpecializationWSO {
 
     

@@ -10,6 +10,8 @@ import com.MobyRx.java.entity.master.RoleEntity;
 import com.MobyRx.java.entity.master.ServiceEntity;
 import com.MobyRx.java.entity.master.SpecializationEntity;
 import com.MobyRx.java.entity.type.BloodGroup;
+import com.MobyRx.java.entity.type.DoseType;
+import com.MobyRx.java.entity.type.DurationType;
 import com.MobyRx.java.entity.type.Gender;
 import com.MobyRx.java.entity.type.RelationshipType;
 
@@ -104,7 +106,7 @@ public class WSOToEntityConversion {
 
 	}
 
-	public static List<ServiceEntity>  serviceEntityToServiceWSO(List<ServiceWSO> serviceWSO)
+	public static List<ServiceEntity> serviceEntityToServiceWSO(List<ServiceWSO> serviceWSO)
 	{
 		List<ServiceEntity> serviceEntityList= new ArrayList<ServiceEntity>();
 		for (ServiceWSO service : serviceWSO) {
@@ -120,21 +122,21 @@ public class WSOToEntityConversion {
 	{
 
 
-		if( bloodGroupWSO.equals(BloodGroup.A_NEGATIVE) )
+		if( bloodGroupWSO.name().equals(BloodGroup.A_NEGATIVE.name()) )
 			return BloodGroup.A_NEGATIVE;
-		else if( bloodGroupWSO.equals(BloodGroup.A_POSITIVE) )
+		else if( bloodGroupWSO.name().equals(BloodGroup.A_POSITIVE.name()) )
 			return BloodGroup.A_POSITIVE;
-		else if( bloodGroupWSO.equals(BloodGroup.AB_NEGATIVE) )
+		else if( bloodGroupWSO.name().equals(BloodGroup.AB_NEGATIVE.name()) )
 			return BloodGroup.AB_NEGATIVE;
-		else if( bloodGroupWSO.equals(BloodGroup.AB_POSITIVE) )
+		else if( bloodGroupWSO.name().equals(BloodGroup.AB_POSITIVE.name()) )
 			return BloodGroup.AB_POSITIVE;
-		else if( bloodGroupWSO.equals(BloodGroup.B_NEGATIVE) )
+		else if( bloodGroupWSO.name().equals(BloodGroup.B_NEGATIVE.name()) )
 			return BloodGroup.B_NEGATIVE;
-		else if( bloodGroupWSO.equals(BloodGroup.B_POSITIVE) )
+		else if( bloodGroupWSO.name().equals(BloodGroup.B_POSITIVE.name()) )
 			return BloodGroup.B_POSITIVE;
-		else if( bloodGroupWSO.equals(BloodGroup.O_NEGATIVE) )
+		else if( bloodGroupWSO.name().equals(BloodGroup.O_NEGATIVE.name()) )
 			return BloodGroup.O_NEGATIVE;
-		else if( bloodGroupWSO.equals(BloodGroup.O_POSITIVE) )
+		else if( bloodGroupWSO.name().equals(BloodGroup.O_POSITIVE.name()) )
 			return BloodGroup.O_POSITIVE;
 		return null;
 
@@ -143,17 +145,17 @@ public class WSOToEntityConversion {
 	public static RelationshipType relationshipEntityWSOToRelationshipTypeEntity(RelationshipWSO relationshipWSO)
 	{
 
-		if( relationshipWSO.equals(RelationshipType.BROTHER) )
+		if( relationshipWSO.name().equals(RelationshipType.BROTHER.name()) )
 			return RelationshipType.BROTHER;
-		else if( relationshipWSO.equals(RelationshipType.CHILD) )
+		else if( relationshipWSO.name().equals(RelationshipType.CHILD.name()) )
 			return RelationshipType.CHILD;
-		else if( relationshipWSO.equals(RelationshipType.FATHER) )
+		else if( relationshipWSO.name().equals(RelationshipType.FATHER.name()) )
 			return RelationshipType.FATHER;
-		else if( relationshipWSO.equals(RelationshipType.MOTHER) )
+		else if( relationshipWSO.name().equals(RelationshipType.MOTHER.name()) )
 			return RelationshipType.MOTHER;
-		else if( relationshipWSO.equals(RelationshipType.SISTER) )
+		else if( relationshipWSO.name().equals(RelationshipType.SISTER.name()) )
 			return RelationshipType.SISTER;
-		else if( relationshipWSO.equals(RelationshipType.WIFE) )
+		else if( relationshipWSO.name().equals(RelationshipType.WIFE.name()) )
 			return RelationshipType.WIFE;
 		return null;
 	}
@@ -173,12 +175,57 @@ public class WSOToEntityConversion {
 	}
 
 	public static Gender genderWSOTOGenderEntity(GenderWSO genderWSO){
-		if( genderWSO.equals(Gender.FEMALE) )
+		if(genderWSO.name().equals(Gender.FEMALE.name()))
+		{
 			return Gender.FEMALE;
+		}
 		else
 			return Gender.MALE;
+		
 
-	} 	 
+	} 
+	public static DoseType doseWSOToDoseType(DoseWSO doseWSO){
+		if(doseWSO.name().equals(DoseType._0_0_1.name()))
+		{
+			return DoseType._0_0_1;
+		}else if(doseWSO.name().equals(DoseType._0_1_1.name()))
+		{
+			return DoseType._0_1_1;
+		}
+		else if(doseWSO.name().equals(DoseType._1_0_0.name()))
+		{
+			return DoseType._1_0_0;
+		}
+		else if(doseWSO.name().equals(DoseType._1_0_1.name()))
+		{
+			return DoseType._1_0_1;
+		}
+		else if(doseWSO.name().equals(DoseType._1_1_0.name()))
+		{
+			return DoseType._1_1_0;
+		}
+		else
+		{
+			return DoseType._1_1_1;
+		}	
+
+	} 	
+	public static DurationType durationWSOToDurationType(DurationWSO durationWSO){
+		 if(durationWSO.name().equals(DurationType.DAYS.name()))
+		{
+			return DurationType.DAYS;
+		}else if(durationWSO.name().equals(DurationType.MONTH.name()))
+		{
+			return DurationType.MONTH;
+		}else if(durationWSO.name().equals(DurationType.WEEK.name()))
+		{
+			return DurationType.WEEK;
+		}else 
+		{
+			return DurationType.YEAR;
+		}
+		
+	}
 	public static Set<SpecializationEntity>  specializationWSOToSpecializationEntity(Set<SpecializationWSO> specializationsWSO){
 		Set<SpecializationEntity> specializationEntitys= new HashSet<SpecializationEntity>();
 

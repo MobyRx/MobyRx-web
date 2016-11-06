@@ -226,7 +226,7 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 		
 		userDao.save(otpEntity);
 		logger.info("sendSms");
-		sendSms(userEntity.getMobile(),otp);
+		//sendSms(userEntity.getMobile(),otp);
 		}
 		
 		statusWSO.setCode(200);

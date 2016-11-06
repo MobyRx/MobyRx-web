@@ -141,6 +141,11 @@ public class ClinicBLImpl extends CommonBLImpl implements ClinicBL {
 
 	}
 
+	public ClinicEntity getClinicByDoctorId(long id, StatusWSO statusWSO) throws Exception {
+		ClinicEntity clinicEntity = clinicDao.get(ClinicEntity.class, id);
+		return null;
+	}
+
 
 
 }

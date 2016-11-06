@@ -2,6 +2,8 @@ package com.MobyRx.java.service.wso;
 
 import java.util.Set;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -10,7 +12,7 @@ import java.util.Set;
  * Time: 1:10 PM
  * To change this template use File | Settings | File Templates.
  */
-
+@XmlRootElement(name = "user")
 public class UserWSO extends BaseWSO{
 
 

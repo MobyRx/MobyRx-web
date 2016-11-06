@@ -5,6 +5,8 @@ import com.MobyRx.java.entity.master.ClinicCategoryEntity;
 import com.MobyRx.java.entity.master.ServiceEntity;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +19,7 @@ import java.util.List;
  */
 @Entity
 @javax.persistence.Table(name = "clinic")
+@XmlRootElement(name = "clinic")
 public class ClinicEntity extends BaseEntity{
     
     private String name;

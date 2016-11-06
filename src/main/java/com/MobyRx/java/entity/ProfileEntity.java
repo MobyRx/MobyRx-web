@@ -6,6 +6,8 @@ import com.MobyRx.java.entity.converter.StringArrayToStringConverter;
 import com.MobyRx.java.entity.type.Gender;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +22,7 @@ import java.util.List;
 @Table(name = "profile")
 @Inheritance(strategy= InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn( name="classname")
+@XmlRootElement(name = "profile")
 public class ProfileEntity extends BaseEntity{
 
     private String name;
@@ -37,7 +40,7 @@ public class ProfileEntity extends BaseEntity{
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = true)
     public UserEntity getUser() {
         return user;
     }
@@ -46,7 +49,7 @@ public class ProfileEntity extends BaseEntity{
         this.user = user;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", nullable = true)
     public AddressEntity getAddress() {
         return address;
@@ -65,6 +68,7 @@ public class ProfileEntity extends BaseEntity{
         this.gender = gender;
     }
 
+    @Transient
     @Column(name = "emergency_contact")
     @Convert(converter = EmergencyContactConverter.class)
     public List<EmergencyContact> getEmergencyContacts() {

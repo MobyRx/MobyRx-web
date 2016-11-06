@@ -6,11 +6,13 @@ import com.MobyRx.java.entity.type.Gender;
 import com.MobyRx.java.entity.converter.*;
 import com.MobyRx.java.service.wso.ClinicWSO;
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-
+@XmlRootElement(name = "doctor")
 public class DoctorProfileWSO extends ProfileWSO{
 
     private String medRegNumber;

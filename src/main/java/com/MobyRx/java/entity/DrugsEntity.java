@@ -1,6 +1,7 @@
 package com.MobyRx.java.entity;
 
 import javax.persistence.Entity;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,6 +12,7 @@ import javax.persistence.Entity;
  */
 @Entity
 @javax.persistence.Table(name = "drugs")
+@XmlRootElement(name = "drugs")
 public class DrugsEntity extends BaseEntity{
 
     private String name;

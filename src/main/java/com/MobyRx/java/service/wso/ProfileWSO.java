@@ -4,10 +4,12 @@ package com.MobyRx.java.service.wso;
 import com.MobyRx.java.service.wso.*;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import java.util.Date;
 import java.util.List;
 
-
+@XmlRootElement(name = "ProfileWSO")
 public class ProfileWSO extends BaseWSO{
 	private String name;
 	private AddressWSO address;

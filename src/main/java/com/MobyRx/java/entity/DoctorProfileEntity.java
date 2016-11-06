@@ -5,6 +5,8 @@ import com.MobyRx.java.entity.master.SpecializationEntity;
 import com.MobyRx.java.entity.type.Gender;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -17,6 +19,7 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
+@XmlRootElement(name = "doctor")
 public class DoctorProfileEntity extends ProfileEntity{
 
     private String medRegNumber;
@@ -38,6 +41,7 @@ public class DoctorProfileEntity extends ProfileEntity{
         this.medRegNumber = medRegNumber;
     }
 
+    
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "doctor_specialization_p", joinColumns = @JoinColumn(name = "doctor_id"),
             inverseJoinColumns = @JoinColumn(name = "specialization_id"))
