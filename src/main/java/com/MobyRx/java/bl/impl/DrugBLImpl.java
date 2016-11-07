@@ -36,7 +36,7 @@ public class DrugBLImpl extends BaseBL implements DrugBL {
         if(status.hasError()){
             saveErrorMessage(status, HttpStatus.BAD_REQUEST.value());
         }
-		DrugsEntity drugsEntity=WSOToEntityConversion.drugWSOToDrugsEntity(drugWSO);
+		DrugsEntity drugsEntity=WSOToEntityConversion.transform(drugWSO);
 		drugDao.save(drugsEntity);
         saveSuccessMessage(status, "Save successfully");
 	}

@@ -64,6 +64,12 @@ public class DoctorService extends BaseService {
         return sendResponse(DataMapper.transform(doctorProfile));
     }
 
+    @PUT
+    public Response updateDoctor(DoctorProfileWSO doctorProfileWSO,@Context UriInfo uriInfo) throws Exception{
+    	StatusWSO statusWSO = new StatusWSO();
+    	doctorBL.update(doctorProfileWSO,statusWSO);
+		return sendResponse(statusWSO);
+    }
 
     @DELETE
     @Path("/{doctorId}")

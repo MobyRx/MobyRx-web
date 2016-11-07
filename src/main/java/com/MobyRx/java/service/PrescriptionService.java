@@ -1,12 +1,21 @@
 
 package com.MobyRx.java.service;
 import com.MobyRx.java.bl.CommonBL;
+import com.MobyRx.java.bl.PatientBL;
+import com.MobyRx.java.bl.PrescriptionBL;
+import com.MobyRx.java.entity.PrescriptionEntity;
+import com.MobyRx.java.service.wso.DataMapper;
+import com.MobyRx.java.service.wso.PatientProfileWSO;
+import com.MobyRx.java.service.wso.PrescriptionWSO;
+import com.MobyRx.java.service.wso.StatusWSO;
 import com.MobyRx.java.service.wso.UserWSO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -32,55 +41,31 @@ import javax.xml.bind.annotation.XmlElement;
 public class PrescriptionService extends BaseService{
 	 private Logger logger = LoggerFactory.getLogger(PrescriptionService.class);
 
-	    private CommonBL commonBL;
+	  
+	    private PrescriptionBL prescriptionBL;
+
 
 	    @Autowired(required = true)
-	    public void setCommonBL(CommonBL commonBL) {
-	        this.commonBL = commonBL;
+	    public void setCommonBL(PrescriptionBL prescriptionBL) {
+	        this.prescriptionBL = prescriptionBL;
 	    }
-	    
+
 	    @POST
-	    @Path("/Create")
-	    public Response create( @Context UriInfo uriInfo) {
-	        return sendResponse(new UserWSO());
+	    public Response addPrescription(PrescriptionWSO prescriptionWSO, @Context UriInfo uriInfo) throws Exception {
+	        StatusWSO statusWSO = new StatusWSO();
+	        prescriptionBL.save(prescriptionWSO, statusWSO);
+	        return sendResponse(statusWSO);
 	    }
 	    
 	    @GET
-	    @Path("/GetPrescriptionByPatientId")
-	    public Response getPrescriptionByPatientId(@Context UriInfo uriInfo) {
-	        return sendResponse(new UserWSO());
+	    @Path("/byPatientId")
+	    public Response getPrescriptionByPatientId(@QueryParam("patientId")String patientId,@Context UriInfo uriInfo) throws Exception{
+	        StatusWSO statusWSO = new StatusWSO();
+	       List<PrescriptionEntity> prescriptionEntity= prescriptionBL.getPrescriptionByPatientId(Long.parseLong(patientId), statusWSO);
+	       List<PrescriptionWSO> prescriptionWSO=DataMapper.transformPrescription(prescriptionEntity);
+	        return sendResponse(prescriptionWSO);
 	    }
 	    
-	    @GET
-	    @Path("/GetPrescriptionByPatientToken")
-	    public Response getPrescriptionByPatientToken(@Context UriInfo uriInfo) {
-	        return sendResponse(new UserWSO());
-	    }
-	    @GET
-	    @Path("/GetPrescriptionByDoctorId")
-	    public Response getPrescriptionByDoctorId(@Context UriInfo uriInfo) {
-	        return sendResponse(new UserWSO());
-	    }
-	    @GET
-	    @Path("/GetPrescriptionByDependentId")
-	    public Response getPrescriptionByDependentId(@Context UriInfo uriInfo) {
-	        return sendResponse(new UserWSO());
-	    }
-	    @GET
-	    @Path("/GetPrescriptionByDoctorIdDate")
-	    public Response getPrescriptionByDoctorIdDate(@Context UriInfo uriInfo) {
-	        return sendResponse(new UserWSO());
-	    }
-	    @GET
-	    @Path("/GetPrescriptionByPrescriptionId")
-	    public Response getPrescriptionByPrescriptionId(@Context UriInfo uriInfo) {
-	        return sendResponse(new UserWSO());
-	    }
-	    @GET
-	    @Path("/GetPatientOrderByPrescriptionId")
-	    public Response getPatientOrderByPrescriptionId(@Context UriInfo uriInfo) {
-	        return sendResponse(new UserWSO());
-	    }
 	    
 }
 

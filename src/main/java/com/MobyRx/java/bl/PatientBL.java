@@ -1,6 +1,7 @@
 package com.MobyRx.java.bl;
 
 import java.util.List;
+import java.util.Map;
 
 import com.MobyRx.java.entity.DrugsEntity;
 import com.MobyRx.java.entity.PatientProfileEntity;
@@ -15,7 +16,7 @@ public interface PatientBL {
 
      void update(PatientProfileWSO patientProfileWSO, StatusWSO statusWSO) throws Exception;
 
-     List<PatientProfileWSO> searchPatient(String query) throws Exception;
+     List<PatientProfileEntity> searchPatient(Map<String, String> queryParam) throws Exception;
 
     PatientProfileEntity getPatient(Long id) throws Exception;
 

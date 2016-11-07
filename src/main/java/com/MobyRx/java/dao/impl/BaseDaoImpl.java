@@ -88,17 +88,6 @@ public class BaseDaoImpl implements com.MobyRx.java.dao.BaseDao {
 
 
     public <T extends Object> T get(Class<T> clazz, Long id) {
-//    	Criteria criteria = getCurrentSession().createCriteria(UserEntity.class)
-//    			.add(Restrictions.eq("id", id));
-//    	criteria.uniqueResult();
-//    	String hql = "From UserEntity where id=3";
-//    	getCurrentSession().createQuery("From UserEntity where id=3").list();
-//    	
-//    	
-//    	getCurrentSession().get(clazz, id);
-//    	UserEntity u = (UserEntity)getCurrentSession().createCriteria(clazz)
-        //   	.add(Restrictions.eq("id", 5l)).uniqueResult();
-        //  	u.getEmail();
         return (T) getCurrentSession().load(clazz, id);
     }
 

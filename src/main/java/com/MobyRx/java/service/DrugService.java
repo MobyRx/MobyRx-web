@@ -52,7 +52,7 @@ public class DrugService extends BaseService {
     @GET
     public Response getDrugs(@QueryParam("query") String query, @QueryParam("filter") String filterParams) throws Exception {
         List<DrugsEntity> drugs = drugBL.searchDrugs(query);
-        return sendResponse(wSOToEntityConversion.transform(drugs));
+        return sendResponse(wSOToEntityConversion.transformDrugs(drugs));
     }
 
 

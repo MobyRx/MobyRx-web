@@ -82,7 +82,7 @@ public class ClinicService extends BaseService{
 	    	StatusWSO statusWSO = new StatusWSO();
 	    	ClinicEntity clinicEntity=null;
 	    	clinicEntity = clinicBL.get(Long.parseLong(clinicId),statusWSO);
-	    	ClinicWSO  clinicWSO = DataMapper.clinicEntityToClinicWSo(clinicEntity);
+	    	ClinicWSO  clinicWSO = DataMapper.transform(clinicEntity);
 	    	logger.info("clinicWSO  ="+clinicWSO.toString());
 	    	return  sendResponse(clinicWSO);
 	    }

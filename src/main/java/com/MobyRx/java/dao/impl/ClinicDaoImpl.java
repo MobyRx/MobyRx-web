@@ -14,9 +14,12 @@ import com.MobyRx.java.service.wso.StatusWSO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -32,5 +35,21 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Repository("clinicDao")
 public class ClinicDaoImpl extends BaseDaoImpl implements ClinicDao {
+	
+	 public List<ClinicEntity> searchClinic(Map<String, Object> fieldParam, String query) {
+	        Criteria criteria = getCurrentSession().createCriteria(ClinicEntity.class);
+	        if (null != fieldParam) {
+	            for (String filedName : fieldParam.keySet()) {
+	                criteria.add(Restrictions.eq(filedName, fieldParam.get(filedName)));
+	            }
+	        }
+	        criteria.add(Restrictions.disjunction()
+	                .add(Restrictions.ilike("name", query, MatchMode.START))
+	                .add(Restrictions.ilike("category.name", query, MatchMode.START)));
+	        return criteria.list();
+	    }
+
+
+
 	
 }

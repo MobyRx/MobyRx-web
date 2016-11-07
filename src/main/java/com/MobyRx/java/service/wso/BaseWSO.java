@@ -2,6 +2,8 @@ package com.MobyRx.java.service.wso;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+@XmlRootElement(name = "BaseWSO")
 public abstract class BaseWSO {
 
 

@@ -246,3 +246,415 @@ http://localhost:8080/MobyRx/services/doctor
 ],
    "verified":false
 }
+
+GET
+http://localhost:8080/MobyRx/services/doctor/2
+GET
+http://localhost:8080/MobyRx/services/doctor?mobile=9108249868
+
+DELETE
+http://localhost:8080/MobyRx/services/doctor/2
+
+PUT
+http://localhost:8080/MobyRx/services/doctor
+(use above json with modified value)
+
+GET
+http://localhost:8080/MobyRx/services/doctor?mobile=9108249868
+
+http://localhost:8080/MobyRx/services/patient
+POST
+{  
+   "id":1,
+   "createdAt":1515609000000,
+   "updatedAt":1515609000000,
+   "name":"manas",
+   "address":{  
+      "id":1,
+      "createdAt":689797800000,
+      "updatedAt":689797800000,
+      "buildingNumber":"1",
+      "street":"guthalu",
+      "landmark":"harlimara",
+      "city":"mandya",
+      "state":"karnata",
+      "country":null,
+      "zipCode":"5714301",
+      "latitude":1098,
+      "longitude":3647
+   },
+   "gender":"MALE",
+   "emergencyContacts":[  
+      {  
+         "name":"Dad",
+         "mobile":"2345666778"
+      }
+   ],
+   "user":{  
+      "id":3
+},
+   "dob":595189800000,
+   "age":22,
+   "bloodGroup":"B_POSITIVE",
+   "parentPatient":  {
+      "id":3
+},
+   "relationship":"MOTHER"
+}
+
+
+{  
+   "id":12,
+   "createdAt":1515609000000,
+   "updatedAt":1515609000000,
+   "prescriptionNumber":1234,
+   "doctor":{  
+      "id":34
+      },
+   "patient":{  
+      "id":1
+      },
+   "clinic":{  
+      "id":1
+      },
+   "instruction":"alergy",
+   "nextAppointment":null,
+   "prescriptionItems":[  
+      {  
+         "id":234,
+         "createdAt":1515609000000,
+         "updatedAt":1515609000000,
+         "prescription":null,
+         "drugs":{  
+            "id":1234,
+           },
+         "drugName":"para",
+         "instruction":null,
+         "quantity":2,
+         "duration":2,
+         "durationType":"DAYS",
+         "beforeFood":false,
+         "doseType":"_0_0_1"
+      }
+   ]
+}
+
+PUT
+http://localhost:8080/MobyRx/services/patient
+(use above json with modified value)
+GET
+http://localhost:8080/MobyRx/services/patient/4
+GET
+http://localhost:8080/MobyRx/services/patient/dependent?id=3
+DELETE
+http://localhost:8080/MobyRx/services/patient/4
+
+GET
+http://localhost:8080/MobyRx/services/patient?mobile=8970209090
+
+
+
+
+POST
+http://localhost:8080/MobyRx/services/prescription/
+{  
+      "prescriptionNumber":2345,
+      "doctor":{  
+         "name":"udaychandu00",
+         "address":{  
+            "id":2,
+            "createdAt":595189800000,
+            "updatedAt":595189800000,
+            "buildingNumber":"2",
+            "street":"guthalu1",
+            "landmark":"harlimara1",
+            "city":"mandya",
+            "state":"karnata",
+            "country":"India",
+            "zipCode":"571403",
+            "latitude":1098,
+            "longitude":3647
+         },
+         "gender":"MALE",
+         "emergencyContacts":null,
+         "user":{  
+            "username":"uday123",
+            "mobile":"9108249868",
+            "email":"uday123@gmail.com",
+            "password":"Chandu123",
+            "emailVerified":false,
+            "mobileVerified":false,
+            "roles":[  
+               {  
+                  "name":"Doctor",
+                  "description":"Doctor",
+                  "id":1,
+                  "createdAt":1475058600000,
+                  "updatedAt":1475058600000
+               }
+            ],
+            "id":1,
+            "createdAt":689797800000,
+            "updatedAt":689797800000
+         },
+         "id":2,
+         "createdAt":595189800000,
+         "updatedAt":595189800000
+      },
+      "patient":{  
+         "name":"vijaya",
+         "address":{  
+            "id":3,
+            "createdAt":689797800000,
+            "updatedAt":689797800000,
+            "buildingNumber":"1",
+            "street":"guthalu",
+            "landmark":"harlimara",
+            "city":"mandya",
+            "state":"karnata",
+            "country":null,
+            "zipCode":"5714301",
+            "latitude":1098,
+            "longitude":3647
+         },
+         "gender":"FEMALE",
+         "emergencyContacts":null,
+         "user":{  
+            "username":"vijaya",
+            "mobile":"8970209090",
+            "email":"vijaya@gmail.com",
+            "password":"Chandu123",
+            "emailVerified":false,
+            "mobileVerified":false,
+            "roles":[  
+               {  
+                  "name":"Patient",
+                  "description":"Patient",
+                  "id":2,
+                  "createdAt":1475058600000,
+                  "updatedAt":1475058600000
+               }
+            ],
+            "id":2,
+            "createdAt":689797800000,
+            "updatedAt":689797800000
+         },
+         "id":3,
+         "createdAt":1515609000000,
+         "updatedAt":1515609000000
+      },
+      "clinic":{  
+         "name":"Asha",
+         "address":{  
+            "id":1,
+            "createdAt":689797800000,
+            "updatedAt":689797800000,
+            "buildingNumber":"1",
+            "street":"guthalu",
+            "landmark":"harlimara",
+            "city":"mandya",
+            "state":"karnata",
+            "country":null,
+            "zipCode":"5714301",
+            "latitude":1098,
+            "longitude":3647
+         },
+         "phoneNumber":"9108249868",
+         "email":"uday@gmail.com",
+         "licenceNumber":"1234",
+         "registrationDate":689797800000,
+         "url":"www.something.com",
+         "category":{  
+            "id":1,
+            "name":"Allopathic",
+            "description":"Allopathic"
+         },
+         "services":[  
+            {  
+               "id":1,
+               "name":"Emergency",
+               "description":"Emergency"
+            },
+            {  
+               "id":2,
+               "name":"Maternity",
+               "description":"Maternity"
+            }
+         ],
+         "verified":false,
+         "id":1,
+         "createdAt":689797800000,
+         "updatedAt":689797800000
+      },
+      "instruction":"alergy",
+      "nextAppointment":null,
+      "prescriptionItems":[  
+         {  
+            "prescription":{  
+               "prescriptionNumber":1234,
+               "doctor":{  
+                  "name":"udaychandu00",
+                  "address":{  
+                     "id":2,
+                     "createdAt":595189800000,
+                     "updatedAt":595189800000,
+                     "buildingNumber":"2",
+                     "street":"guthalu1",
+                     "landmark":"harlimara1",
+                     "city":"mandya",
+                     "state":"karnata",
+                     "country":"India",
+                     "zipCode":"571403",
+                     "latitude":1098,
+                     "longitude":3647
+                  },
+                  "gender":"MALE",
+                  "emergencyContacts":null,
+                  "user":{  
+                     "username":"uday123",
+                     "mobile":"9108249868",
+                     "email":"uday123@gmail.com",
+                     "password":"Chandu123",
+                     "emailVerified":false,
+                     "mobileVerified":false,
+                     "roles":[  
+                        {  
+                           "name":"Doctor",
+                           "description":"Doctor",
+                           "id":1,
+                           "createdAt":1475058600000,
+                           "updatedAt":1475058600000
+                        }
+                     ],
+                     "id":1,
+                     "createdAt":689797800000,
+                     "updatedAt":689797800000
+                  },
+                  "id":2,
+                  "createdAt":595189800000,
+                  "updatedAt":595189800000
+               },
+               "patient":{  
+                  "name":"vijaya",
+                  "address":{  
+                     "id":3,
+                     "createdAt":689797800000,
+                     "updatedAt":689797800000,
+                     "buildingNumber":"1",
+                     "street":"guthalu",
+                     "landmark":"harlimara",
+                     "city":"mandya",
+                     "state":"karnata",
+                     "country":null,
+                     "zipCode":"5714301",
+                     "latitude":1098,
+                     "longitude":3647
+                  },
+                  "gender":"FEMALE",
+                  "emergencyContacts":null,
+                  "user":{  
+                     "username":"vijaya",
+                     "mobile":"8970209090",
+                     "email":"vijaya@gmail.com",
+                     "password":"Chandu123",
+                     "emailVerified":false,
+                     "mobileVerified":false,
+                     "roles":[  
+                        {  
+                           "name":"Patient",
+                           "description":"Patient",
+                           "id":2,
+                           "createdAt":1475058600000,
+                           "updatedAt":1475058600000
+                        }
+                     ],
+                     "id":2,
+                     "createdAt":689797800000,
+                     "updatedAt":689797800000
+                  },
+                  "id":3,
+                  "createdAt":1515609000000,
+                  "updatedAt":1515609000000
+               },
+               "clinic":{  
+                  "name":"Asha",
+                  "address":{  
+                     "id":1,
+                     "createdAt":689797800000,
+                     "updatedAt":689797800000,
+                     "buildingNumber":"1",
+                     "street":"guthalu",
+                     "landmark":"harlimara",
+                     "city":"mandya",
+                     "state":"karnata",
+                     "country":null,
+                     "zipCode":"5714301",
+                     "latitude":1098,
+                     "longitude":3647
+                  },
+                  "phoneNumber":"9108249868",
+                  "email":"uday@gmail.com",
+                  "licenceNumber":"1234",
+                  "registrationDate":689797800000,
+                  "url":"www.something.com",
+                  "category":{  
+                     "id":1,
+                     "name":"Allopathic",
+                     "description":"Allopathic"
+                  },
+                  "services":[  
+                     {  
+                        "id":1,
+                        "name":"Emergency",
+                        "description":"Emergency"
+                     },
+                     {  
+                        "id":2,
+                        "name":"Maternity",
+                        "description":"Maternity"
+                     }
+                  ],
+                  "verified":false,
+                  "id":1,
+                  "createdAt":689797800000,
+                  "updatedAt":689797800000
+               },
+               "instruction":"alergy",
+               "nextAppointment":null,
+               "prescriptionItems":null,
+               "id":3,
+               "createdAt":1477412873000,
+               "updatedAt":1477412873000
+            },
+            "drugs":{  
+               "name":"1 AL (30 ml)",
+               "manufacturer":"FDC Limited",
+               "brandName":null,
+               "drugType":"Syrup",
+               "measurementUnit":"5 ml",
+               "constituent":"Levocetirizine(2.5 mg);",
+               "packageUnit":"30 ml",
+               "price":22.0,
+               "id":1,
+               "createdAt":null,
+               "updatedAt":null
+            },
+            "drugName":"para",
+            "instruction":null,
+            "quantity":2,
+            "duration":2,
+            "durationType":"DAYS",
+            "beforeFood":false,
+            "doseType":"_0_0_1",
+            "id":2,
+            "createdAt":1477412873000,
+            "updatedAt":1477412873000
+         }
+      ],
+      "id":3,
+      "createdAt":1477412873000,
+      "updatedAt":1477412873000
+   }
+   
+ GET  
+ http://localhost:8080/MobyRx/services/prescription/byPatientId?patientId=3

@@ -45,7 +45,7 @@ public class ClinicBLImpl extends CommonBLImpl implements ClinicBL {
 			return;
 		}
 
-		ClinicEntity clinicEntity = WSOToEntityConversion.ClinicWSOToClinicEntity(clinicWSO);
+		ClinicEntity clinicEntity = WSOToEntityConversion.transform(clinicWSO);
 		clinicEntity.setId(null);
 		clinicEntity.getAddress().setId(null);
 		if(clinicWSO.getCategory().getId()!=null)
