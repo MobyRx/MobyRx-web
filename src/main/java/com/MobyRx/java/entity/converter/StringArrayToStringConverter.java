@@ -16,7 +16,7 @@ import java.util.Arrays;
 public class StringArrayToStringConverter implements AttributeConverter<ArrayList,String> {
 
     public String convertToDatabaseColumn(ArrayList arrayList) {
-        return arrayList == null ? null : StringUtils.join(arrayList, ",");
+        return arrayList == null ? "" : StringUtils.join(arrayList, ",");
     }
 
     public ArrayList<String> convertToEntityAttribute(String dbData) {

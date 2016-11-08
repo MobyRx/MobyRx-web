@@ -179,6 +179,9 @@ DELETE
 http://localhost:8080/MobyRx/services/user?userId=1
 
 GET
+http://localhost:8080/MobyRx/services/user?query=9108249868
+
+GET
 http://localhost:8080/MobyRx/services/user/generate/otp?userId=1
 
 POST

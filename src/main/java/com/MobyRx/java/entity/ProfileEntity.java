@@ -47,7 +47,7 @@ public class ProfileEntity extends BaseEntity{
         this.user = user;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", nullable = true)
     public AddressEntity getAddress() {
         return address;
@@ -65,7 +65,8 @@ public class ProfileEntity extends BaseEntity{
     public void setGender(Gender gender) {
         this.gender = gender;
     }
-
+    
+    @Transient
     @Column(name = "emergency_contact")
     @Convert(converter = EmergencyContactConverter.class)
     public List<EmergencyContact> getEmergencyContacts() {

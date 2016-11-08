@@ -76,7 +76,7 @@ public class UserActivityService extends BaseService {
     @GET
     public Response getUser(@QueryParam("query") String query, @QueryParam("filter") String filterParams) throws Exception {
         UserEntity user = userBL.searchUser(query);
-        return sendResponse(user);
+        return sendResponse(DataMapper.transform(user));
     }
 
     @GET

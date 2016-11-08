@@ -36,7 +36,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
   
     public UserEntity searchUser(Map<String, Object> fieldParam, String query){
 
-        Criteria criteria = getCurrentSession().createCriteria(DrugsEntity.class);
+        Criteria criteria = getCurrentSession().createCriteria(UserEntity.class);
         if (null != fieldParam) {
             for (String filedName : fieldParam.keySet()) {
                 criteria.add(Restrictions.eq(filedName, fieldParam.get(filedName)));
@@ -44,7 +44,7 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
         }
         criteria.add(Restrictions.disjunction()
                 .add(Restrictions.eq("mobile", query.trim())));
-        return (UserEntity)criteria.list();
+        return (UserEntity)criteria.uniqueResult();
     
     }
     

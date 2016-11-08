@@ -18,12 +18,12 @@ import java.util.List;
 public class EmergencyContactConverter implements AttributeConverter<ArrayList,String> {
 
     public String convertToDatabaseColumn(ArrayList arrayList) {
-        return arrayList == null ? null : StringUtils.join(arrayList, ",");
+        return arrayList == null ? "" : StringUtils.join(arrayList, ",");
     }
 
     public ArrayList<EmergencyContact> convertToEntityAttribute(String dbData) {
         ArrayList<EmergencyContact> data = null;
-        if (!StringUtils.isBlank(dbData)){
+        if (StringUtils.isNotEmpty(dbData)){
             data =  new ArrayList<EmergencyContact>();
             String [] contacts = dbData.split(",");
             for(String contact : contacts){

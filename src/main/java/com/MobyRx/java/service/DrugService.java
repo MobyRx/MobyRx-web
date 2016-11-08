@@ -5,6 +5,7 @@ import com.MobyRx.java.bl.CommonBL;
 import com.MobyRx.java.bl.DrugBL;
 import com.MobyRx.java.entity.DrugsEntity;
 import com.MobyRx.java.service.wso.WSOToEntityConversion;
+import com.MobyRx.java.service.wso.DataMapper;
 import com.MobyRx.java.service.wso.DrugWSO;
 import com.MobyRx.java.service.wso.StatusWSO;
 import com.MobyRx.java.service.wso.UserWSO;
@@ -52,7 +53,7 @@ public class DrugService extends BaseService {
     @GET
     public Response getDrugs(@QueryParam("query") String query, @QueryParam("filter") String filterParams) throws Exception {
         List<DrugsEntity> drugs = drugBL.searchDrugs(query);
-        return sendResponse(wSOToEntityConversion.transformDrugs(drugs));
+        return sendResponse(DataMapper.transformDrugs(drugs));
     }
 
 

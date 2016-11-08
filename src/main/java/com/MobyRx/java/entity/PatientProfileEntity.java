@@ -54,7 +54,7 @@ public class PatientProfileEntity extends ProfileEntity{
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parents_id", nullable = false)
+    @JoinColumn(name = "parents_id", nullable = true)
     public PatientProfileEntity getParentPatient() {
         return parentPatient;
     }

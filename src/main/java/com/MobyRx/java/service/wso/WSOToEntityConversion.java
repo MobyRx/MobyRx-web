@@ -50,12 +50,7 @@ public class WSOToEntityConversion {
 		return drug;
 	}
 
-	public List<DrugWSO> transformDrugs(List<DrugsEntity> drugsEntities){
-		List<DrugWSO> drugs = new ArrayList<DrugWSO>();
-		for(DrugsEntity drugsEntity : drugsEntities)
-			drugs.add(transform(drugsEntity));
-		return drugs;
-	}
+	
 
 	public static AddressEntity transform(AddressWSO addressWSO){
 		AddressEntity addressEntity= new AddressEntity();

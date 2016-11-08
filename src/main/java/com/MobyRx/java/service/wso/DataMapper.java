@@ -48,6 +48,12 @@ public class DataMapper {
         return patientProfileWSO;
     }
 
+    public static List<DrugWSO> transformDrugs(List<DrugsEntity> drugsEntities){
+		List<DrugWSO> drugs = new ArrayList<DrugWSO>();
+		for(DrugsEntity drugsEntity : drugsEntities)
+			drugs.add(transform(drugsEntity));
+		return drugs;
+	}
     public static List<PatientProfileWSO> transformPatients(List<PatientProfileEntity> patientProfiles){
         List<PatientProfileWSO> patientProfileWSOs = new ArrayList<PatientProfileWSO>();
         for(PatientProfileEntity patientProfileEntity : patientProfiles)
