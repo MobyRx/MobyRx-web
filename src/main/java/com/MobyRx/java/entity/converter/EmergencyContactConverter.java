@@ -4,8 +4,8 @@ import com.MobyRx.java.entity.EmergencyContact;
 import org.apache.commons.lang.StringUtils;
 
 import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -15,13 +15,13 @@ import java.util.List;
  * Time: 1:20 PM
  * To change this template use File | Settings | File Templates.
  */
-public class EmergencyContactConverter implements AttributeConverter<ArrayList,String> {
+public class EmergencyContactConverter{
 
-    public String convertToDatabaseColumn(ArrayList arrayList) {
+    public static String convertToDatabaseColumn(List<EmergencyContact> arrayList) {
         return arrayList == null ? "" : StringUtils.join(arrayList, ",");
     }
 
-    public ArrayList<EmergencyContact> convertToEntityAttribute(String dbData) {
+    public static List<EmergencyContact> convertToEntityAttribute(String dbData) {
         ArrayList<EmergencyContact> data = null;
         if (StringUtils.isNotEmpty(dbData)){
             data =  new ArrayList<EmergencyContact>();

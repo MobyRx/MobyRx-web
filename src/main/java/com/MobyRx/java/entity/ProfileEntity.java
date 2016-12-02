@@ -26,7 +26,7 @@ public class ProfileEntity extends BaseEntity{
     private UserEntity user;
     private AddressEntity address;
     private Gender gender;
-    private List<EmergencyContact> emergencyContacts;
+    private String emergencyContact;
     private Status status;
 
     public String getName() {
@@ -65,16 +65,24 @@ public class ProfileEntity extends BaseEntity{
     public void setGender(Gender gender) {
         this.gender = gender;
     }
-    
-    @Transient
+
     @Column(name = "emergency_contact")
-    @Convert(converter = EmergencyContactConverter.class)
+    public String getEmergencyContact() {
+        return emergencyContact;
+    }
+
+    public void setEmergencyContact(String emergencyContact) {
+        this.emergencyContact = emergencyContact;
+    }
+
+
+    @Transient
     public List<EmergencyContact> getEmergencyContacts() {
-        return emergencyContacts;
+        return EmergencyContactConverter.convertToEntityAttribute(this.emergencyContact);
     }
 
     public void setEmergencyContacts(List<EmergencyContact> emergencyContacts) {
-        this.emergencyContacts = emergencyContacts;
+        this.emergencyContact = EmergencyContactConverter.convertToDatabaseColumn(emergencyContacts);
     }
 
     @Enumerated(EnumType.STRING)

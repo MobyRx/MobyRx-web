@@ -1,8 +1,13 @@
 package com.MobyRx.java.entity;
 
+import com.MobyRx.java.entity.converter.StringArrayToStringConverter;
+import com.MobyRx.java.entity.type.PrescriptionStatus;
+import com.MobyRx.java.entity.type.PrescriptionType;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -24,6 +29,9 @@ public class PrescriptionEntity extends BaseEntity{
     private String instruction;
     private Date nextAppointment;
     private Set<PrescriptionItemEntity> prescriptionItems;
+    private String filePaths;
+    private PrescriptionType prescriptionType;
+    private PrescriptionStatus status;
 
 
     @Column(name = "prescription_number")
@@ -89,5 +97,34 @@ public class PrescriptionEntity extends BaseEntity{
 
     public void setPrescriptionItems(Set<PrescriptionItemEntity> prescriptionItems) {
         this.prescriptionItems = prescriptionItems;
+    }
+
+    @Column(name = "prescription_path")
+    public String getFilePaths() {
+        return filePaths;
+    }
+
+    public void setFilePaths(String filePaths) {
+        this.filePaths = filePaths;
+    }
+
+    @Column(name = "prescription_type")
+    @Enumerated(EnumType.STRING)
+    public PrescriptionType getPrescriptionType() {
+        return prescriptionType;
+    }
+
+    public void setPrescriptionType(PrescriptionType prescriptionType) {
+        this.prescriptionType = prescriptionType;
+    }
+
+    @Column(name = "prescription_status")
+    @Enumerated(EnumType.STRING)
+    public PrescriptionStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(PrescriptionStatus status) {
+        this.status = status;
     }
 }
