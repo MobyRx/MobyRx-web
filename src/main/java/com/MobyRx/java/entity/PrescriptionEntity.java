@@ -44,7 +44,7 @@ public class PrescriptionEntity extends BaseEntity{
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "doctor_id", nullable = false)
+    @JoinColumn(name = "doctor_id", nullable = true)
     public ProfileEntity getDoctor() {
         return doctor;
     }
@@ -64,7 +64,7 @@ public class PrescriptionEntity extends BaseEntity{
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "clinic_id", nullable = false)
+    @JoinColumn(name = "clinic_id", nullable = true)
     public ClinicEntity getClinic() {
         return clinic;
     }
