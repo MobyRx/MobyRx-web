@@ -4,20 +4,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.MobyRx.java.entity.ProfileEntity;
+import com.MobyRx.java.entity.common.AddressEntity;
+import com.MobyRx.java.entity.common.UserEntity;
+import com.MobyRx.java.entity.patient.PatientProfileEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.MobyRx.java.bl.DoctorBL;
 import com.MobyRx.java.bl.PatientBL;
-import com.MobyRx.java.dao.DoctorDao;
 import com.MobyRx.java.dao.PatientDao;
-import com.MobyRx.java.entity.AddressEntity;
-import com.MobyRx.java.entity.PatientProfileEntity;
-import com.MobyRx.java.entity.UserEntity;
 import com.MobyRx.java.service.wso.AddressWSO;
 import com.MobyRx.java.service.wso.PatientProfileWSO;
 import com.MobyRx.java.service.wso.StatusWSO;

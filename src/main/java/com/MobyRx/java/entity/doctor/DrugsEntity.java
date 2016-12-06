@@ -1,4 +1,6 @@
-package com.MobyRx.java.entity;
+package com.MobyRx.java.entity.doctor;
+
+import com.MobyRx.java.entity.common.BaseEntity;
 
 import javax.persistence.Entity;
 
@@ -11,7 +13,7 @@ import javax.persistence.Entity;
  */
 @Entity
 @javax.persistence.Table(name = "drugs")
-public class DrugsEntity extends BaseEntity{
+public class DrugsEntity extends BaseEntity {
 
     private String name;
     private String manufacturer;

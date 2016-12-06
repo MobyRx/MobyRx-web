@@ -1,14 +1,11 @@
 package com.MobyRx.java.dao.impl;
 
 import com.MobyRx.java.dao.PatientDao;
-import com.MobyRx.java.entity.ClinicEntity;
-import com.MobyRx.java.entity.DoctorProfileEntity;
-import com.MobyRx.java.entity.PatientProfileEntity;
-import com.MobyRx.java.entity.ProfileEntity;
-import com.MobyRx.java.entity.UserEntity;
+import com.MobyRx.java.entity.common.ProfileEntity;
+import com.MobyRx.java.entity.common.UserEntity;
+import com.MobyRx.java.entity.patient.PatientProfileEntity;
 
 import org.hibernate.Criteria;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -33,7 +30,7 @@ public class PatientDaoImpl extends BaseDaoImpl implements PatientDao {
 				criteria.add(Restrictions.eq(filedName, queryParam.get(filedName)));
 			}
 		}
-		List<UserEntity> userEntity =(List<UserEntity>)criteria.list();	
+		List<UserEntity> userEntity =(List<UserEntity>)criteria.list();
 		Criteria docCriteria = getCurrentSession().createCriteria(ProfileEntity.class);
 		docCriteria.add(Restrictions.disjunction()
 				.add(Restrictions.eq("user.id", userEntity.get(0).getId())));

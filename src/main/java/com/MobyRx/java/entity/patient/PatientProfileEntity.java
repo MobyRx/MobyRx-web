@@ -1,12 +1,11 @@
-package com.MobyRx.java.entity;
+package com.MobyRx.java.entity.patient;
 
+import com.MobyRx.java.entity.common.ProfileEntity;
 import com.MobyRx.java.entity.type.BloodGroup;
-import com.MobyRx.java.entity.type.Gender;
 import com.MobyRx.java.entity.type.RelationshipType;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,7 +15,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-public class PatientProfileEntity extends ProfileEntity{
+public class PatientProfileEntity extends ProfileEntity {
 
     private Date dob;
     private int age;
@@ -43,7 +42,7 @@ public class PatientProfileEntity extends ProfileEntity{
     }
 
     @Column(name = "blood_group")
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     public BloodGroup getBloodGroup() {
         return bloodGroup;
     }
@@ -63,7 +62,7 @@ public class PatientProfileEntity extends ProfileEntity{
         this.parentPatient = parentPatient;
     }
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(name = "relationship")
     public RelationshipType getRelationship() {
         return relationship;

@@ -6,20 +6,19 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import com.MobyRx.java.entity.PatientProfileEntity;
-import com.MobyRx.java.entity.PrescriptionEntity;
-import com.MobyRx.java.entity.PrescriptionItemEntity;
-import com.MobyRx.java.entity.ProfileEntity;
-import com.MobyRx.java.entity.UserEntity;
+import com.MobyRx.java.entity.common.*;
+import com.MobyRx.java.entity.doctor.DoctorProfileEntity;
+import com.MobyRx.java.entity.doctor.DrugsEntity;
+import com.MobyRx.java.entity.patient.PatientProfileEntity;
+import com.MobyRx.java.entity.common.PrescriptionEntity;
+import com.MobyRx.java.entity.common.PrescriptionItemEntity;
+import com.MobyRx.java.entity.common.UserEntity;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.MobyRx.java.entity.AddressEntity;
-import com.MobyRx.java.entity.ClinicEntity;
-import com.MobyRx.java.entity.DoctorProfileEntity;
-import com.MobyRx.java.entity.DrugsEntity;
-import com.MobyRx.java.entity.EmergencyContact;
+import com.MobyRx.java.entity.common.AccountEntity;
+import com.MobyRx.java.entity.common.EmergencyContact;
 import com.MobyRx.java.entity.master.RoleEntity;
 import com.MobyRx.java.entity.master.ServiceEntity;
 import com.MobyRx.java.entity.master.SpecializationEntity;
@@ -76,7 +75,7 @@ public class DataMapper {
 		doctorProfileWSO.setAddress(transform(doctorProfileEntity.getAddress()));
 		doctorProfileWSO.setCertificateNumber(doctorProfileEntity.getCertificateNumber());
 		doctorProfileWSO.setCertification(doctorProfileEntity.getCertification());
-		doctorProfileWSO.setClinic(transform(doctorProfileEntity.getClinic()));
+		doctorProfileWSO.setClinic(transform(doctorProfileEntity.getAccount()));
 		doctorProfileWSO.setCreatedAt(doctorProfileEntity.getCreatedAt());
 		doctorProfileWSO.setUpdatedAt(doctorProfileEntity.getUpdatedAt());
 		//doctorProfileWSO.setEmergencyContacts(transform(doctorProfileEntity.getEmergencyContacts()));
@@ -143,7 +142,7 @@ public class DataMapper {
 		userWSO.setMobileVerified(userEntity.isMobileVerified());
 		userWSO.setPassword(userEntity.getPassword());
 		userWSO.setUpdatedAt(userEntity.getUpdatedAt());
-		userWSO.setUsername(userEntity.getUsername());
+		//userWSO.setUsername(userEntity.getUsername());
 		userWSO.setId(userEntity.getId());
 		userWSO.setRoles(transformRoles(userEntity.getRoles()));
 		
@@ -166,10 +165,10 @@ public class DataMapper {
 		roleWSO.setUpdatedAt(role.getUpdatedAt());
 		return roleWSO;
 	}
-	private static Set<ClinicWSO> transform(Set<ClinicEntity> clinic) {
+	private static Set<ClinicWSO> transform(Set<AccountEntity> account) {
 		Set<ClinicWSO> cilincSet = new HashSet<ClinicWSO>();
-		for(ClinicEntity clinicEntity : clinic)
-			cilincSet.add(transform(clinicEntity));
+		for(AccountEntity accountEntity : account)
+			cilincSet.add(transform(accountEntity));
 		return cilincSet;
 	}
 	
@@ -190,13 +189,13 @@ public class DataMapper {
 
 		return addressWSO;
 	}
-	public static ClinicWSO transform(ClinicEntity clinicEntity) {
+	public static ClinicWSO transform(AccountEntity accountEntity) {
 		ClinicWSO clinic = new ClinicWSO();
-		clinic.setAddress(transform(clinicEntity.getAddress()));
+		clinic.setAddress(transform(accountEntity.getAddress()));
 
 		List<ServiceWSO> serviceEntityList= new ArrayList<ServiceWSO>();
 
-		for (ServiceEntity service : clinicEntity.getServices()) {
+		for (ServiceEntity service : accountEntity.getServices()) {
 			ServiceWSO serviceEntity = new ServiceWSO();
 			serviceEntity.setDescription(service.getDescription());
 			serviceEntity.setName(service.getName());
@@ -208,22 +207,22 @@ public class DataMapper {
 		clinic.setServices(serviceEntityList);
 
 		ClinicCategoryWSO clinicCategoryWSO = new ClinicCategoryWSO();
-		clinicCategoryWSO.setDescription(clinicEntity.getCategory().getDescription());
-		clinicCategoryWSO.setId(clinicEntity.getCategory().getId());
-		clinicCategoryWSO.setName(clinicEntity.getCategory().getName());
+		clinicCategoryWSO.setDescription(accountEntity.getCategory().getDescription());
+		clinicCategoryWSO.setId(accountEntity.getCategory().getId());
+		clinicCategoryWSO.setName(accountEntity.getCategory().getName());
 		clinic.setCategory(clinicCategoryWSO);
 
-		clinic.setCreatedAt(clinicEntity.getCreatedAt());
-		clinic.setEmail(clinicEntity.getEmail());
-		clinic.setId(clinicEntity.getId());
-		clinic.setLicenceNumber(clinicEntity.getLicenceNumber());
-		clinic.setName(clinicEntity.getName());
+		clinic.setCreatedAt(accountEntity.getCreatedAt());
+		clinic.setEmail(accountEntity.getEmail());
+		clinic.setId(accountEntity.getId());
+		clinic.setLicenceNumber(accountEntity.getLicenceNumber());
+		clinic.setName(accountEntity.getName());
 
-		clinic.setPhoneNumber(clinicEntity.getPhoneNumber());
-		clinic.setRegistrationDate(clinicEntity.getRegistrationDate());
-		clinic.setUpdatedAt(clinicEntity.getUpdatedAt());
-		clinic.setUrl(clinicEntity.getUrl());
-		clinic.setVerified(clinicEntity.isVerified());
+		clinic.setPhoneNumber(accountEntity.getPhoneNumber());
+		clinic.setRegistrationDate(accountEntity.getRegistrationDate());
+		clinic.setUpdatedAt(accountEntity.getUpdatedAt());
+		clinic.setUrl(accountEntity.getUrl());
+		clinic.setVerified(accountEntity.isVerified());
 
 
 		return clinic;
@@ -234,7 +233,7 @@ public class DataMapper {
 		
 		for (int i=0;i<prescriptionEntitys.size();i++) {
 			PrescriptionWSO prescriptionWSO = new PrescriptionWSO();
-			prescriptionWSO.setClinic(transform(prescriptionEntitys.get(i).getClinic()));
+			prescriptionWSO.setClinic(transform(prescriptionEntitys.get(i).getAccount()));
 			prescriptionWSO.setCreatedAt(prescriptionEntitys.get(i).getCreatedAt());
 			if(prescriptionEntitys.get(i).getDoctor()!=null)
 			prescriptionWSO.setDoctor(transform(prescriptionEntitys.get(i).getDoctor()));
@@ -250,7 +249,7 @@ public class DataMapper {
 			Set<PrescriptionItemWSO> prescriptionItemWSOSet =new HashSet<PrescriptionItemWSO>();
 			Set<PrescriptionItemEntity> prescriptionItemEntitySet =prescriptionEntitys.get(i).getPrescriptionItems();
 			for (Iterator<PrescriptionItemEntity> it = prescriptionItemEntitySet.iterator(); it.hasNext(); ) {
-				PrescriptionItemEntity  prescriptionItemEntity= it.next();
+				PrescriptionItemEntity prescriptionItemEntity= it.next();
 				PrescriptionItemWSO prescriptionItemWSO = new PrescriptionItemWSO();
 				prescriptionItemWSO.setBeforeFood(prescriptionItemEntity.isBeforeFood());
 				prescriptionItemWSO.setCreatedAt(prescriptionItemEntity.getCreatedAt());
@@ -281,7 +280,7 @@ public class DataMapper {
 
 	private static PrescriptionWSO transform(PrescriptionEntity prescription) {
 		PrescriptionWSO prescriptionWSO = new PrescriptionWSO();
-		prescriptionWSO.setClinic(transform(prescription.getClinic()));
+		prescriptionWSO.setClinic(transform(prescription.getAccount()));
 		prescriptionWSO.setCreatedAt(prescription.getCreatedAt());
 		prescriptionWSO.setDoctor(transform(prescription.getDoctor()));
 		prescriptionWSO.setId(prescription.getId());

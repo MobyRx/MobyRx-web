@@ -3,6 +3,8 @@ package com.MobyRx.java.bl.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.MobyRx.java.entity.common.AccountEntity;
+import com.MobyRx.java.entity.common.AddressEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.MobyRx.java.bl.ClinicBL;
 import com.MobyRx.java.dao.ClinicDao;
-import com.MobyRx.java.dao.DoctorDao;
-import com.MobyRx.java.dao.impl.ClinicDaoImpl;
-import com.MobyRx.java.entity.AddressEntity;
-import com.MobyRx.java.entity.BaseEntity;
-import com.MobyRx.java.entity.ClinicEntity;
-import com.MobyRx.java.entity.DrugsEntity;
-import com.MobyRx.java.entity.master.ClinicCategoryEntity;
+import com.MobyRx.java.entity.master.CategoryEntity;
 import com.MobyRx.java.entity.master.ServiceEntity;
 import com.MobyRx.java.service.wso.ClinicWSO;
-import com.MobyRx.java.service.wso.DrugWSO;
 import com.MobyRx.java.service.wso.WSOToEntityConversion;
 import com.MobyRx.java.service.wso.ServiceWSO;
 import com.MobyRx.java.service.wso.StatusWSO;
@@ -45,17 +40,17 @@ public class ClinicBLImpl extends CommonBLImpl implements ClinicBL {
 			return;
 		}
 
-		ClinicEntity clinicEntity = WSOToEntityConversion.transform(clinicWSO);
-		clinicEntity.setId(null);
-		clinicEntity.getAddress().setId(null);
+		AccountEntity accountEntity = WSOToEntityConversion.transform(clinicWSO);
+		accountEntity.setId(null);
+		accountEntity.getAddress().setId(null);
 		if(clinicWSO.getCategory().getId()!=null)
 		{
-			ClinicCategoryEntity clinicCategoryEntity= clinicDao.get(ClinicCategoryEntity.class,clinicWSO.getCategory().getId() );
-			clinicEntity.setCategory(clinicCategoryEntity);
+			CategoryEntity categoryEntity = clinicDao.get(CategoryEntity.class,clinicWSO.getCategory().getId() );
+			accountEntity.setCategory(categoryEntity);
 		}
 		else
 		{
-			clinicEntity.setCategory(null);
+			accountEntity.setCategory(null);
 		}
 
 		if(clinicWSO.getServices()!=null && !clinicWSO.getServices().isEmpty())
@@ -66,11 +61,11 @@ public class ClinicBLImpl extends CommonBLImpl implements ClinicBL {
 				serviceEntityList.add(serviceEntity);
 
 			}
-			clinicEntity.setServices(serviceEntityList);
+			accountEntity.setServices(serviceEntityList);
 		}
 
 
-		clinicDao.save(clinicEntity);
+		clinicDao.save(accountEntity);
 		statusWSO.setCode(200);
 		statusWSO.setMessage("Sucessful");
 
@@ -83,10 +78,10 @@ public class ClinicBLImpl extends CommonBLImpl implements ClinicBL {
 		{
 			return;
 		}
-		ClinicEntity clinicEntity = clinicDao.get(ClinicEntity.class, clinicWSO.getId());
-		AddressEntity addressEntity = clinicEntity.getAddress();
-		ClinicCategoryEntity clinicCategoryEntity = clinicEntity.getCategory();
-		List<ServiceEntity> ServiceEntityList= clinicEntity.getServices();
+		AccountEntity accountEntity = clinicDao.get(AccountEntity.class, clinicWSO.getId());
+		AddressEntity addressEntity = accountEntity.getAddress();
+		CategoryEntity categoryEntity = accountEntity.getCategory();
+		List<ServiceEntity> ServiceEntityList= accountEntity.getServices();
 
 		for (ServiceWSO Service : clinicWSO.getServices()) {
 			ServiceEntity serviceEntity = clinicDao.get(ServiceEntity.class,Service.getId() );
@@ -104,21 +99,21 @@ public class ClinicBLImpl extends CommonBLImpl implements ClinicBL {
 		addressEntity.setStreet(clinicWSO.getAddress().getStreet());
 		addressEntity.setUpdatedAt(clinicWSO.getUpdatedAt());
 		addressEntity.setZipCode(clinicWSO.getAddress().getZipCode());
-		clinicCategoryEntity.setDescription(clinicWSO.getCategory().getDescription());
-		clinicCategoryEntity.setName(clinicWSO.getCategory().getName());
-		clinicEntity.setAddress(addressEntity);
-		clinicEntity.setCategory(clinicCategoryEntity);
-		clinicEntity.setCreatedAt(clinicWSO.getCreatedAt());
-		clinicEntity.setEmail(clinicWSO.getEmail());
-		clinicEntity.setLicenceNumber(clinicWSO.getLicenceNumber());
-		clinicEntity.setName(clinicWSO.getName());
-		clinicEntity.setPhoneNumber(clinicWSO.getPhoneNumber());
-		clinicEntity.setRegistrationDate(clinicWSO.getRegistrationDate());
-		clinicEntity.setServices(ServiceEntityList);
-		clinicEntity.setUpdatedAt(clinicWSO.getUpdatedAt());
-		clinicEntity.setUrl(clinicWSO.getUrl());
-		clinicEntity.setVerified(clinicWSO.isVerified());
-		clinicDao.update(clinicEntity);
+		categoryEntity.setDescription(clinicWSO.getCategory().getDescription());
+		categoryEntity.setName(clinicWSO.getCategory().getName());
+		accountEntity.setAddress(addressEntity);
+		accountEntity.setCategory(categoryEntity);
+		accountEntity.setCreatedAt(clinicWSO.getCreatedAt());
+		accountEntity.setEmail(clinicWSO.getEmail());
+		accountEntity.setLicenceNumber(clinicWSO.getLicenceNumber());
+		accountEntity.setName(clinicWSO.getName());
+		accountEntity.setPhoneNumber(clinicWSO.getPhoneNumber());
+		accountEntity.setRegistrationDate(clinicWSO.getRegistrationDate());
+		accountEntity.setServices(ServiceEntityList);
+		accountEntity.setUpdatedAt(clinicWSO.getUpdatedAt());
+		accountEntity.setUrl(clinicWSO.getUrl());
+		accountEntity.setVerified(clinicWSO.isVerified());
+		clinicDao.update(accountEntity);
 
 		statusWSO.setCode(200);
 		statusWSO.setMessage("Sucessful");
@@ -127,15 +122,15 @@ public class ClinicBLImpl extends CommonBLImpl implements ClinicBL {
 	}
 
 
-	public ClinicEntity get(long id,StatusWSO statusWSO) throws Exception {
-		ClinicEntity clinicEntity = clinicDao.get(ClinicEntity.class, id);
+	public AccountEntity get(long id,StatusWSO statusWSO) throws Exception {
+		AccountEntity accountEntity = clinicDao.get(AccountEntity.class, id);
 		statusWSO.setCode(200);
 		statusWSO.setMessage("Sucessful");
-		return clinicEntity;
+		return accountEntity;
 	}
 
 	public void delete(long id,StatusWSO statusWSO) throws Exception {
-		clinicDao.delete(ClinicEntity.class, id);
+		clinicDao.delete(AccountEntity.class, id);
 		statusWSO.setCode(200);
 		statusWSO.setMessage("Sucessful");
 

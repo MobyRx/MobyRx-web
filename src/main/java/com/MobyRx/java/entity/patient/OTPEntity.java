@@ -1,4 +1,7 @@
-package com.MobyRx.java.entity;
+package com.MobyRx.java.entity.patient;
+
+import com.MobyRx.java.entity.common.BaseEntity;
+import com.MobyRx.java.entity.common.UserEntity;
 
 import javax.persistence.*;
 
@@ -11,7 +14,7 @@ import javax.persistence.*;
  */
 @Entity
 @javax.persistence.Table(name = "otp")
-public class OTPEntity extends BaseEntity{
+public class OTPEntity extends BaseEntity {
     
     
     private UserEntity user;

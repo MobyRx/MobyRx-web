@@ -1,11 +1,10 @@
 package com.MobyRx.java.service.wso;
 
-import com.MobyRx.java.entity.AddressEntity;
-import com.MobyRx.java.entity.BaseEntity;
-import com.MobyRx.java.entity.ClinicEntity;
-import com.MobyRx.java.entity.DrugsEntity;
-import com.MobyRx.java.entity.EmergencyContact;
-import com.MobyRx.java.entity.master.ClinicCategoryEntity;
+import com.MobyRx.java.entity.common.AccountEntity;
+import com.MobyRx.java.entity.common.AddressEntity;
+import com.MobyRx.java.entity.common.EmergencyContact;
+import com.MobyRx.java.entity.doctor.DrugsEntity;
+import com.MobyRx.java.entity.master.CategoryEntity;
 import com.MobyRx.java.entity.master.RoleEntity;
 import com.MobyRx.java.entity.master.ServiceEntity;
 import com.MobyRx.java.entity.master.SpecializationEntity;
@@ -70,34 +69,34 @@ public class WSOToEntityConversion {
 		return addressEntity;
 	}
 
-	public static ClinicCategoryEntity  transform(ClinicCategoryWSO clinicCategoryWSO)
+	public static CategoryEntity transform(ClinicCategoryWSO clinicCategoryWSO)
 	{
-		ClinicCategoryEntity clinicCategoryEntity = new ClinicCategoryEntity();
-		clinicCategoryEntity.setDescription(clinicCategoryWSO.getDescription());
-		clinicCategoryEntity.setId(clinicCategoryWSO.getId());
-		clinicCategoryEntity.setName(clinicCategoryWSO.getName());
-		return clinicCategoryEntity;
+		CategoryEntity categoryEntity = new CategoryEntity();
+		categoryEntity.setDescription(clinicCategoryWSO.getDescription());
+		categoryEntity.setId(clinicCategoryWSO.getId());
+		categoryEntity.setName(clinicCategoryWSO.getName());
+		return categoryEntity;
 
 	}
-	public static ClinicEntity transform(ClinicWSO clinicWSO)
+	public static AccountEntity transform(ClinicWSO clinicWSO)
 	{
-		ClinicEntity clinicEntity = new ClinicEntity();
+		AccountEntity accountEntity = new AccountEntity();
 
-		clinicEntity.setAddress(transform(clinicWSO.getAddress()));
-		clinicEntity.setCategory(transform(clinicWSO.getCategory()));
-		clinicEntity.setServices(transformServices(clinicWSO.getServices()));
+		accountEntity.setAddress(transform(clinicWSO.getAddress()));
+		accountEntity.setCategory(transform(clinicWSO.getCategory()));
+		accountEntity.setServices(transformServices(clinicWSO.getServices()));
 
-		clinicEntity.setCreatedAt(clinicWSO.getCreatedAt());
-		clinicEntity.setEmail(clinicWSO.getEmail());
-		clinicEntity.setId(clinicWSO.getId());
-		clinicEntity.setLicenceNumber(clinicWSO.getLicenceNumber());
-		clinicEntity.setName(clinicWSO.getName());
-		clinicEntity.setPhoneNumber(clinicWSO.getPhoneNumber());
-		clinicEntity.setRegistrationDate(clinicWSO.getRegistrationDate());
-		clinicEntity.setUpdatedAt(clinicWSO.getUpdatedAt());
-		clinicEntity.setUrl(clinicWSO.getUrl());
-		clinicEntity.setVerified(clinicWSO.isVerified());;
-		return clinicEntity;
+		accountEntity.setCreatedAt(clinicWSO.getCreatedAt());
+		accountEntity.setEmail(clinicWSO.getEmail());
+		accountEntity.setId(clinicWSO.getId());
+		accountEntity.setLicenceNumber(clinicWSO.getLicenceNumber());
+		accountEntity.setName(clinicWSO.getName());
+		accountEntity.setPhoneNumber(clinicWSO.getPhoneNumber());
+		accountEntity.setRegistrationDate(clinicWSO.getRegistrationDate());
+		accountEntity.setUpdatedAt(clinicWSO.getUpdatedAt());
+		accountEntity.setUrl(clinicWSO.getUrl());
+		accountEntity.setVerified(clinicWSO.isVerified());;
+		return accountEntity;
 
 	}
 

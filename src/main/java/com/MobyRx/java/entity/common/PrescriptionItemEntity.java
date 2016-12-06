@@ -1,5 +1,6 @@
-package com.MobyRx.java.entity;
+package com.MobyRx.java.entity.common;
 
+import com.MobyRx.java.entity.doctor.DrugsEntity;
 import com.MobyRx.java.entity.type.DoseType;
 import com.MobyRx.java.entity.type.DurationType;
 
@@ -16,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @javax.persistence.Table(name = "prescription_item")
 @XmlRootElement(name = "prescription_item")
-public class PrescriptionItemEntity extends BaseEntity{
+public class PrescriptionItemEntity extends BaseEntity {
 
     private PrescriptionEntity prescription;
     private DrugsEntity drugs;
@@ -81,7 +82,7 @@ public class PrescriptionItemEntity extends BaseEntity{
         this.duration = duration;
     }
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     public DurationType getDurationType() {
         return durationType;
     }
@@ -99,7 +100,7 @@ public class PrescriptionItemEntity extends BaseEntity{
         this.beforeFood = beforeFood;
     }
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     public DoseType getDoseType() {
         return doseType;
     }

@@ -1,13 +1,14 @@
-package com.MobyRx.java.dao;
-
+package com.MobyRx.java.entity.type;
 
 /**
  * Created by IntelliJ IDEA.
  * User: ashqures
- * Date: 9/8/16
- * Time: 7:51 PM
+ * Date: 12/3/16
+ * Time: 10:49 AM
  * To change this template use File | Settings | File Templates.
  */
-public interface ClinicDao extends BaseDao{
-	
+public enum AccountType {
+
+
+    TRIAL, PREMIUM
 }

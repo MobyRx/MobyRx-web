@@ -1,5 +1,7 @@
-package com.MobyRx.java.entity;
+package com.MobyRx.java.entity.common;
 
+import com.MobyRx.java.entity.common.BaseEntity;
+import com.MobyRx.java.entity.common.UserEntity;
 import com.MobyRx.java.entity.type.LoginStatus;
 
 import javax.persistence.*;
@@ -13,7 +15,7 @@ import javax.persistence.*;
  */
 @Entity
 @javax.persistence.Table(name = "login_status")
-public class LoginStatusEntity extends BaseEntity{
+public class LoginStatusEntity extends BaseEntity {
     
     
     private UserEntity user;
@@ -47,7 +49,7 @@ public class LoginStatusEntity extends BaseEntity{
         this.deviceId = deviceId;
     }
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     public LoginStatus getLoginStatus() {
         return loginStatus;
     }

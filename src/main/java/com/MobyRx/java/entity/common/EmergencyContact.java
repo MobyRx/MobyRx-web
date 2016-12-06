@@ -1,4 +1,4 @@
-package com.MobyRx.java.entity;
+package com.MobyRx.java.entity.common;
 
 /**
  * Created by IntelliJ IDEA.

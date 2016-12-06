@@ -1,4 +1,6 @@
-package com.MobyRx.java.entity;
+package com.MobyRx.java.entity.common;
+
+import com.MobyRx.java.entity.common.BaseEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +14,7 @@ import javax.persistence.Entity;
  */
 @Entity
 @javax.persistence.Table(name = "address")
-public class AddressEntity extends BaseEntity{
+public class AddressEntity extends BaseEntity {
     
     public String buildingNumber;
     public String  street;

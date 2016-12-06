@@ -1,10 +1,8 @@
 package com.MobyRx.java.entity.converter;
 
-import com.MobyRx.java.entity.EmergencyContact;
+import com.MobyRx.java.entity.common.EmergencyContact;
 import org.apache.commons.lang.StringUtils;
 
-import javax.persistence.AttributeConverter;
-import javax.persistence.Converter;
 import java.util.ArrayList;
 import java.util.List;
 

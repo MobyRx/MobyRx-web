@@ -2,9 +2,8 @@ package com.MobyRx.java.entity.master;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
-import com.MobyRx.java.entity.BaseEntity;
+import com.MobyRx.java.entity.common.BaseEntity;
 
 import java.io.Serializable;
 

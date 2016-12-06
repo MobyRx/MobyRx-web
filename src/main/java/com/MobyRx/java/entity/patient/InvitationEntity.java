@@ -1,5 +1,7 @@
-package com.MobyRx.java.entity;
+package com.MobyRx.java.entity.patient;
 
+import com.MobyRx.java.entity.common.BaseEntity;
+import com.MobyRx.java.entity.common.UserEntity;
 import com.MobyRx.java.entity.type.InvitationStatus;
 
 import javax.persistence.*;
@@ -16,7 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @javax.persistence.Table(name = "invitation")
 @XmlRootElement(name = "invitation")
-public class InvitationEntity extends BaseEntity{
+public class InvitationEntity extends BaseEntity {
 
     public UserEntity invitedBy;
     public String invitedTo;
@@ -50,7 +52,7 @@ public class InvitationEntity extends BaseEntity{
         this.code = code;
     }
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     public InvitationStatus getStatus() {
         return status;
     }

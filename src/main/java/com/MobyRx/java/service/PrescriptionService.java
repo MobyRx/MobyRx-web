@@ -1,14 +1,10 @@
 
 package com.MobyRx.java.service;
-import com.MobyRx.java.bl.CommonBL;
-import com.MobyRx.java.bl.PatientBL;
 import com.MobyRx.java.bl.PrescriptionBL;
-import com.MobyRx.java.entity.PrescriptionEntity;
+import com.MobyRx.java.entity.common.PrescriptionEntity;
 import com.MobyRx.java.service.wso.DataMapper;
-import com.MobyRx.java.service.wso.PatientProfileWSO;
 import com.MobyRx.java.service.wso.PrescriptionWSO;
 import com.MobyRx.java.service.wso.StatusWSO;
-import com.MobyRx.java.service.wso.UserWSO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -25,7 +20,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import javax.xml.bind.annotation.XmlElement;
 
 
 /**

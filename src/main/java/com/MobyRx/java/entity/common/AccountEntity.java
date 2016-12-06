@@ -1,8 +1,12 @@
-package com.MobyRx.java.entity;
+package com.MobyRx.java.entity.common;
 
 
-import com.MobyRx.java.entity.master.ClinicCategoryEntity;
+import com.MobyRx.java.entity.common.AddressEntity;
+import com.MobyRx.java.entity.common.BaseEntity;
+import com.MobyRx.java.entity.master.CategoryEntity;
 import com.MobyRx.java.entity.master.ServiceEntity;
+import com.MobyRx.java.entity.type.AccountFunction;
+import com.MobyRx.java.entity.type.AccountType;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -16,8 +20,8 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-@javax.persistence.Table(name = "clinic")
-public class ClinicEntity extends BaseEntity{
+@javax.persistence.Table(name = "account")
+public class AccountEntity extends BaseEntity {
     
     private String name;
     private AddressEntity address;
@@ -26,9 +30,11 @@ public class ClinicEntity extends BaseEntity{
     private String licenceNumber;
     private Date registrationDate;
     private String url;
-    private ClinicCategoryEntity category;
+    private CategoryEntity category;
     private List<ServiceEntity> services;
     private boolean verified = false;
+    private AccountType accountType = AccountType.TRIAL;
+    private AccountFunction accountFunction;
 
 
     public String getName() {
@@ -92,11 +98,11 @@ public class ClinicEntity extends BaseEntity{
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
-    public ClinicCategoryEntity getCategory() {
+    public CategoryEntity getCategory() {
         return category;
     }
 
-    public void setCategory(ClinicCategoryEntity category) {
+    public void setCategory(CategoryEntity category) {
         this.category = category;
     }
 
@@ -119,5 +125,26 @@ public class ClinicEntity extends BaseEntity{
 
     public void setVerified(boolean verified) {
         this.verified = verified;
+    }
+
+
+    @Column(name = "account_type")
+    @Enumerated(EnumType.STRING)
+    public AccountType getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(AccountType accountType) {
+        this.accountType = accountType;
+    }
+
+    @Column(name = "account_function", nullable = false)
+    @Enumerated(EnumType.STRING)
+    public AccountFunction getAccountFunction() {
+        return accountFunction;
+    }
+
+    public void setAccountFunction(AccountFunction accountFunction) {
+        this.accountFunction = accountFunction;
     }
 }

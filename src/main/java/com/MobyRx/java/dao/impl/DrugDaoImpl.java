@@ -3,12 +3,12 @@ package com.MobyRx.java.dao.impl;
 import java.util.List;
 import java.util.Map;
 
+import com.MobyRx.java.entity.doctor.DrugsEntity;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import com.MobyRx.java.dao.DrugDao;
-import com.MobyRx.java.entity.DrugsEntity;
 
 @Repository("drugDao")
 public class DrugDaoImpl extends BaseDaoImpl implements DrugDao {

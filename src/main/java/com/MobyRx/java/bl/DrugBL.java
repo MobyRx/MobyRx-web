@@ -1,6 +1,6 @@
 package com.MobyRx.java.bl;
 
-import com.MobyRx.java.entity.DrugsEntity;
+import com.MobyRx.java.entity.doctor.DrugsEntity;
 import com.MobyRx.java.service.wso.DrugWSO;
 import com.MobyRx.java.service.wso.StatusWSO;
 

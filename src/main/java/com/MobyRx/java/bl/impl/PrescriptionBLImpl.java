@@ -6,26 +6,22 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import com.MobyRx.java.entity.common.AccountEntity;
+import com.MobyRx.java.entity.common.PrescriptionEntity;
+import com.MobyRx.java.entity.common.PrescriptionItemEntity;
+import com.MobyRx.java.entity.doctor.DoctorProfileEntity;
+import com.MobyRx.java.entity.doctor.DrugsEntity;
+import com.MobyRx.java.entity.patient.PatientProfileEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.MobyRx.java.bl.PatientBL;
 import com.MobyRx.java.bl.PrescriptionBL;
-import com.MobyRx.java.dao.PatientDao;
 import com.MobyRx.java.dao.PrescriptionDao;
-import com.MobyRx.java.entity.ClinicEntity;
-import com.MobyRx.java.entity.DoctorProfileEntity;
-import com.MobyRx.java.entity.DrugsEntity;
-import com.MobyRx.java.entity.PatientProfileEntity;
-import com.MobyRx.java.entity.PrescriptionEntity;
-import com.MobyRx.java.entity.PrescriptionItemEntity;
-import com.MobyRx.java.entity.master.SpecializationEntity;
 import com.MobyRx.java.service.wso.PrescriptionItemWSO;
 import com.MobyRx.java.service.wso.PrescriptionWSO;
-import com.MobyRx.java.service.wso.SpecializationWSO;
 import com.MobyRx.java.service.wso.StatusWSO;
 import com.MobyRx.java.service.wso.WSOToEntityConversion;
 
@@ -41,8 +37,8 @@ public class PrescriptionBLImpl extends CommonBLImpl implements PrescriptionBL{
 
 	public void save(PrescriptionWSO prescriptionWSO, StatusWSO statusWSO) throws Exception {
 		PrescriptionEntity prescriptionEntity = new PrescriptionEntity();
-		ClinicEntity clinicEntity = prescriptionDao.get(ClinicEntity.class, prescriptionWSO.getClinic().getId());
-		prescriptionEntity.setClinic(clinicEntity);
+		AccountEntity accountEntity = prescriptionDao.get(AccountEntity.class, prescriptionWSO.getClinic().getId());
+		prescriptionEntity.setAccount(accountEntity);
 		prescriptionEntity.setCreatedAt(new Date());
 		DoctorProfileEntity doctorProfileEntity = prescriptionDao.get(DoctorProfileEntity.class, prescriptionWSO.getDoctor().id);
 		prescriptionEntity.setDoctor(doctorProfileEntity);

@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @javax.persistence.Table(name = "category")
 @XmlRootElement(name = "category")
-public class ClinicCategoryEntity {
+public class CategoryEntity {
 
     private static final long serialVersionUID = 3256446889020622647L;
     

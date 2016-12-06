@@ -1,11 +1,14 @@
 package com.MobyRx.java.bl.impl;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.MobyRx.java.entity.common.AccountEntity;
+import com.MobyRx.java.entity.common.AddressEntity;
+import com.MobyRx.java.entity.common.UserEntity;
+import com.MobyRx.java.entity.doctor.DoctorProfileEntity;
 import com.MobyRx.java.exception.NoRecordFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,17 +17,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.MobyRx.java.bl.DoctorBL;
-import com.MobyRx.java.bl.DrugBL;
 import com.MobyRx.java.dao.DoctorDao;
-import com.MobyRx.java.dao.DrugDao;
-import com.MobyRx.java.entity.AddressEntity;
-import com.MobyRx.java.entity.ClinicEntity;
-import com.MobyRx.java.entity.DoctorProfileEntity;
-import com.MobyRx.java.entity.UserEntity;
 import com.MobyRx.java.entity.master.SpecializationEntity;
 import com.MobyRx.java.service.wso.ClinicWSO;
 import com.MobyRx.java.service.wso.DoctorProfileWSO;
-import com.MobyRx.java.service.wso.DrugWSO;
 import com.MobyRx.java.service.wso.SpecializationWSO;
 import com.MobyRx.java.service.wso.StatusWSO;
 import com.MobyRx.java.service.wso.WSOToEntityConversion;
@@ -46,14 +42,14 @@ public class DoctorBLImpl extends CommonBLImpl implements DoctorBL {
         doctorProfileEntity.setCertificateNumber(doctorProfileWSO.getCertificateNumber());
         doctorProfileEntity.setCertification(doctorProfileWSO.getCertification());
         if (doctorProfileWSO.getClinic().size() > 0) {
-            doctorProfileEntity.setClinic(null);
-            Set<ClinicEntity> clinicEntityList = new HashSet<ClinicEntity>();
+            doctorProfileEntity.setAccount(null);
+            Set<AccountEntity> accountEntityList = new HashSet<AccountEntity>();
             for (ClinicWSO clinicWSO : doctorProfileWSO.getClinic()) {
                 logger.info("clinicWSO.getId()=" + clinicWSO.getId());
-                ClinicEntity clinicEntity = doctorDao.get(ClinicEntity.class, clinicWSO.getId());
-                clinicEntityList.add(clinicEntity);
+                AccountEntity accountEntity = doctorDao.get(AccountEntity.class, clinicWSO.getId());
+                accountEntityList.add(accountEntity);
             }
-            doctorProfileEntity.setClinic(clinicEntityList);
+            doctorProfileEntity.setAccount(accountEntityList);
         }
         doctorProfileEntity.setCreatedAt(doctorProfileWSO.getCreatedAt());
         doctorProfileEntity.setEmergencyContacts(WSOToEntityConversion.transformContacts(doctorProfileWSO.getEmergencyContacts()));
@@ -115,23 +111,23 @@ public class DoctorBLImpl extends CommonBLImpl implements DoctorBL {
 		doctorProfileEntity.setCertification(doctorProfileWSO.getCertification());
 		if(doctorProfileWSO.getClinic().size()>0)
 		{
-			Set<ClinicEntity> clinicEntityList = doctorProfileEntity.getClinic();
+			Set<AccountEntity> accountEntityList = doctorProfileEntity.getAccount();
 			for(ClinicWSO clinicWSO : doctorProfileWSO.getClinic())
 			{
 				logger.info("clinicWSO.getId()="+clinicWSO.getId());
-				ClinicEntity clinicEntity = doctorDao.get(ClinicEntity.class, clinicWSO.getId());
-				if(clinicEntity==null)
+				AccountEntity accountEntity = doctorDao.get(AccountEntity.class, clinicWSO.getId());
+				if(accountEntity ==null)
 				{
-					ClinicEntity newClinicEntity = WSOToEntityConversion.transform(clinicWSO);
-					clinicEntityList.add(newClinicEntity);
+					AccountEntity newAccountEntity = WSOToEntityConversion.transform(clinicWSO);
+					accountEntityList.add(newAccountEntity);
 					
 				}
 				else
 				{
-				clinicEntityList.add(clinicEntity);
+				accountEntityList.add(accountEntity);
 				}
 			}
-			doctorProfileEntity.setClinic(clinicEntityList);
+			doctorProfileEntity.setAccount(accountEntityList);
 		}
 		doctorProfileEntity.setCreatedAt(doctorProfileWSO.getCreatedAt());
 		doctorProfileEntity.setEmergencyContacts(WSOToEntityConversion.transformContacts(doctorProfileWSO.getEmergencyContacts()));

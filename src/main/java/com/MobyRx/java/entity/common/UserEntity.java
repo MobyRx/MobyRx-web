@@ -1,14 +1,9 @@
-package com.MobyRx.java.entity;
+package com.MobyRx.java.entity.common;
 
 import com.MobyRx.java.entity.master.RoleEntity;
-import com.MobyRx.java.entity.type.BloodGroup;
-import com.MobyRx.java.entity.type.Gender;
 
 import javax.persistence.*;
 
-import org.springframework.stereotype.Repository;
-
-import java.util.Date;
 import java.util.Set;
 
 /**
@@ -20,10 +15,10 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "user")
-public class UserEntity extends BaseEntity{
+public class UserEntity extends BaseEntity {
 
 
-    private String username;
+    //private String username;
     private String mobile;
     private String email;
     private String password;
@@ -31,13 +26,13 @@ public class UserEntity extends BaseEntity{
     private boolean mobileVerified;
     private Set<RoleEntity> roles;
 
-    public String getUsername() {
+    /*public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
-    }
+    }*/
 
     @Column(name = "mobile", nullable = false)
     public String getMobile() {
@@ -106,7 +101,6 @@ public class UserEntity extends BaseEntity{
 		result = prime * result + (mobileVerified ? 1231 : 1237);
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((roles == null) ? 0 : roles.hashCode());
-		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
 
@@ -143,11 +137,7 @@ public class UserEntity extends BaseEntity{
 				return false;
 		} else if (!roles.equals(other.roles))
 			return false;
-		if (username == null) {
-			if (other.username != null)
-				return false;
-		} else if (!username.equals(other.username))
-			return false;
+
 		return true;
 	}
     

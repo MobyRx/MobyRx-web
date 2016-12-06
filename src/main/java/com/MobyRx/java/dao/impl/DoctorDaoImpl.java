@@ -1,14 +1,11 @@
 package com.MobyRx.java.dao.impl;
 
 import com.MobyRx.java.dao.DoctorDao;
-import com.MobyRx.java.entity.ClinicEntity;
-import com.MobyRx.java.entity.DoctorProfileEntity;
-import com.MobyRx.java.entity.DrugsEntity;
-import com.MobyRx.java.entity.ProfileEntity;
-import com.MobyRx.java.entity.UserEntity;
+import com.MobyRx.java.entity.common.ProfileEntity;
+import com.MobyRx.java.entity.common.UserEntity;
+import com.MobyRx.java.entity.doctor.DoctorProfileEntity;
 
 import org.hibernate.Criteria;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 

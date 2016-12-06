@@ -1,5 +1,6 @@
 package com.MobyRx.java.entity;
 
+import com.MobyRx.java.entity.common.BaseEntity;
 import com.MobyRx.java.entity.type.RelationshipType;
 
 
@@ -12,7 +13,7 @@ import com.MobyRx.java.entity.type.RelationshipType;
  */
 /*@Entity
 @javax.persistence.Table(name = "dependent_patient")*/
-public class DependentPatientEntity extends BaseEntity{
+public class DependentPatientEntity extends BaseEntity {
 
     private String name;
     private int age;

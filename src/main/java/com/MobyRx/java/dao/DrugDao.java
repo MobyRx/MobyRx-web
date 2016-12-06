@@ -3,7 +3,7 @@ package com.MobyRx.java.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.MobyRx.java.entity.DrugsEntity;
+import com.MobyRx.java.entity.doctor.DrugsEntity;
 
 public interface DrugDao extends BaseDao{
 

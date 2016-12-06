@@ -2,8 +2,6 @@ package com.MobyRx.java.service.wso;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.MobyRx.java.entity.BaseEntity;
-
 /**
  * Created by IntelliJ IDEA.
  * User: ashqures

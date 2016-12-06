@@ -1,10 +1,6 @@
 package com.MobyRx.java.bl;
 
-import java.util.List;
-
-import com.MobyRx.java.entity.UserEntity;
-import com.MobyRx.java.service.wso.DoctorProfileWSO;
-import com.MobyRx.java.service.wso.PatientProfileWSO;
+import com.MobyRx.java.entity.common.UserEntity;
 import com.MobyRx.java.service.wso.StatusWSO;
 import com.MobyRx.java.service.wso.UserWSO;
 

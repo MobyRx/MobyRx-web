@@ -1,5 +1,6 @@
 package com.MobyRx.java.service;
 
+import com.MobyRx.java.entity.common.UserEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.MobyRx.java.bl.CommonBL;
 import com.MobyRx.java.bl.UserBL;
-import com.MobyRx.java.entity.UserEntity;
 import com.MobyRx.java.service.wso.*;
 
 import javax.ws.rs.DELETE;

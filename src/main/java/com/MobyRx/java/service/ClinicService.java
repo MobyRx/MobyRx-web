@@ -1,7 +1,7 @@
 package com.MobyRx.java.service;
 import com.MobyRx.java.bl.ClinicBL;
 import com.MobyRx.java.bl.CommonBL;
-import com.MobyRx.java.entity.ClinicEntity;
+import com.MobyRx.java.entity.common.AccountEntity;
 import com.MobyRx.java.service.wso.ClinicWSO;
 import com.MobyRx.java.service.wso.DataMapper;
 import com.MobyRx.java.service.wso.StatusWSO;
@@ -12,16 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
@@ -80,9 +77,9 @@ public class ClinicService extends BaseService{
 	    @GET
 	    public Response getClinic(@QueryParam("clinicId")String clinicId,@Context UriInfo uriInfo) throws Exception{
 	    	StatusWSO statusWSO = new StatusWSO();
-	    	ClinicEntity clinicEntity=null;
-	    	clinicEntity = clinicBL.get(Long.parseLong(clinicId),statusWSO);
-	    	ClinicWSO  clinicWSO = DataMapper.transform(clinicEntity);
+	    	AccountEntity accountEntity =null;
+	    	accountEntity = clinicBL.get(Long.parseLong(clinicId),statusWSO);
+	    	ClinicWSO  clinicWSO = DataMapper.transform(accountEntity);
 	    	logger.info("clinicWSO  ="+clinicWSO.toString());
 	    	return  sendResponse(clinicWSO);
 	    }

@@ -1,4 +1,4 @@
-package com.MobyRx.java.entity;
+package com.MobyRx.java.entity.common;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlTransient;

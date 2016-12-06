@@ -2,10 +2,7 @@ package com.MobyRx.java.bl.impl;
 
 import java.util.List;
 
-import com.MobyRx.java.entity.BaseEntity;
-import com.MobyRx.java.entity.ClinicEntity;
-import com.MobyRx.java.entity.DrugsEntity;
-import com.MobyRx.java.service.wso.ClinicWSO;
+import com.MobyRx.java.entity.doctor.DrugsEntity;
 import com.MobyRx.java.service.wso.StatusWSO;
 import org.springframework.http.HttpStatus;
 

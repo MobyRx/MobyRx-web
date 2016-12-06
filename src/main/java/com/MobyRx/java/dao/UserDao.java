@@ -2,7 +2,8 @@ package com.MobyRx.java.dao;
 
 import java.util.Map;
 
-import com.MobyRx.java.entity.UserEntity;;
+import com.MobyRx.java.entity.common.UserEntity;
+;
 
 /**
  * Created by IntelliJ IDEA.

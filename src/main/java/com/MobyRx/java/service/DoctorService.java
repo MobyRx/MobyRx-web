@@ -5,7 +5,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import com.MobyRx.java.entity.DoctorProfileEntity;
+import com.MobyRx.java.entity.doctor.DoctorProfileEntity;
 import com.MobyRx.java.service.wso.DataMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

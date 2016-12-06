@@ -1,8 +1,9 @@
-package com.MobyRx.java.entity;
+package com.MobyRx.java.entity.doctor;
 
+import com.MobyRx.java.entity.common.AccountEntity;
+import com.MobyRx.java.entity.common.ProfileEntity;
 import com.MobyRx.java.entity.converter.StringArrayToStringConverter;
 import com.MobyRx.java.entity.master.SpecializationEntity;
-import com.MobyRx.java.entity.type.Gender;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,7 +18,7 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-public class DoctorProfileEntity extends ProfileEntity{
+public class DoctorProfileEntity extends ProfileEntity {
 
     private String medRegNumber;
     private Set<SpecializationEntity> specializations;
@@ -26,7 +27,7 @@ public class DoctorProfileEntity extends ProfileEntity{
     private List<String> certification;
     private List<String> certificateNumber;
     private Date practiceStartAt;
-    private Set<ClinicEntity> clinic;
+    private Set<AccountEntity> account;
     private boolean verified = false;
 
     @Column(name = "med_reg_number")
@@ -39,7 +40,7 @@ public class DoctorProfileEntity extends ProfileEntity{
     }
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "doctor_specialization_p", joinColumns = @JoinColumn(name = "doctor_id"),
+    @JoinTable(name = "doctor_specialization", joinColumns = @JoinColumn(name = "doctor_id"),
             inverseJoinColumns = @JoinColumn(name = "specialization_id"))
     public Set<SpecializationEntity> getSpecializations() {
         return specializations;
@@ -98,14 +99,14 @@ public class DoctorProfileEntity extends ProfileEntity{
     }
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "doctor_clinic_P", joinColumns = @JoinColumn(name = "doctor_id"),
+    @JoinTable(name = "doctor_clinic", joinColumns = @JoinColumn(name = "doctor_id"),
             inverseJoinColumns = @JoinColumn(name = "clinic_id"))
-    public Set<ClinicEntity> getClinic() {
-        return clinic;
+    public Set<AccountEntity> getAccount() {
+        return account;
     }
 
-    public void setClinic(Set<ClinicEntity> clinic) {
-        this.clinic = clinic;
+    public void setAccount(Set<AccountEntity> account) {
+        this.account = account;
     }
 
     @Column(name = "is_verified")

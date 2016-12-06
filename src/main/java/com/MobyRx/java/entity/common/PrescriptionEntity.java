@@ -1,13 +1,11 @@
-package com.MobyRx.java.entity;
+package com.MobyRx.java.entity.common;
 
-import com.MobyRx.java.entity.converter.StringArrayToStringConverter;
 import com.MobyRx.java.entity.type.PrescriptionStatus;
 import com.MobyRx.java.entity.type.PrescriptionType;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -20,12 +18,12 @@ import java.util.Set;
 @Entity
 @javax.persistence.Table(name = "prescription")
 @XmlRootElement(name = "prescription")
-public class PrescriptionEntity extends BaseEntity{
+public class PrescriptionEntity extends BaseEntity {
     
     private Long prescriptionNumber;
     private ProfileEntity doctor;
     private ProfileEntity patient;
-    private ClinicEntity clinic;
+    private AccountEntity account;
     private String instruction;
     private Date nextAppointment;
     private Set<PrescriptionItemEntity> prescriptionItems;
@@ -65,12 +63,12 @@ public class PrescriptionEntity extends BaseEntity{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "clinic_id", nullable = true)
-    public ClinicEntity getClinic() {
-        return clinic;
+    public AccountEntity getAccount() {
+        return account;
     }
 
-    public void setClinic(ClinicEntity clinic) {
-        this.clinic = clinic;
+    public void setAccount(AccountEntity account) {
+        this.account = account;
     }
 
     public String getInstruction() {

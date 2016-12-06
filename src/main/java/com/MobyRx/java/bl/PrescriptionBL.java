@@ -2,8 +2,7 @@ package com.MobyRx.java.bl;
 
 import java.util.List;
 
-import com.MobyRx.java.entity.PrescriptionEntity;
-import com.MobyRx.java.service.wso.PatientProfileWSO;
+import com.MobyRx.java.entity.common.PrescriptionEntity;
 import com.MobyRx.java.service.wso.PrescriptionWSO;
 import com.MobyRx.java.service.wso.StatusWSO;
 

@@ -1,4 +1,4 @@
-package com.MobyRx.java.entity;
+package com.MobyRx.java.entity.common;
 
 
 import com.MobyRx.java.entity.converter.EmergencyContactConverter;
@@ -6,7 +6,6 @@ import com.MobyRx.java.entity.type.Gender;
 import com.MobyRx.java.entity.type.Status;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,7 +19,7 @@ import java.util.List;
 @Table(name = "profile")
 @Inheritance(strategy= InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn( name="classname")
-public class ProfileEntity extends BaseEntity{
+public class ProfileEntity extends BaseEntity {
 
     private String name;
     private UserEntity user;
@@ -57,7 +56,7 @@ public class ProfileEntity extends BaseEntity{
         this.address = address;
     }
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     public Gender getGender() {
         return gender;
     }

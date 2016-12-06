@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.MobyRx.java.entity.doctor.DrugsEntity;
 import com.MobyRx.java.util.ValidatorUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.MobyRx.java.bl.DrugBL;
 import com.MobyRx.java.dao.DrugDao;
-import com.MobyRx.java.entity.DrugsEntity;
 import com.MobyRx.java.service.wso.DrugWSO;
 import com.MobyRx.java.service.wso.WSOToEntityConversion;
 import com.MobyRx.java.service.wso.StatusWSO;

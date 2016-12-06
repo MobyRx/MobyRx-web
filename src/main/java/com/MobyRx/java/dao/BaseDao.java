@@ -1,7 +1,5 @@
 package com.MobyRx.java.dao;
 
-import com.MobyRx.java.entity.BaseEntity;
-
 import java.util.List;
 
 /**

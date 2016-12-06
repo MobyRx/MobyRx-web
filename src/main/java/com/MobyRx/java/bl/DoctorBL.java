@@ -3,7 +3,7 @@ package com.MobyRx.java.bl;
 import java.util.List;
 import java.util.Map;
 
-import com.MobyRx.java.entity.DoctorProfileEntity;
+import com.MobyRx.java.entity.doctor.DoctorProfileEntity;
 import com.MobyRx.java.service.wso.DoctorProfileWSO;
 import com.MobyRx.java.service.wso.StatusWSO;
 
