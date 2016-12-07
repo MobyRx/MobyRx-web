@@ -38,7 +38,7 @@ public class PrescriptionBLImpl extends CommonBLImpl implements PrescriptionBL{
 	public void save(PrescriptionWSO prescriptionWSO, StatusWSO statusWSO) throws Exception {
 		PrescriptionEntity prescriptionEntity = new PrescriptionEntity();
 		AccountEntity accountEntity = prescriptionDao.get(AccountEntity.class, prescriptionWSO.getClinic().getId());
-		prescriptionEntity.setAccount(accountEntity);
+		prescriptionEntity.setPharmacy(accountEntity);
 		prescriptionEntity.setCreatedAt(new Date());
 		DoctorProfileEntity doctorProfileEntity = prescriptionDao.get(DoctorProfileEntity.class, prescriptionWSO.getDoctor().id);
 		prescriptionEntity.setDoctor(doctorProfileEntity);

@@ -23,7 +23,7 @@ public class PrescriptionEntity extends BaseEntity {
     private Long prescriptionNumber;
     private ProfileEntity doctor;
     private ProfileEntity patient;
-    private AccountEntity account;
+    private AccountEntity pharmacy;
     private String instruction;
     private Date nextAppointment;
     private Set<PrescriptionItemEntity> prescriptionItems;
@@ -63,12 +63,12 @@ public class PrescriptionEntity extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "clinic_id", nullable = true)
-    public AccountEntity getAccount() {
-        return account;
+    public AccountEntity getPharmacy() {
+        return pharmacy;
     }
 
-    public void setAccount(AccountEntity account) {
-        this.account = account;
+    public void setPharmacy(AccountEntity pharmacy) {
+        this.pharmacy = pharmacy;
     }
 
     public String getInstruction() {

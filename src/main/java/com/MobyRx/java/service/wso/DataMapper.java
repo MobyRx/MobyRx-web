@@ -233,7 +233,7 @@ public class DataMapper {
 		
 		for (int i=0;i<prescriptionEntitys.size();i++) {
 			PrescriptionWSO prescriptionWSO = new PrescriptionWSO();
-			prescriptionWSO.setClinic(transform(prescriptionEntitys.get(i).getAccount()));
+			prescriptionWSO.setClinic(transform(prescriptionEntitys.get(i).getPharmacy()));
 			prescriptionWSO.setCreatedAt(prescriptionEntitys.get(i).getCreatedAt());
 			if(prescriptionEntitys.get(i).getDoctor()!=null)
 			prescriptionWSO.setDoctor(transform(prescriptionEntitys.get(i).getDoctor()));
@@ -280,7 +280,7 @@ public class DataMapper {
 
 	private static PrescriptionWSO transform(PrescriptionEntity prescription) {
 		PrescriptionWSO prescriptionWSO = new PrescriptionWSO();
-		prescriptionWSO.setClinic(transform(prescription.getAccount()));
+		prescriptionWSO.setClinic(transform(prescription.getPharmacy()));
 		prescriptionWSO.setCreatedAt(prescription.getCreatedAt());
 		prescriptionWSO.setDoctor(transform(prescription.getDoctor()));
 		prescriptionWSO.setId(prescription.getId());
