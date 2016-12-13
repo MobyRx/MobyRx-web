@@ -15,23 +15,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "user")
 public class UserWSO extends BaseWSO{
 
-
-    private String username;
+    private String name;
     private String mobile;
     private String email;
     private String password;
     private boolean emailVerified;
     private boolean mobileVerified;
-    private Set<RoleWSO> roles;
+    private Set<String> roles;
 
-    public String getUsername() {
-        return username;
+
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
-
 
     public String getMobile() {
         return mobile;
@@ -76,12 +75,11 @@ public class UserWSO extends BaseWSO{
         this.mobileVerified = mobileVerified;
     }
 
-
-    public Set<RoleWSO> getRoles() {
+    public Set<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<RoleWSO> roles) {
+    public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
 }

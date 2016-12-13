@@ -4,6 +4,7 @@ import com.MobyRx.java.entity.master.RoleEntity;
 
 import javax.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -34,7 +35,7 @@ public class UserEntity extends BaseEntity {
         this.username = username;
     }*/
 
-    @Column(name = "mobile", nullable = false)
+    @Column(name = "mobile", nullable = false, unique = true)
     public String getMobile() {
         return mobile;
     }
@@ -89,6 +90,12 @@ public class UserEntity extends BaseEntity {
 
     public void setRoles(Set<RoleEntity> roles) {
         this.roles = roles;
+    }
+
+    public void addRole(RoleEntity roleEntity){
+        if(null == getRoles())
+            setRoles(new HashSet<RoleEntity>());
+        getRoles().add(roleEntity);
     }
 
 	@Override

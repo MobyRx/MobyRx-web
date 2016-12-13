@@ -21,13 +21,6 @@ public class DrugWSO extends BaseWSO{
     private String packageUnit;
     private Double price;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getManufacturer() {
         return manufacturer;

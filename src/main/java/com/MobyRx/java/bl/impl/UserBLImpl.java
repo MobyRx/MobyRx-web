@@ -11,8 +11,12 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import com.MobyRx.java.entity.common.ProfileEntity;
 import com.MobyRx.java.entity.common.UserEntity;
+import com.MobyRx.java.entity.doctor.DoctorProfileEntity;
 import com.MobyRx.java.entity.patient.OTPEntity;
+import com.MobyRx.java.entity.patient.PatientProfileEntity;
+import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,119 +38,42 @@ import java.net.URL;
 @Repository("userBL")
 @Transactional
 public class UserBLImpl extends CommonBLImpl implements UserBL {
-	
+
+    private Logger logger = LoggerFactory.getLogger(UserBLImpl.class);
+
 	@Autowired
     private UserDao userDao;
 
-	
-	
-	private Logger logger = LoggerFactory.getLogger(UserBLImpl.class);
-	
-	
-	public void save(UserWSO userWSO,StatusWSO statusWSO) throws Exception
-	{
-		ValidatorUtil validatorUtil = new ValidatorUtil();
-		validatorUtil.validate(userWSO,statusWSO);
-		if(statusWSO.getCode()==400)
-		{
+	public void save(UserWSO userWSO,StatusWSO statusWSO) throws Exception{
+        ValidatorUtil.validate(userWSO,statusWSO);
+		if(statusWSO.getCode()==HttpStatus.SC_BAD_REQUEST){
 			return;
 		}
-		String userQuery = "select id from user where mobile="+userWSO.getMobile();
-		List userQueryResult= userDao.getSQLQuery(userQuery);
-		UserEntity userEntity=null;
-		if(userQueryResult!=null && userQueryResult.size()>0)
-		{
-			Long id =Long.parseLong(userQueryResult.get(0).toString());
-			userEntity=(UserEntity)userDao.get(UserEntity.class, id);
-
-			if(userEntity!=null)
-			{
-				Set<RoleEntity> roleEntity  =userEntity.getRoles();
-
-				Set<RoleWSO> roleWSO = userWSO.getRoles();
-				Iterator<RoleWSO> iteratorWSO = roleWSO.iterator(); 
-				Iterator<RoleEntity> iteratorRoleEntity = roleEntity.iterator(); 
-
-				while (iteratorWSO.hasNext()){
-					RoleWSO tmpWSORole=iteratorWSO.next();
-					while (iteratorRoleEntity.hasNext()){
-						RoleEntity tmpRoleEntity=iteratorRoleEntity.next();
-						if(tmpRoleEntity.getName().equals(tmpWSORole.getName()))
-						{
-							statusWSO.setCode(400);
-							statusWSO.setMessage("User With "+tmpWSORole.getName() + " role already present for mobile number "+userWSO.getMobile());
-							return;  
-						}
-
-					}
-					String roleQuery="select id from role where name='"+tmpWSORole.getName()+"'";
-					List roleQueryResult = userDao.getSQLQuery(roleQuery);
-					if(roleQueryResult==null || roleQueryResult.size()<=0)
-					{
-
-						RoleEntity tmpRoleEntity = new RoleEntity();
-						tmpRoleEntity.setDescription(tmpWSORole.getDescription());
-						tmpRoleEntity.setName(tmpWSORole.getName());
-						roleEntity.add(tmpRoleEntity);
-
-					}
-					else
-					{
-						Long roleId=Long.parseLong(roleQueryResult.get(0).toString());
-						RoleEntity oldRoleEntity =userDao.get(RoleEntity.class, roleId);
-						roleEntity.add(oldRoleEntity) ; 
-					}
-					userEntity.setRoles(roleEntity); 
-					userDao.save(userEntity);  
-
-				}
-			}
-		}
-		else
-		{
-			UserEntity newUserEntity = new UserEntity();
-			newUserEntity.setCreatedAt(userWSO.getCreatedAt());
-			newUserEntity.setEmail(userWSO.getEmail());
-			newUserEntity.setMobile(userWSO.getMobile());
-			newUserEntity.setEmailVerified(userWSO.isEmailVerified());
-			newUserEntity.setMobileVerified(userWSO.isMobileVerified());
-			newUserEntity.setPassword(userWSO.getPassword());
-			newUserEntity.setUpdatedAt(userWSO.getUpdatedAt());
-			//newUserEntity.setUsername(userWSO.getUsername());
-
-
-			Set<RoleWSO> roleWSO = userWSO.getRoles();
-			Iterator<RoleWSO> iteratorWSO = roleWSO.iterator(); 
-			Set<RoleEntity> roleEntity = new HashSet<RoleEntity>();
-			while (iteratorWSO.hasNext()){
-				RoleWSO tmpWSORole=iteratorWSO.next();
-
-
-				String roleQuery="select id from role where name='"+tmpWSORole.getName()+"'";
-				List roleQueryResult = userDao.getSQLQuery(roleQuery);
-
-				if(roleQueryResult==null || roleQueryResult.size()<=0)
-				{
-					RoleEntity tmpRoleEntity = new RoleEntity();
-					tmpRoleEntity.setDescription(tmpWSORole.getDescription());
-					tmpRoleEntity.setName(tmpWSORole.getName());
-					roleEntity.add(tmpRoleEntity);
-				}
-				else
-				{
-					Long roleId=Long.parseLong(roleQueryResult.get(0).toString());
-					RoleEntity oldRoleEntity=userDao.get(RoleEntity.class,roleId);
-					logger.info("oldRoleEntity="+oldRoleEntity);
-					roleEntity.add(oldRoleEntity) ; 
-				}
-				newUserEntity.setRoles(roleEntity);
-				userDao.save(newUserEntity);  
-
-			}
-
-		}
-		statusWSO.setCode(200);
-		statusWSO.setMessage("Sucessful");
+        UserEntity user = new UserEntity();
+        user.setEmail(userWSO.getEmail());
+        user.setMobile(userWSO.getMobile());
+        user.setPassword(userWSO.getPassword());
+        RoleEntity role = userDao.getRole(userWSO.getRoles().iterator().next());
+        user.addRole(role);
+        UserEntity userEntity = userDao.getUserByUsername(user.getMobile());
+        if (null == userEntity) {
+            userDao.save(user);
+            ProfileEntity profile;
+            if(role.getName().equals(RoleEntity.ROLE_PATIENT)){
+                profile = new PatientProfileEntity();
+            }else if(role.getName().equals(RoleEntity.ROLE_DOCTOR)){
+                profile = new DoctorProfileEntity();
+            } else{
+                profile = new ProfileEntity();
+            }
+            profile.setUser(user);
+            profile.setName(userWSO.getName());
+            userDao.save(profile);
+            statusWSO.setCode(HttpStatus.SC_OK);
+        } else {
+            statusWSO.setCode(HttpStatus.SC_CONFLICT);
+            statusWSO.setMessage("Mobile number :- " + user.getMobile() + " already exist");
+        }
 	}
 	
 	public void update(UserWSO userWSO, StatusWSO statusWSO)  throws Exception
@@ -173,7 +100,7 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 		UserEntity.setPassword(userWSO.getPassword());
 		if(!userWSO.getUpdatedAt().toString().isEmpty())
 		UserEntity.setUpdatedAt(userWSO.getUpdatedAt());
-		if(!userWSO.getUsername().toString().isEmpty())
+		//if(!userWSO.getUsername().toString().isEmpty())
 		//UserEntity.setUsername(userWSO.getUsername());
 		
 		userDao.update(UserEntity);

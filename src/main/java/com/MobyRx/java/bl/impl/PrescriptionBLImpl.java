@@ -40,7 +40,7 @@ public class PrescriptionBLImpl extends CommonBLImpl implements PrescriptionBL{
 		AccountEntity accountEntity = prescriptionDao.get(AccountEntity.class, prescriptionWSO.getClinic().getId());
 		prescriptionEntity.setPharmacy(accountEntity);
 		prescriptionEntity.setCreatedAt(new Date());
-		DoctorProfileEntity doctorProfileEntity = prescriptionDao.get(DoctorProfileEntity.class, prescriptionWSO.getDoctor().id);
+		DoctorProfileEntity doctorProfileEntity = prescriptionDao.get(DoctorProfileEntity.class, prescriptionWSO.getDoctor().getId());
 		prescriptionEntity.setDoctor(doctorProfileEntity);
 		prescriptionEntity.setId(null);
 		prescriptionEntity.setInstruction(prescriptionWSO.getInstruction());

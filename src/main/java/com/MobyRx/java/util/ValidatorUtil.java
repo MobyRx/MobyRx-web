@@ -46,7 +46,7 @@ public class ValidatorUtil {
 
 
     
-    public void validate(UserWSO userWSO, StatusWSO status) {
+    public static void validate(UserWSO userWSO, StatusWSO status) {
         if(StringUtils.isEmpty(userWSO.getEmail())){
         	status.setCode(400);
             status.addError("Email required");

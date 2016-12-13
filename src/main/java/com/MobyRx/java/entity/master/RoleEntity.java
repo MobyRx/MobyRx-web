@@ -21,7 +21,10 @@ public class RoleEntity extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 3256446889020622647L;
     
-    
+    public static final String ROLE_DOCTOR = "Doctor";
+    public static final String ROLE_PATIENT = "Patient";
+    public static final String ROLE_PHARMACIST = "Pharmacist";
+
     private String name;
     private String description;
 

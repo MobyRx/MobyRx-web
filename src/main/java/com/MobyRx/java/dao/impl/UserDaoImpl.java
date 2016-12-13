@@ -3,8 +3,11 @@ package com.MobyRx.java.dao.impl;
 import com.MobyRx.java.dao.UserDao;
 import com.MobyRx.java.entity.common.UserEntity;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import com.MobyRx.java.entity.master.RoleEntity;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -41,5 +44,19 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
         return (UserEntity)criteria.uniqueResult();
     
     }
-    
+
+    @Override
+    public List<RoleEntity> getRoles(Set<String> roleNames) {
+        Criteria criteria = getCurrentSession().createCriteria(RoleEntity.class)
+                .add(Restrictions.in("name", roleNames));
+        return criteria.list();
+    }
+
+    @Override
+    public RoleEntity getRole(String name) {
+        Criteria criteria = getCurrentSession().createCriteria(RoleEntity.class)
+                .add(Restrictions.eq("name", name));
+        return (RoleEntity)criteria.uniqueResult();
+    }
+
 }

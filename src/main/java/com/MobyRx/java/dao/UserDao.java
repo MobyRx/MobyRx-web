@@ -1,9 +1,11 @@
 package com.MobyRx.java.dao;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.MobyRx.java.entity.common.UserEntity;
-;
+import com.MobyRx.java.entity.master.RoleEntity;
 
 /**
  * Created by IntelliJ IDEA.
@@ -18,4 +20,8 @@ public interface UserDao extends BaseDao{
     UserEntity getUserByUsername(String username) ;
     
     UserEntity searchUser(Map<String, Object> param, String query);
+
+    List<RoleEntity> getRoles(Set<String> roleNames);
+    
+    RoleEntity getRole(String name);
 }

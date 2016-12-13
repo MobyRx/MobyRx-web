@@ -149,10 +149,10 @@ public class DataMapper {
 		return userWSO;
 		
 	}
-	private static Set<RoleWSO> transformRoles(Set<RoleEntity> roles) {
-		 Set<RoleWSO> RolesWSO = new HashSet<RoleWSO>();
+	private static Set<String> transformRoles(Set<RoleEntity> roles) {
+		 Set<String> RolesWSO = new HashSet<String>();
 	        for(RoleEntity roleEntity : roles)
-	        	RolesWSO.add(transform(roleEntity));
+	        	RolesWSO.add(roleEntity.getName());
 	        return RolesWSO;
 	}
 

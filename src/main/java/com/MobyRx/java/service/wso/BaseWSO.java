@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 public abstract class BaseWSO {
 
 
-    public Long id;
-    public Date createdAt;
-    public Date updatedAt;
+    private Long id;
+    private Date createdAt;
+    private Date updatedAt;
 
 
     public Long getId() {
