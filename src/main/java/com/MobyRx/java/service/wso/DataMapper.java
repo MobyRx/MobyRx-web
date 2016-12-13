@@ -158,11 +158,11 @@ public class DataMapper {
 
 	public static RoleWSO transform(RoleEntity role){
 		RoleWSO roleWSO = new RoleWSO();
-		roleWSO.setCreatedAt(role.getCreatedAt());
+		//roleWSO.setCreatedAt(role.getCreatedAt());
 		roleWSO.setDescription(role.getDescription());
 		roleWSO.setId(role.getId());
 		roleWSO.setName(role.getName());
-		roleWSO.setUpdatedAt(role.getUpdatedAt());
+		//roleWSO.setUpdatedAt(role.getUpdatedAt());
 		return roleWSO;
 	}
 	private static Set<ClinicWSO> transform(Set<AccountEntity> account) {

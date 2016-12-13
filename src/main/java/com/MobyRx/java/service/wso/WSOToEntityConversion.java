@@ -259,11 +259,11 @@ public class WSOToEntityConversion {
 	
 	public static RoleWSO transform(RoleEntity role){
 		RoleWSO roleWSO = new RoleWSO();
-		roleWSO.setCreatedAt(role.getCreatedAt());
+		//roleWSO.setCreatedAt(role.getCreatedAt());
 		roleWSO.setDescription(role.getDescription());
 		roleWSO.setId(role.getId());
 		roleWSO.setName(role.getName());
-		roleWSO.setUpdatedAt(role.getUpdatedAt());
+		//roleWSO.setUpdatedAt(role.getUpdatedAt());
 		return roleWSO;
 	}
 }
