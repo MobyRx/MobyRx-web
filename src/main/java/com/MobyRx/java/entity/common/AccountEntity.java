@@ -7,6 +7,7 @@ import com.MobyRx.java.entity.master.CategoryEntity;
 import com.MobyRx.java.entity.master.ServiceEntity;
 import com.MobyRx.java.entity.type.AccountFunction;
 import com.MobyRx.java.entity.type.AccountType;
+import com.MobyRx.java.entity.type.Status;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -35,6 +36,7 @@ public class AccountEntity extends BaseEntity {
     private boolean verified = false;
     private AccountType accountType = AccountType.TRIAL;
     private AccountFunction accountFunction;
+    private Status status = Status.ACTIVE;
 
 
     public String getName() {
@@ -146,5 +148,15 @@ public class AccountEntity extends BaseEntity {
 
     public void setAccountFunction(AccountFunction accountFunction) {
         this.accountFunction = accountFunction;
+    }
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

@@ -12,5 +12,7 @@ public enum Status {
     ACTIVE,
     INACTIVE,
     DELETED,
-    ARCHIVE
+    ARCHIVE,
+    SUSPENDED,
+    BLOCKED
 }
