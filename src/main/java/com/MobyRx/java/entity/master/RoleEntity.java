@@ -4,8 +4,6 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import com.MobyRx.java.entity.common.BaseEntity;
-
 import java.io.Serializable;
 
 /**
