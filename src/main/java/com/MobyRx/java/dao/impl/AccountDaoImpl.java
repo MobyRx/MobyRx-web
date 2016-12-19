@@ -3,8 +3,7 @@ package com.MobyRx.java.dao.impl;
 import com.MobyRx.java.dao.AccountDao;
 import com.MobyRx.java.entity.common.AccountEntity;
 import com.MobyRx.java.entity.type.AccountType;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,14 +17,21 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 @Repository("accountDao")
-public class AccountDaoImpl extends BaseDaoImpl implements AccountDao{
+public class AccountDaoImpl extends BaseDaoImpl implements AccountDao {
 
     @Override
     public List<AccountEntity> getAccount(AccountType accountType, Map<String, String> filterMap) {
-        Criteria criteria = getCurrentSession().createCriteria(AccountEntity.class)
-                .add(Restrictions.eq("accountType", accountType));
-        for(String key : filterMap.keySet())
-            criteria.add(Restrictions.eq(key, filterMap.get(key)));
-        return criteria.list();
+        StringBuilder hql = new StringBuilder("select acc from AccountEntity acc where acc.accountType ='" + accountType.name() + "'");
+        for (String key : filterMap.keySet()) {
+            String value = filterMap.get(key);
+            value = value.replaceAll("\\,","','");
+            hql.append(" and acc.");
+            hql.append(key);
+            hql.append(" in ('");
+            hql.append(value);
+            hql.append("')");
+        }
+        Query query = getCurrentSession().createQuery(hql.toString());
+        return query.list();
     }
 }
