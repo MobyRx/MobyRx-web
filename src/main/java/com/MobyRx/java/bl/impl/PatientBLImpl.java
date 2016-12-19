@@ -38,7 +38,6 @@ public class PatientBLImpl extends CommonBLImpl implements PatientBL{
 		patientProfileEntity.setAddress(addressEntity);
 		patientProfileEntity.setAge(patientProfileWSO.getAge());
 		patientProfileEntity.setBloodGroup(WSOToEntityConversion.transform(patientProfileWSO.getBloodGroup()));
-		patientProfileEntity.setCreatedAt(patientProfileWSO.getCreatedAt());
 		patientProfileEntity.setDob(patientProfileWSO.getDob());
 		patientProfileEntity.setEmergencyContacts(WSOToEntityConversion.transformContacts(patientProfileWSO.getEmergencyContacts()));
 		patientProfileEntity.setGender(WSOToEntityConversion.transform(patientProfileWSO.getGender()));
@@ -59,7 +58,6 @@ public class PatientBLImpl extends CommonBLImpl implements PatientBL{
 			patientProfileEntity.setRelationship(null);
 		}
 		
-		patientProfileEntity.setUpdatedAt(patientProfileWSO.getUpdatedAt());
 		Long userId= patientProfileWSO.getUser().getId();
 		UserEntity userEntity = patientDao.get(UserEntity.class, userId);
 		patientProfileEntity.setUser(userEntity);
@@ -98,13 +96,11 @@ public class PatientBLImpl extends CommonBLImpl implements PatientBL{
 		addressEntity.setBuildingNumber(addressWSO.getBuildingNumber());
 		addressEntity.setCity(addressWSO.getCity());
 		addressEntity.setCountry(addressWSO.getCountry());
-		addressEntity.setCreatedAt(addressWSO.getCreatedAt());
 		addressEntity.setLandmark(addressWSO.getLandmark());
 		addressEntity.setLatitude(addressWSO.getLatitude());
 		addressEntity.setLongitude(addressWSO.getLongitude());
 		addressEntity.setState(addressWSO.getState());
 		addressEntity.setStreet(addressWSO.getStreet());
-		addressEntity.setUpdatedAt(addressWSO.getUpdatedAt());
 		addressEntity.setZipCode(addressWSO.getZipCode());
 		patientProfileEntity.setAddress(addressEntity);
 		}
@@ -117,7 +113,6 @@ public class PatientBLImpl extends CommonBLImpl implements PatientBL{
 		}
 		patientProfileEntity.setAge(patientProfileWSO.getAge());
 		patientProfileEntity.setBloodGroup(WSOToEntityConversion.transform(patientProfileWSO.getBloodGroup()));
-		patientProfileEntity.setCreatedAt(patientProfileWSO.getCreatedAt());
 		patientProfileEntity.setDob(patientProfileWSO.getDob());
 		patientProfileEntity.setEmergencyContacts(WSOToEntityConversion.transformContacts(patientProfileWSO.getEmergencyContacts()));
 		patientProfileEntity.setGender(WSOToEntityConversion.transform(patientProfileWSO.getGender()));
@@ -139,7 +134,6 @@ public class PatientBLImpl extends CommonBLImpl implements PatientBL{
 			patientProfileEntity.setRelationship(null);
 		}
 		
-		patientProfileEntity.setUpdatedAt(patientProfileWSO.getUpdatedAt());
 		Long userId= patientProfileWSO.getUser().getId();
 		UserEntity userEntity = patientDao.get(UserEntity.class, userId);
 		patientProfileEntity.setUser(userEntity);

@@ -9,6 +9,6 @@ package com.MobyRx.java.entity.type;
  */
 public enum AccountType {
 
+    CLINIC, LAB, PHARMACY, HOSPITAL
 
-    TRIAL, PREMIUM
 }

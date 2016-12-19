@@ -1,7 +1,10 @@
 package com.MobyRx.java.service;
 
+import com.MobyRx.java.bl.CommonBL;
 import com.MobyRx.java.bl.PatientBL;
+import com.MobyRx.java.entity.common.AccountEntity;
 import com.MobyRx.java.entity.patient.PatientProfileEntity;
+import com.MobyRx.java.entity.type.AccountType;
 import com.MobyRx.java.service.wso.DataMapper;
 import com.MobyRx.java.service.wso.PatientProfileWSO;
 import com.MobyRx.java.service.wso.StatusWSO;
@@ -40,6 +43,9 @@ public class PatientService extends BaseService {
 
     private PatientBL patientBL;
 
+    @Autowired
+    private CommonBL commonBL;
+
 
     @Autowired(required = true)
     public void setCommonBL(PatientBL patientBL) {
@@ -75,6 +81,14 @@ public class PatientService extends BaseService {
     	 Map<String, String> queryParam = getQueryParamAsStringMap(uriInfo);
     	List<PatientProfileEntity> patientProfile = patientBL.searchPatient(queryParam);
         return sendResponse(DataMapper.transformPatients(patientProfile));
+    }
+
+
+    @GET
+    @Path("/search/{type}")
+    public Response search(@PathParam("type") String type, @Context UriInfo uriInfo) {
+        Map<String, String> queryParam = getQueryParamAsStringMap(uriInfo);
+        return sendResponse(this.commonBL.getAccounts(AccountType.valueOf(type), queryParam));
     }
 }
 

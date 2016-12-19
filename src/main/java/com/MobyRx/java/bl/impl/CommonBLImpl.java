@@ -1,9 +1,14 @@
 package com.MobyRx.java.bl.impl;
 
 import com.MobyRx.java.bl.CommonBL;
+import com.MobyRx.java.dao.AccountDao;
 import com.MobyRx.java.dao.CommonDao;
 
 import com.MobyRx.java.dao.DoctorDao;
+import com.MobyRx.java.entity.common.AccountEntity;
+import com.MobyRx.java.entity.type.AccountType;
+import com.MobyRx.java.service.converter.DataMapper;
+import com.MobyRx.java.service.wso.AccountWSO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
@@ -31,6 +37,9 @@ public class CommonBLImpl extends BaseBL implements CommonBL{
     @Autowired
     private CommonDao commonDao;
 
+    @Autowired
+    private AccountDao accountDao;
+
     @Override
     public void executeSQLQueryUpdate(String sqlQuery) {
         commonDao.executeSQLQueryUpdate(sqlQuery);
@@ -39,5 +48,11 @@ public class CommonBLImpl extends BaseBL implements CommonBL{
     @Override
     public List getMasterData(String className) {
         return commonDao.getMasterData(className);
+    }
+
+    @Override
+    public List<AccountWSO> getAccounts(AccountType accountType, Map<String, String> filterParam) {
+        List<AccountEntity> accountList = accountDao.getAccount(accountType,filterParam);
+        return DataMapper.transform(accountList);
     }
 }

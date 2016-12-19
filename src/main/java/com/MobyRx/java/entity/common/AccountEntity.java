@@ -1,11 +1,9 @@
 package com.MobyRx.java.entity.common;
 
 
-import com.MobyRx.java.entity.common.AddressEntity;
-import com.MobyRx.java.entity.common.BaseEntity;
 import com.MobyRx.java.entity.master.CategoryEntity;
 import com.MobyRx.java.entity.master.ServiceEntity;
-import com.MobyRx.java.entity.type.AccountFunction;
+import com.MobyRx.java.entity.type.AccountPlan;
 import com.MobyRx.java.entity.type.AccountType;
 import com.MobyRx.java.entity.type.Status;
 
@@ -34,8 +32,8 @@ public class AccountEntity extends BaseEntity {
     private CategoryEntity category;
     private List<ServiceEntity> services;
     private boolean verified = false;
-    private AccountType accountType = AccountType.TRIAL;
-    private AccountFunction accountFunction;
+    private AccountType accountType;
+    private AccountPlan accountPlan = AccountPlan.TRIAL;
     private Status status = Status.ACTIVE;
 
 
@@ -110,7 +108,7 @@ public class AccountEntity extends BaseEntity {
 
    
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "clinic_service", joinColumns = @JoinColumn(name = "clinic_id"),
+    @JoinTable(name = "account_service", joinColumns = @JoinColumn(name = "account_id"),
             inverseJoinColumns = @JoinColumn(name = "service_id"))
     public List<ServiceEntity> getServices() {
         return services;
@@ -140,14 +138,14 @@ public class AccountEntity extends BaseEntity {
         this.accountType = accountType;
     }
 
-    @Column(name = "account_function", nullable = false)
+    @Column(name = "account_plan", nullable = false)
     @Enumerated(EnumType.STRING)
-    public AccountFunction getAccountFunction() {
-        return accountFunction;
+    public AccountPlan getAccountPlan() {
+        return accountPlan;
     }
 
-    public void setAccountFunction(AccountFunction accountFunction) {
-        this.accountFunction = accountFunction;
+    public void setAccountPlan(AccountPlan accountPlan) {
+        this.accountPlan = accountPlan;
     }
 
     @Column(name = "status")

@@ -7,7 +7,7 @@ package com.MobyRx.java.entity.type;
  * Time: 10:54 AM
  * To change this template use File | Settings | File Templates.
  */
-public enum AccountFunction {
+public enum AccountPlan {
 
-    CLINIC, LAB, PHARMACY, HOSPITAL
+    TRIAL, PREMIUM
 }

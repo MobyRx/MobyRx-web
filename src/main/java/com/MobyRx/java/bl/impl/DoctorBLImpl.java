@@ -51,7 +51,6 @@ public class DoctorBLImpl extends CommonBLImpl implements DoctorBL {
             }
             doctorProfileEntity.setAccount(accountEntityList);
         }
-        doctorProfileEntity.setCreatedAt(doctorProfileWSO.getCreatedAt());
         doctorProfileEntity.setEmergencyContacts(WSOToEntityConversion.transformContacts(doctorProfileWSO.getEmergencyContacts()));
         doctorProfileEntity.setGender(WSOToEntityConversion.transform(doctorProfileWSO.getGender()));
         doctorProfileEntity.setMedRegNumber(doctorProfileWSO.getMedRegNumber());
@@ -68,7 +67,6 @@ public class DoctorBLImpl extends CommonBLImpl implements DoctorBL {
         } else {
             doctorProfileEntity.setSpecializations(null);
         }
-        doctorProfileEntity.setUpdatedAt(doctorProfileWSO.getUpdatedAt());
         Long userId = doctorProfileWSO.getUser().getId();
         UserEntity userEntity = (UserEntity) doctorDao.get(UserEntity.class, userId);
         doctorProfileEntity.setUser(userEntity);
@@ -90,13 +88,11 @@ public class DoctorBLImpl extends CommonBLImpl implements DoctorBL {
 		addressEntity.setBuildingNumber(doctorProfileWSO.getAddress().getBuildingNumber());
 		addressEntity.setCity(doctorProfileWSO.getAddress().getCity());
 		addressEntity.setCountry(doctorProfileWSO.getAddress().getCountry());
-		addressEntity.setCreatedAt(doctorProfileWSO.getCreatedAt());
 		addressEntity.setLandmark(doctorProfileWSO.getAddress().getLandmark());
 		addressEntity.setLatitude(doctorProfileWSO.getAddress().getLatitude());
 		addressEntity.setLongitude(doctorProfileWSO.getAddress().getLongitude());
 		addressEntity.setState(doctorProfileWSO.getAddress().getState());
 		addressEntity.setStreet(doctorProfileWSO.getAddress().getStreet());
-		addressEntity.setUpdatedAt(doctorProfileWSO.getUpdatedAt());
 		addressEntity.setZipCode(doctorProfileWSO.getAddress().getZipCode());
 		doctorProfileEntity.setAddress(addressEntity);
 		}
@@ -129,7 +125,6 @@ public class DoctorBLImpl extends CommonBLImpl implements DoctorBL {
 			}
 			doctorProfileEntity.setAccount(accountEntityList);
 		}
-		doctorProfileEntity.setCreatedAt(doctorProfileWSO.getCreatedAt());
 		doctorProfileEntity.setEmergencyContacts(WSOToEntityConversion.transformContacts(doctorProfileWSO.getEmergencyContacts()));
 		doctorProfileEntity.setGender(WSOToEntityConversion.transform(doctorProfileWSO.getGender())); doctorProfileEntity.getGender();
 		doctorProfileEntity.setMedRegNumber(doctorProfileWSO.getMedRegNumber());
@@ -150,7 +145,6 @@ public class DoctorBLImpl extends CommonBLImpl implements DoctorBL {
 		{
 			doctorProfileEntity.setSpecializations(null);
 		}
-		doctorProfileEntity.setUpdatedAt(doctorProfileWSO.getUpdatedAt());
 		Long userId= doctorProfileWSO.getUser().getId();
 		UserEntity userEntity = (UserEntity)doctorDao.get(UserEntity.class, userId);
 		doctorProfileEntity.setUser(userEntity);
