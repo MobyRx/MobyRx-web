@@ -17,5 +17,9 @@ public interface AccountDao extends BaseDao{
     
     
     List<AccountEntity> getAccount(AccountType accountType, Map<String,String> filterMap);
-    
+
+    List<AccountEntity> getAccount(Map<String, String> filterMap);
+
+    AccountEntity getAccount(Long accountId);
+
 }

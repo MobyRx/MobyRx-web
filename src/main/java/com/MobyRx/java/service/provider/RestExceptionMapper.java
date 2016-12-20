@@ -1,6 +1,7 @@
 package com.MobyRx.java.service.provider;
 
 import com.MobyRx.java.exception.MobyRxException;
+import com.MobyRx.java.exception.NoRecordFoundException;
 import com.MobyRx.java.service.wso.StatusWSO;
 import org.glassfish.jersey.server.ParamException;
 import org.slf4j.Logger;
@@ -28,7 +29,7 @@ public class RestExceptionMapper implements ExceptionMapper<Throwable> {
 
     public Response toResponse(Throwable re) {
         StatusWSO status = new StatusWSO();
-        if(re instanceof NotFoundException || re instanceof ClassNotFoundException ){
+        if(re instanceof NotFoundException || re instanceof NoRecordFoundException|| re instanceof ClassNotFoundException ){
             status.setCode(HttpStatus.NOT_FOUND.value());
             status.setMessage("No Record Found for your request");
         }else if(re instanceof ParamException){

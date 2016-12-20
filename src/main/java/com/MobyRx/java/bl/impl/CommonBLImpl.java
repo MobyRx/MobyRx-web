@@ -6,7 +6,7 @@ import com.MobyRx.java.dao.CommonDao;
 
 import com.MobyRx.java.dao.DoctorDao;
 import com.MobyRx.java.entity.common.AccountEntity;
-import com.MobyRx.java.entity.type.AccountType;
+import com.MobyRx.java.exception.NoRecordFoundException;
 import com.MobyRx.java.service.converter.DataMapper;
 import com.MobyRx.java.service.wso.AccountWSO;
 import org.slf4j.Logger;
@@ -51,8 +51,16 @@ public class CommonBLImpl extends BaseBL implements CommonBL{
     }
 
     @Override
-    public List<AccountWSO> getAccounts(AccountType accountType, Map<String, String> filterParam) {
-        List<AccountEntity> accountList = accountDao.getAccount(accountType,filterParam);
+    public List<AccountWSO> getAccounts(Map<String, String> filterParam) {
+        List<AccountEntity> accountList = accountDao.getAccount(filterParam);
         return DataMapper.transform(accountList);
+    }
+
+    @Override
+    public AccountWSO getAccount(Long accountId) {
+        AccountEntity account =  accountDao.getAccount(accountId);
+        if(null==account)
+            throw new NoRecordFoundException("No account found for id="+accountId);
+        return DataMapper.transform(account);
     }
 }

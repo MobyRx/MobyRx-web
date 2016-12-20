@@ -84,12 +84,7 @@ public class PatientService extends BaseService {
     }
 
 
-    @GET
-    @Path("/search/{type}")
-    public Response search(@PathParam("type") String type, @Context UriInfo uriInfo) {
-        Map<String, String> queryParam = getQueryParamAsStringMap(uriInfo);
-        return sendResponse(this.commonBL.getAccounts(AccountType.valueOf(type), queryParam));
-    }
+
 }
 
 

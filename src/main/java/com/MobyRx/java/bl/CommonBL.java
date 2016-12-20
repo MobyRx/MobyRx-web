@@ -20,7 +20,9 @@ public interface CommonBL {
     
     List getMasterData(String className);
     
-    List<AccountWSO> getAccounts(AccountType accountType, Map<String,String> filterParam);
+    List<AccountWSO> getAccounts(Map<String,String> filterParam);
+
+    AccountWSO getAccount(Long accountId);
 
 
 }
