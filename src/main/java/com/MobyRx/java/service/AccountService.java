@@ -1,5 +1,6 @@
 package com.MobyRx.java.service;
 
+import com.MobyRx.java.bl.AccountBL;
 import com.MobyRx.java.bl.CommonBL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,9 @@ public class AccountService extends BaseService {
     @Autowired
     private CommonBL commonBL;
 
+    @Autowired
+    private AccountBL accountBL;
+
     @GET
     @Path("/list")
     public Response search(@Context UriInfo uriInfo) {
@@ -43,6 +47,13 @@ public class AccountService extends BaseService {
     @Path("/{accountId}")
     public Response search(@PathParam("accountId")Long accountId) {
         return sendResponse(this.commonBL.getAccount(accountId));
+    }
+
+    @GET
+    @Path("/{accountId}/doctor")
+    public Response doctor(@PathParam("accountId")Long accountId, @Context UriInfo uriInfo) {
+        Map<String, String> queryParam = getQueryParamAsStringMap(uriInfo);
+        return sendResponse(this.accountBL.getAccountDoctor(accountId, queryParam));
     }
 
 }

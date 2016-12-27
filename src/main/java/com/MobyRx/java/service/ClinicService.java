@@ -1,5 +1,5 @@
 package com.MobyRx.java.service;
-import com.MobyRx.java.bl.ClinicBL;
+import com.MobyRx.java.bl.AccountBL;
 import com.MobyRx.java.bl.CommonBL;
 import com.MobyRx.java.entity.common.AccountEntity;
 import com.MobyRx.java.service.wso.ClinicWSO;
@@ -40,28 +40,28 @@ public class ClinicService extends BaseService{
 
 	    private CommonBL commonBL;
 	    
-	    private ClinicBL clinicBL;
+	    private AccountBL accountBL;
 
 	    @Autowired(required = true)
 	    public void setCommonBL(CommonBL commonBL) {
 	        this.commonBL = commonBL;
 	    }
 	    @Autowired(required = true)
-	    public void setCommonBL(ClinicBL clinicBL) {
-	        this.clinicBL = clinicBL;
+	    public void setCommonBL(AccountBL accountBL) {
+	        this.accountBL = accountBL;
 	    }
 	    
 	    @POST
 	    public Response addClinic(ClinicWSO clinicWSO, @Context UriInfo uriInfo) throws Exception{
 	    	StatusWSO statusWSO = new StatusWSO();
-	    	clinicBL.save(clinicWSO,statusWSO);
+	    	accountBL.save(clinicWSO,statusWSO);
 	    	return  sendResponse(statusWSO);
 	    	}
 	    
 	    @PUT
 	    public Response modifyClinic(ClinicWSO clinicWSO, @Context UriInfo uriInfo) throws Exception{
 	    	StatusWSO statusWSO = new StatusWSO();
-	    		clinicBL.update(clinicWSO,statusWSO);
+	    		accountBL.update(clinicWSO,statusWSO);
 	    		return  sendResponse(statusWSO);
 	    	
 	    }
@@ -69,7 +69,7 @@ public class ClinicService extends BaseService{
 	    @DELETE
 	    public Response deleteClinic(@QueryParam("clinicId")String clinicId,@Context UriInfo uriInfo) throws Exception{
 	    	StatusWSO statusWSO = new StatusWSO();
-	    		clinicBL.delete(Long.parseLong(clinicId),statusWSO);
+	    		accountBL.delete(Long.parseLong(clinicId),statusWSO);
 	    		return  sendResponse(statusWSO);
 	    	
 	    }
@@ -78,7 +78,7 @@ public class ClinicService extends BaseService{
 	    public Response getClinic(@QueryParam("clinicId")String clinicId,@Context UriInfo uriInfo) throws Exception{
 	    	StatusWSO statusWSO = new StatusWSO();
 	    	AccountEntity accountEntity =null;
-	    	accountEntity = clinicBL.get(Long.parseLong(clinicId),statusWSO);
+	    	accountEntity = accountBL.get(Long.parseLong(clinicId),statusWSO);
 	    	ClinicWSO  clinicWSO = DataMapper.transform(accountEntity);
 	    	logger.info("clinicWSO  ="+clinicWSO.toString());
 	    	return  sendResponse(clinicWSO);

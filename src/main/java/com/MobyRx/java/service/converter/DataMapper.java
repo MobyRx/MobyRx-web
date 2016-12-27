@@ -2,11 +2,12 @@ package com.MobyRx.java.service.converter;
 
 import com.MobyRx.java.entity.common.AccountEntity;
 import com.MobyRx.java.entity.common.AddressEntity;
-import com.MobyRx.java.entity.common.UserEntity;
+import com.MobyRx.java.entity.doctor.DoctorProfileEntity;
 import com.MobyRx.java.entity.master.ServiceEntity;
+import com.MobyRx.java.entity.master.SpecializationEntity;
 import com.MobyRx.java.service.wso.AccountWSO;
 import com.MobyRx.java.service.wso.AddressWSO;
-import com.MobyRx.java.service.wso.UserWSO;
+import com.MobyRx.java.service.wso.DoctorWSO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,7 @@ public class DataMapper {
 
     public static AccountWSO transform(AccountEntity account){
         AccountWSO accountWSO = new AccountWSO();
+        accountWSO.setId(account.getId());
         accountWSO.setName(account.getName());
         accountWSO.setEmail(account.getEmail());
         accountWSO.setCategory(account.getCategory().getName());
@@ -57,5 +59,35 @@ public class DataMapper {
         addressWSO.setLongitude(address.getLongitude());
         return addressWSO;
     }
+
+
+    public static List<DoctorWSO> transformDoctors(List<DoctorProfileEntity> doctors){
+        List<DoctorWSO> doctorWSOs = new ArrayList<DoctorWSO>();
+        for(DoctorProfileEntity doctor : doctors)
+            doctorWSOs.add(transform(doctor));
+        return doctorWSOs;
+    }
+    
+    public static DoctorWSO transform(DoctorProfileEntity doctor){
+        DoctorWSO doctorWSO = new DoctorWSO();
+        doctorWSO.setId(doctor.getId());
+        //doctorWSO.setAddress(transform(doctor.getAddress()));
+        doctorWSO.setGender(doctor.getGender().toString());
+        doctorWSO.setName(doctor.getName());
+        doctorWSO.setMobile(doctor.getUser().getMobile());
+        doctorWSO.setEmail(doctor.getUser().getEmail());
+        doctorWSO.setAchievements(doctor.getAchievements());
+        doctorWSO.setQualification(doctor.getQualification());
+        doctorWSO.setVerified(doctor.isVerified());
+        for(SpecializationEntity specialization  : doctor.getSpecializations())
+            doctorWSO.addSpecialization(specialization.getName());
+        doctorWSO.setPracticeStartAt(doctor.getPracticeStartAt());
+        doctorWSO.setMedRegNumber(doctor.getMedRegNumber());
+        return doctorWSO;
+    }
+
+
+
+
 
 }

@@ -16,6 +16,7 @@ import java.util.List;
 @XmlRootElement(name = "account")
 public class AccountWSO {
 
+    private Long id;
     private String name;
     private AddressWSO address;
     private String phoneNumber;
@@ -28,6 +29,13 @@ public class AccountWSO {
     private boolean verified = false;
     private String accountType;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

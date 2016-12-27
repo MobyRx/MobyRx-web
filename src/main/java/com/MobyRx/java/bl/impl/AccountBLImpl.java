@@ -2,34 +2,37 @@ package com.MobyRx.java.bl.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import com.MobyRx.java.dao.AccountDao;
 import com.MobyRx.java.entity.common.AccountEntity;
 import com.MobyRx.java.entity.common.AddressEntity;
+import com.MobyRx.java.entity.doctor.DoctorProfileEntity;
+import com.MobyRx.java.service.converter.DataMapper;
+import com.MobyRx.java.service.wso.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.MobyRx.java.bl.ClinicBL;
+import com.MobyRx.java.bl.AccountBL;
 import com.MobyRx.java.dao.ClinicDao;
 import com.MobyRx.java.entity.master.CategoryEntity;
 import com.MobyRx.java.entity.master.ServiceEntity;
-import com.MobyRx.java.service.wso.ClinicWSO;
-import com.MobyRx.java.service.wso.WSOToEntityConversion;
-import com.MobyRx.java.service.wso.ServiceWSO;
-import com.MobyRx.java.service.wso.StatusWSO;
 import com.MobyRx.java.util.ValidatorUtil;
 
 @Repository("clinicBL")
 @Transactional
-public class ClinicBLImpl extends CommonBLImpl implements ClinicBL {
+public class AccountBLImpl extends BaseBL implements AccountBL {
+
+    private Logger logger = LoggerFactory.getLogger(AccountBLImpl.class);
 
 	@Autowired
 	private ClinicDao clinicDao;
 
-
-	private Logger logger = LoggerFactory.getLogger(ClinicBLImpl.class);
+    @Autowired
+    private AccountDao accountDao;
 
 	public void save(ClinicWSO clinicWSO,StatusWSO statusWSO)  throws Exception{
 
@@ -136,6 +139,11 @@ public class ClinicBLImpl extends CommonBLImpl implements ClinicBL {
 
 	}
 
+    @Override
+    public List<DoctorWSO> getAccountDoctor(Long accountId, Map<String, String> filterParam) {
+        List<DoctorProfileEntity> doctors = accountDao.getClinicDoctor(accountId,filterParam);
+        return DataMapper.transformDoctors(doctors);
+    }
 
 
 }

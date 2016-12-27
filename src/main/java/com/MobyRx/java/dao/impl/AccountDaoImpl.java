@@ -2,6 +2,7 @@ package com.MobyRx.java.dao.impl;
 
 import com.MobyRx.java.dao.AccountDao;
 import com.MobyRx.java.entity.common.AccountEntity;
+import com.MobyRx.java.entity.doctor.DoctorProfileEntity;
 import com.MobyRx.java.entity.type.AccountType;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -57,5 +58,29 @@ public class AccountDaoImpl extends BaseDaoImpl implements AccountDao {
         Criteria criteria = getCurrentSession().createCriteria(AccountEntity.class)
                 .add(Restrictions.eq("id", accountId));
         return (AccountEntity)criteria.uniqueResult();
+    }
+
+    @Override
+    public List<DoctorProfileEntity> getClinicDoctor(Long accountId, Map<String, String> filterParam) {
+        StringBuilder hql = new StringBuilder("select doc from DoctorProfileEntity doc join fetch doc.account acc where acc.id=:accountId");
+        for(String key :  filterParam.keySet()){
+            String value = filterParam.get(key);
+            hql.append(" and ");
+            hql.append("doc.");
+            hql.append(key);
+            if(key.equalsIgnoreCase("name")){
+                hql.append(" like '%");
+                hql.append(value);
+                hql.append("%'");
+            }else{
+                value = value.replaceAll("\\,","','");
+                hql.append(" in ('");
+                hql.append(value);
+                hql.append("')");
+            }
+        }
+        Query query = getCurrentSession().createQuery(hql.toString());
+        query.setParameter("accountId", accountId);
+        return query.list();
     }
 }

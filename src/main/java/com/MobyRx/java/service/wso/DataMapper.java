@@ -41,7 +41,6 @@ public class DataMapper {
         //patientProfileWSO.setEmergencyContacts(transform(patientProfile.getEmergencyContacts()));
         if(patientProfile.getParentPatient()!=null)
         patientProfileWSO.setParentPatient(transform(patientProfile.getParentPatient()));
-        patientProfileWSO.setUpdatedAt(patientProfile.getUpdatedAt());
         patientProfileWSO.setCreatedAt(patientProfile.getCreatedAt());
         patientProfileWSO.setUser(transform(patientProfile.getUser()));
         return patientProfileWSO;

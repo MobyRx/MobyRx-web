@@ -1,6 +1,7 @@
 package com.MobyRx.java.dao;
 
 import com.MobyRx.java.entity.common.AccountEntity;
+import com.MobyRx.java.entity.doctor.DoctorProfileEntity;
 import com.MobyRx.java.entity.type.AccountType;
 
 import java.util.List;
@@ -21,5 +22,7 @@ public interface AccountDao extends BaseDao{
     List<AccountEntity> getAccount(Map<String, String> filterMap);
 
     AccountEntity getAccount(Long accountId);
+    
+    List<DoctorProfileEntity> getClinicDoctor(Long accountId, Map<String,String> filterParam);
 
 }

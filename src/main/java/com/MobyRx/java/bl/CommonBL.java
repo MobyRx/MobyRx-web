@@ -1,8 +1,7 @@
 package com.MobyRx.java.bl;
 
-import com.MobyRx.java.entity.common.AccountEntity;
-import com.MobyRx.java.entity.type.AccountType;
 import com.MobyRx.java.service.wso.AccountWSO;
+import com.MobyRx.java.service.wso.DoctorProfileWSO;
 
 import java.util.List;
 import java.util.Map;
@@ -23,6 +22,8 @@ public interface CommonBL {
     List<AccountWSO> getAccounts(Map<String,String> filterParam);
 
     AccountWSO getAccount(Long accountId);
+    
+
 
 
 }
