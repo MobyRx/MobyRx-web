@@ -2,15 +2,30 @@ package com.MobyRx.java.service.converter;
 
 import com.MobyRx.java.entity.common.AccountEntity;
 import com.MobyRx.java.entity.common.AddressEntity;
+import com.MobyRx.java.entity.common.PrescriptionEntity;
+import com.MobyRx.java.entity.common.PrescriptionItemEntity;
 import com.MobyRx.java.entity.doctor.DoctorProfileEntity;
 import com.MobyRx.java.entity.master.ServiceEntity;
 import com.MobyRx.java.entity.master.SpecializationEntity;
+import com.MobyRx.java.entity.type.BloodGroup;
+import com.MobyRx.java.entity.type.PrescriptionStatus;
+import com.MobyRx.java.entity.type.PrescriptionType;
 import com.MobyRx.java.service.wso.AccountWSO;
 import com.MobyRx.java.service.wso.AddressWSO;
+import com.MobyRx.java.service.wso.BloodGroupWSO;
 import com.MobyRx.java.service.wso.DoctorWSO;
+import com.MobyRx.java.service.wso.DoseWSO;
+import com.MobyRx.java.service.wso.DurationWSO;
+import com.MobyRx.java.service.wso.PrescriptionItemWSO;
+import com.MobyRx.java.service.wso.PrescriptionStatusWSO;
+import com.MobyRx.java.service.wso.PrescriptionTypeWSO;
+import com.MobyRx.java.service.wso.PrescriptionWSO;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -86,8 +101,107 @@ public class DataMapper {
         return doctorWSO;
     }
 
+    public static List<PrescriptionWSO> transformPrescription(List<PrescriptionEntity> prescriptionEntitys) {
+		List<PrescriptionWSO> prescriptionWSOList = new ArrayList<PrescriptionWSO>();
+		
+		for (int i=0;i<prescriptionEntitys.size();i++) {
+			PrescriptionWSO prescriptionWSO = new PrescriptionWSO();
+			//prescriptionWSO.setPharmacy(transform(prescriptionEntitys.get(i).getPharmacy()));
+			prescriptionWSO.setCreatedAt(prescriptionEntitys.get(i).getCreatedAt());
+			if(prescriptionEntitys.get(i).getDoctor()!=null)
+			//prescriptionWSO.setDoctor(com.MobyRx.java.service.wso.DataMapper.transform(prescriptionEntitys.get(i).getDoctor()));
+			prescriptionWSO.setId(prescriptionEntitys.get(i).getId());
+			prescriptionWSO.setInstruction(prescriptionEntitys.get(i).getInstruction());
+			prescriptionWSO.setNextAppointment(prescriptionEntitys.get(i).getNextAppointment());
+			if(prescriptionEntitys.get(i).getPatient()!=null)
+			//prescriptionWSO.setPatient(com.MobyRx.java.service.wso.DataMapper.transform(prescriptionEntitys.get(i).getPatient()));
+			
+			prescriptionWSO.setPrescriptionNumber(prescriptionEntitys.get(i).getPrescriptionNumber());
+			prescriptionWSO.setUpdatedAt(prescriptionEntitys.get(i).getUpdatedAt());
+			prescriptionWSO.setFilePaths(prescriptionEntitys.get(i).getFilePaths());
+			prescriptionWSO.setStatus(PrescriptionStatusWSO.valueOf(prescriptionEntitys.get(i).getStatus().name()));
+			prescriptionWSO.setPrescriptionType(PrescriptionTypeWSO.valueOf(prescriptionEntitys.get(i).getPrescriptionType().name()));
+			
+			/*Set<PrescriptionItemWSO> prescriptionItemWSOSet =new HashSet<PrescriptionItemWSO>();
+			Set<PrescriptionItemEntity> prescriptionItemEntitySet =prescriptionEntitys.get(i).getPrescriptionItems();
+			for (Iterator<PrescriptionItemEntity> it = prescriptionItemEntitySet.iterator(); it.hasNext(); ) {
+				PrescriptionItemEntity prescriptionItemEntity= it.next();
+				PrescriptionItemWSO prescriptionItemWSO = new PrescriptionItemWSO();
+				prescriptionItemWSO.setBeforeFood(prescriptionItemEntity.isBeforeFood());
+				prescriptionItemWSO.setCreatedAt(prescriptionItemEntity.getCreatedAt());
+				prescriptionItemWSO.setDoseType(DoseWSO.valueOf(prescriptionItemEntity.getDoseType().name()));
+				prescriptionItemWSO.setDrugName(prescriptionItemEntity.getDrugName());
+				prescriptionItemWSO.setDrugs(com.MobyRx.java.service.wso.DataMapper.transform(prescriptionItemEntity.getDrugs()));
+				prescriptionItemWSO.setDuration(prescriptionItemEntity.getDuration());
+				prescriptionItemWSO.setDurationType(DurationWSO.valueOf(prescriptionItemEntity.getDurationType().name()));
+				prescriptionItemWSO.setId(prescriptionItemEntity.getId());
+				prescriptionItemWSO.setInstruction(prescriptionItemEntity.getInstruction());
+				prescriptionItemWSO.setPrescription(transform(prescriptionItemEntity.getPrescription()));
+				prescriptionItemWSO.setQuantity(prescriptionItemEntity.getQuantity());
+				prescriptionItemWSO.setUpdatedAt(prescriptionItemEntity.getCreatedAt());
+				
+				prescriptionItemWSOSet.add(prescriptionItemWSO);
+			
+			}
+			
+			prescriptionWSO.setPrescriptionItems(prescriptionItemWSOSet);*/
+			
+			prescriptionWSOList.add(prescriptionWSO);
+		}
+		
+		return prescriptionWSOList;
+		
+		
+	}
+
+	private static PrescriptionWSO transform(PrescriptionEntity prescription) {
+		PrescriptionWSO prescriptionWSO = new PrescriptionWSO();
+		prescriptionWSO.setPharmacy(transform(prescription.getPharmacy()));
+		prescriptionWSO.setCreatedAt(prescription.getCreatedAt());
+		prescriptionWSO.setDoctor(com.MobyRx.java.service.wso.DataMapper.transform(prescription.getDoctor()));
+		prescriptionWSO.setId(prescription.getId());
+		prescriptionWSO.setInstruction(prescription.getInstruction());
+		prescriptionWSO.setNextAppointment(prescription.getNextAppointment());
+		prescriptionWSO.setPatient(com.MobyRx.java.service.wso.DataMapper.transform(prescription.getPatient()));
+		prescriptionWSO.setPrescriptionItems(null);
+		prescriptionWSO.setPrescriptionNumber(prescription.getPrescriptionNumber());
+		prescriptionWSO.setUpdatedAt(prescription.getUpdatedAt());
+		prescriptionWSO.setFilePaths(prescription.getFilePaths());
+		prescriptionWSO.setStatus(PrescriptionStatusWSO.valueOf(prescription.getStatus().name()));
+		prescriptionWSO.setPrescriptionType(PrescriptionTypeWSO.valueOf(prescription.getPrescriptionType().name()));
+	
+		return prescriptionWSO;
+	}
+
+	public static PrescriptionStatus transform(PrescriptionStatusWSO prescriptionStatusWSO)
+	{
 
 
+		if( prescriptionStatusWSO.name().equals(PrescriptionStatus.ACCEPTED.name()) )
+			return PrescriptionStatus.ACCEPTED;
+		else if( prescriptionStatusWSO.name().equals(PrescriptionStatus.DELIVER.name()) )
+			return PrescriptionStatus.DELIVER;
+		else if( prescriptionStatusWSO.name().equals(PrescriptionStatus.GENERATED.name()) )
+			return PrescriptionStatus.GENERATED;
+		else if( prescriptionStatusWSO.name().equals(PrescriptionStatus.IN_TRANSIT.name()) )
+			return PrescriptionStatus.IN_TRANSIT;
+		return null;
+
+
+	}
+	
+	public static PrescriptionType transform(PrescriptionTypeWSO prescriptionTypeWSO)
+	{
+
+		if( prescriptionTypeWSO.name().equals(PrescriptionType.E_PRESCRIPTION.name()) )
+			return PrescriptionType.E_PRESCRIPTION;
+		else if( prescriptionTypeWSO.name().equals(PrescriptionType.PAPER_PRESCRIPTION.name()) )
+			return PrescriptionType.PAPER_PRESCRIPTION;
+		
+		return null;
+
+
+	}
 
 
 }

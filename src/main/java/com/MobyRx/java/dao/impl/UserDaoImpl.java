@@ -45,14 +45,14 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
     
     }
 
-    @Override
+    
     public List<RoleEntity> getRoles(Set<String> roleNames) {
         Criteria criteria = getCurrentSession().createCriteria(RoleEntity.class)
                 .add(Restrictions.in("name", roleNames));
         return criteria.list();
     }
 
-    @Override
+    
     public RoleEntity getRole(String name) {
         Criteria criteria = getCurrentSession().createCriteria(RoleEntity.class)
                 .add(Restrictions.eq("name", name));

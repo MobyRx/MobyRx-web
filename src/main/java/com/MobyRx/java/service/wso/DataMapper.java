@@ -227,76 +227,11 @@ public class DataMapper {
 		return clinic;
 	}
 
-	public static List<PrescriptionWSO> transformPrescription(List<PrescriptionEntity> prescriptionEntitys) {
-		List<PrescriptionWSO> prescriptionWSOList = new ArrayList<PrescriptionWSO>();
-		
-		for (int i=0;i<prescriptionEntitys.size();i++) {
-			PrescriptionWSO prescriptionWSO = new PrescriptionWSO();
-			prescriptionWSO.setClinic(transform(prescriptionEntitys.get(i).getPharmacy()));
-			prescriptionWSO.setCreatedAt(prescriptionEntitys.get(i).getCreatedAt());
-			if(prescriptionEntitys.get(i).getDoctor()!=null)
-			prescriptionWSO.setDoctor(transform(prescriptionEntitys.get(i).getDoctor()));
-			prescriptionWSO.setId(prescriptionEntitys.get(i).getId());
-			prescriptionWSO.setInstruction(prescriptionEntitys.get(i).getInstruction());
-			prescriptionWSO.setNextAppointment(prescriptionEntitys.get(i).getNextAppointment());
-			if(prescriptionEntitys.get(i).getPatient()!=null)
-			prescriptionWSO.setPatient(transform(prescriptionEntitys.get(i).getPatient()));
-			
-			prescriptionWSO.setPrescriptionNumber(prescriptionEntitys.get(i).getPrescriptionNumber());
-			prescriptionWSO.setUpdatedAt(prescriptionEntitys.get(i).getUpdatedAt());
-			
-			Set<PrescriptionItemWSO> prescriptionItemWSOSet =new HashSet<PrescriptionItemWSO>();
-			Set<PrescriptionItemEntity> prescriptionItemEntitySet =prescriptionEntitys.get(i).getPrescriptionItems();
-			for (Iterator<PrescriptionItemEntity> it = prescriptionItemEntitySet.iterator(); it.hasNext(); ) {
-				PrescriptionItemEntity prescriptionItemEntity= it.next();
-				PrescriptionItemWSO prescriptionItemWSO = new PrescriptionItemWSO();
-				prescriptionItemWSO.setBeforeFood(prescriptionItemEntity.isBeforeFood());
-				prescriptionItemWSO.setCreatedAt(prescriptionItemEntity.getCreatedAt());
-				prescriptionItemWSO.setDoseType(DoseWSO.valueOf(prescriptionItemEntity.getDoseType().name()));
-				prescriptionItemWSO.setDrugName(prescriptionItemEntity.getDrugName());
-				prescriptionItemWSO.setDrugs(transform(prescriptionItemEntity.getDrugs()));
-				prescriptionItemWSO.setDuration(prescriptionItemEntity.getDuration());
-				prescriptionItemWSO.setDurationType(DurationWSO.valueOf(prescriptionItemEntity.getDurationType().name()));
-				prescriptionItemWSO.setId(prescriptionItemEntity.getId());
-				prescriptionItemWSO.setInstruction(prescriptionItemEntity.getInstruction());
-				prescriptionItemWSO.setPrescription(transform(prescriptionItemEntity.getPrescription()));
-				prescriptionItemWSO.setQuantity(prescriptionItemEntity.getQuantity());
-				prescriptionItemWSO.setUpdatedAt(prescriptionItemEntity.getCreatedAt());
-				
-				prescriptionItemWSOSet.add(prescriptionItemWSO);
-			
-			}
-			
-			prescriptionWSO.setPrescriptionItems(prescriptionItemWSOSet);
-			
-			prescriptionWSOList.add(prescriptionWSO);
-		}
-		
-		return prescriptionWSOList;
-		
-		
-	}
-
-	private static PrescriptionWSO transform(PrescriptionEntity prescription) {
-		PrescriptionWSO prescriptionWSO = new PrescriptionWSO();
-		prescriptionWSO.setClinic(transform(prescription.getPharmacy()));
-		prescriptionWSO.setCreatedAt(prescription.getCreatedAt());
-		prescriptionWSO.setDoctor(transform(prescription.getDoctor()));
-		prescriptionWSO.setId(prescription.getId());
-		prescriptionWSO.setInstruction(prescription.getInstruction());
-		prescriptionWSO.setNextAppointment(prescription.getNextAppointment());
-		prescriptionWSO.setPatient(transform(prescription.getPatient()));
-		prescriptionWSO.setPrescriptionItems(null);
-		prescriptionWSO.setPrescriptionNumber(prescription.getPrescriptionNumber());
-		prescriptionWSO.setUpdatedAt(prescription.getUpdatedAt());
 	
-		return prescriptionWSO;
-	}
-
 	
 	
 
-	private static DrugWSO transform(DrugsEntity drugs) {
+	public static DrugWSO transform(DrugsEntity drugs) {
 		DrugWSO drugWSO= new DrugWSO();
 		drugWSO.setBrandName(drugs.getBrandName());
 		drugWSO.setConstituent(drugs.getConstituent());
@@ -313,8 +248,9 @@ public class DataMapper {
 		return drugWSO;
 	}
 
-	private static ProfileWSO transform(ProfileEntity profile) {
+	public static ProfileWSO transform(ProfileEntity profile) {
 		ProfileWSO profileWSO = new ProfileWSO();
+		if(profile.getAddress()!=null)
 		profileWSO.setAddress(transform(profile.getAddress()));
 		profileWSO.setCreatedAt(profile.getCreatedAt());
 		//profileWSO.setEmergencyContacts(transform(profile.getEmergencyContacts()));

@@ -9,12 +9,18 @@ import com.MobyRx.java.entity.common.AccountEntity;
 import com.MobyRx.java.exception.NoRecordFoundException;
 import com.MobyRx.java.service.converter.DataMapper;
 import com.MobyRx.java.service.wso.AccountWSO;
+
+import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -50,17 +56,39 @@ public class CommonBLImpl extends BaseBL implements CommonBL{
         return commonDao.getMasterData(className);
     }
 
-    @Override
+    
     public List<AccountWSO> getAccounts(Map<String, String> filterParam) {
         List<AccountEntity> accountList = accountDao.getAccount(filterParam);
         return DataMapper.transform(accountList);
     }
 
-    @Override
+    
     public AccountWSO getAccount(Long accountId) {
         AccountEntity account =  accountDao.getAccount(accountId);
         if(null==account)
             throw new NoRecordFoundException("No account found for id="+accountId);
         return DataMapper.transform(account);
+    }
+    public void convertStringToImageByteArray(String 
+            imageString,String path){
+        
+        OutputStream outputStream = null;
+        byte [] imageInByteArray = Base64.decodeBase64(
+                imageString);
+        try {
+            outputStream = new FileOutputStream(path);
+            outputStream.write(imageInByteArray);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally{
+            try {
+                outputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        
     }
 }

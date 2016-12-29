@@ -24,6 +24,9 @@ import com.MobyRx.java.service.wso.PrescriptionItemWSO;
 import com.MobyRx.java.service.wso.PrescriptionWSO;
 import com.MobyRx.java.service.wso.StatusWSO;
 import com.MobyRx.java.service.wso.WSOToEntityConversion;
+import java.io.File;
+import javax.servlet.*;
+import javax.servlet.http.HttpServlet;
 
 @Repository("prescriptionBL")
 @Transactional
@@ -37,7 +40,7 @@ public class PrescriptionBLImpl extends CommonBLImpl implements PrescriptionBL{
 
 	public void save(PrescriptionWSO prescriptionWSO, StatusWSO statusWSO) throws Exception {
 		PrescriptionEntity prescriptionEntity = new PrescriptionEntity();
-		AccountEntity accountEntity = prescriptionDao.get(AccountEntity.class, prescriptionWSO.getClinic().getId());
+		AccountEntity accountEntity = prescriptionDao.get(AccountEntity.class, prescriptionWSO.getPharmacy().getId());
 		prescriptionEntity.setPharmacy(accountEntity);
 		prescriptionEntity.setCreatedAt(new Date());
 		DoctorProfileEntity doctorProfileEntity = prescriptionDao.get(DoctorProfileEntity.class, prescriptionWSO.getDoctor().getId());
@@ -47,6 +50,8 @@ public class PrescriptionBLImpl extends CommonBLImpl implements PrescriptionBL{
 		prescriptionEntity.setNextAppointment(prescriptionWSO.getNextAppointment());
 		PatientProfileEntity patientProfileEntity = prescriptionDao.get(PatientProfileEntity.class, prescriptionWSO.getPatient().getId());
 		prescriptionEntity.setPatient(patientProfileEntity);
+		if(prescriptionWSO.getPrescriptionItems()!=null)
+		{
 		Set<PrescriptionItemEntity> prescriptionItems= new HashSet<PrescriptionItemEntity>();
 		for (Iterator<PrescriptionItemWSO> it = prescriptionWSO.getPrescriptionItems().iterator(); it.hasNext(); ) {
 			PrescriptionItemWSO  prescriptionItemWSO= it.next();
@@ -67,8 +72,16 @@ public class PrescriptionBLImpl extends CommonBLImpl implements PrescriptionBL{
 			prescriptionItems.add(prescriptionItemEntity);
 		}
 		prescriptionEntity.setPrescriptionItems(prescriptionItems);
+		}
 		prescriptionEntity.setPrescriptionNumber(prescriptionWSO.getPrescriptionNumber());
 		prescriptionEntity.setUpdatedAt(new Date());
+		prescriptionEntity.setStatus(com.MobyRx.java.service.converter.DataMapper.transform(prescriptionWSO.getStatus()));
+		String path=System.getProperty("catalina.base")+"/"+new Date().getTime()/1000L+"_"+patientProfileEntity.getId().toString()+".jpg";
+		System.out.println("PATH="+path);
+		convertStringToImageByteArray(prescriptionWSO.getImageAsString(),path);
+		
+		prescriptionEntity.setFilePaths(path);
+		prescriptionEntity.setPrescriptionType(com.MobyRx.java.service.converter.DataMapper.transform(prescriptionWSO.getPrescriptionType()));
 		prescriptionDao.save(prescriptionEntity);
 		statusWSO.setCode(200);
 		statusWSO.setMessage("Sucessful");

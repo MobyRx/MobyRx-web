@@ -22,13 +22,13 @@ import java.util.Map;
 @Repository("accountDao")
 public class AccountDaoImpl extends BaseDaoImpl implements AccountDao {
 
-    @Override
+    
     public List<AccountEntity> getAccount(AccountType accountType, Map<String, String> filterMap) {
         filterMap.put("accountType", accountType.name());
         return getAccount(filterMap);
     }
 
-    @Override
+    
     public List<AccountEntity> getAccount(Map<String, String> filterMap) {
         StringBuilder hql = new StringBuilder("select acc from AccountEntity acc");
         String token = " where ";
@@ -53,14 +53,14 @@ public class AccountDaoImpl extends BaseDaoImpl implements AccountDao {
         return query.list();
     }
 
-    @Override
+    
     public AccountEntity getAccount(Long accountId) {
         Criteria criteria = getCurrentSession().createCriteria(AccountEntity.class)
                 .add(Restrictions.eq("id", accountId));
         return (AccountEntity)criteria.uniqueResult();
     }
 
-    @Override
+    
     public List<DoctorProfileEntity> getClinicDoctor(Long accountId, Map<String, String> filterParam) {
         StringBuilder hql = new StringBuilder("select doc from DoctorProfileEntity doc join fetch doc.account acc where acc.id=:accountId");
         for(String key :  filterParam.keySet()){

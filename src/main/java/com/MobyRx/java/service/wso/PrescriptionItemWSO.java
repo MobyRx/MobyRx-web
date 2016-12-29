@@ -4,6 +4,9 @@ package com.MobyRx.java.service.wso;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import com.MobyRx.java.service.wso.*;
+
 @XmlRootElement(name = "PrescriptionItemWSO")
 public class PrescriptionItemWSO extends BaseWSO{
 
@@ -18,6 +21,7 @@ public class PrescriptionItemWSO extends BaseWSO{
     private DoseWSO doseType;
 
 
+   
     public PrescriptionWSO getPrescription() {
         return prescription;
     }
@@ -26,7 +30,6 @@ public class PrescriptionItemWSO extends BaseWSO{
         this.prescription = prescription;
     }
 
-   
     public DrugWSO getDrugs() {
         return drugs;
     }
@@ -66,6 +69,7 @@ public class PrescriptionItemWSO extends BaseWSO{
     public void setDuration(int duration) {
         this.duration = duration;
     }
+
 
     public DurationWSO getDurationType() {
         return durationType;

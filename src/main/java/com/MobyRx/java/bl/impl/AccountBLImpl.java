@@ -139,7 +139,7 @@ public class AccountBLImpl extends BaseBL implements AccountBL {
 
 	}
 
-    @Override
+    
     public List<DoctorWSO> getAccountDoctor(Long accountId, Map<String, String> filterParam) {
         List<DoctorProfileEntity> doctors = accountDao.getClinicDoctor(accountId,filterParam);
         return DataMapper.transformDoctors(doctors);
