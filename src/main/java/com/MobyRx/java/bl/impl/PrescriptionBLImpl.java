@@ -12,6 +12,8 @@ import com.MobyRx.java.entity.common.PrescriptionItemEntity;
 import com.MobyRx.java.entity.doctor.DoctorProfileEntity;
 import com.MobyRx.java.entity.doctor.DrugsEntity;
 import com.MobyRx.java.entity.patient.PatientProfileEntity;
+
+import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,14 +78,12 @@ public class PrescriptionBLImpl extends CommonBLImpl implements PrescriptionBL{
 		prescriptionEntity.setPrescriptionNumber(prescriptionWSO.getPrescriptionNumber());
 		prescriptionEntity.setUpdatedAt(new Date());
 		prescriptionEntity.setStatus(com.MobyRx.java.service.converter.DataMapper.transform(prescriptionWSO.getStatus()));
-		String path=System.getProperty("catalina.base")+"/"+new Date().getTime()/1000L+"_"+patientProfileEntity.getId().toString()+".jpg";
-		System.out.println("PATH="+path);
-		convertStringToImageByteArray(prescriptionWSO.getImageAsString(),path);
-		
-		prescriptionEntity.setFilePaths(path);
+		String filePath=com.MobyRx.java.util.MobyRxUtil.convertStringToImageByteArray(prescriptionWSO.getImageAsString(),patientProfileEntity.getId().toString());
+		if(filePath!=null)
+		prescriptionEntity.setFilePaths(filePath);
 		prescriptionEntity.setPrescriptionType(com.MobyRx.java.service.converter.DataMapper.transform(prescriptionWSO.getPrescriptionType()));
 		prescriptionDao.save(prescriptionEntity);
-		statusWSO.setCode(200);
+		statusWSO.setCode(HttpStatus.SC_OK);;
 		statusWSO.setMessage("Sucessful");
 
 	}

@@ -69,26 +69,5 @@ public class CommonBLImpl extends BaseBL implements CommonBL{
             throw new NoRecordFoundException("No account found for id="+accountId);
         return DataMapper.transform(account);
     }
-    public void convertStringToImageByteArray(String 
-            imageString,String path){
-        
-        OutputStream outputStream = null;
-        byte [] imageInByteArray = Base64.decodeBase64(
-                imageString);
-        try {
-            outputStream = new FileOutputStream(path);
-            outputStream.write(imageInByteArray);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally{
-            try {
-                outputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        
-    }
+    
 }

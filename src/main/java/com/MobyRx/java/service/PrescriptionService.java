@@ -16,6 +16,7 @@ import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
@@ -52,14 +53,11 @@ public class PrescriptionService extends BaseService{
 	    }
 	    
 	    @GET
-	    @Path("/byPatientId")
-	    public Response getPrescriptionByPatientId(@QueryParam("patientId")String patientId,@Context UriInfo uriInfo) throws Exception{
+	    @Path("/{patientId}")
+	    public Response getPrescriptionByPatientId(@PathParam("patientId")String patientId,@Context UriInfo uriInfo) throws Exception{
 	        StatusWSO statusWSO = new StatusWSO();
-	        System.out.println("111");
 	       List<PrescriptionEntity> prescriptionEntity= prescriptionBL.getPrescriptionByPatientId(Long.parseLong(patientId), statusWSO);
-	       System.out.println("2222="+prescriptionEntity);
 	       List<PrescriptionWSO> prescriptionWSO=com.MobyRx.java.service.converter.DataMapper.transformPrescription(prescriptionEntity);
-	       System.out.println("333");
 	        return sendResponse(prescriptionWSO);
 	    }
 	    
