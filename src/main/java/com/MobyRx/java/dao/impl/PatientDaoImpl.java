@@ -65,7 +65,7 @@ public class PatientDaoImpl extends BaseDaoImpl implements PatientDao {
     public List<AppointmentEntity> getAppointments(Map<String,String> filterMap) {
         Criteria criteria = getCurrentSession().createCriteria(AppointmentEntity.class);
         for(String key : filterMap.keySet()){
-            if(key.contains("."))
+            if(key.contains("id"))
                 criteria.add(Restrictions.eq(key, Long.parseLong(filterMap.get(key))));
             else
                 criteria.add(Restrictions.eq(key, filterMap.get(key)));
