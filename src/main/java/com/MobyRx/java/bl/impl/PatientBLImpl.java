@@ -1,12 +1,20 @@
 package com.MobyRx.java.bl.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.MobyRx.java.entity.common.AccountEntity;
 import com.MobyRx.java.entity.common.AddressEntity;
+import com.MobyRx.java.entity.common.ProfileEntity;
 import com.MobyRx.java.entity.common.UserEntity;
+import com.MobyRx.java.entity.patient.AppointmentEntity;
 import com.MobyRx.java.entity.patient.PatientProfileEntity;
+import com.MobyRx.java.entity.type.AppointmentStatus;
+import com.MobyRx.java.exception.NoRecordFoundException;
+import com.MobyRx.java.service.converter.DataMapper;
+import com.MobyRx.java.service.wso.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.MobyRx.java.bl.PatientBL;
 import com.MobyRx.java.dao.PatientDao;
-import com.MobyRx.java.service.wso.AddressWSO;
-import com.MobyRx.java.service.wso.PatientProfileWSO;
-import com.MobyRx.java.service.wso.StatusWSO;
-import com.MobyRx.java.service.wso.WSOToEntityConversion;
 
 @Repository("patientBL")
 @Transactional
@@ -143,6 +147,45 @@ public class PatientBLImpl extends CommonBLImpl implements PatientBL{
 	
 	}
 
-	
 
+    public void appointment(AppointmentWSO appointmentWSO, StatusWSO statusWSO) throws Exception {
+        AppointmentEntity appointment = new AppointmentEntity();
+        appointment.setAppointmentOn(appointmentWSO.getAppointmentOn());
+        appointment.setTime(appointmentWSO.getTime());
+        ProfileEntity patient = new ProfileEntity();
+        patient.setId(appointmentWSO.getPatient().getId());
+        appointment.setPatient(patient);
+        ProfileEntity doctor = new ProfileEntity();
+        doctor.setId(appointmentWSO.getDoctor().getId());
+        appointment.setDoctor(doctor);
+        AccountEntity clinic = new AccountEntity();
+        clinic.setId(appointmentWSO.getClinic().getId());
+        appointment.setClinic(clinic);
+        appointment.setToken(patientDao.getNextToken(appointmentWSO.getDoctor().getId(), appointmentWSO.getClinic().getId()));
+        patientDao.save(appointment);
+        /*TODO: Notification(Mail and SMS) for both doctor and patient has to add after successful completion of appointment*/
+        saveSuccessMessage(statusWSO,"");
+    }
+
+    public void updateAppointmentStatus(Long appointmentId, String status, StatusWSO statusWSO) throws Exception {
+        AppointmentEntity appointment = patientDao.get(AppointmentEntity.class, appointmentId);
+        appointment.setStatus(AppointmentStatus.valueOf(status));
+        patientDao.save(appointment);
+        /*TODO: Notification(Mail and SMS) for both doctor and patient has to add after successful completion of appointment*/
+        saveSuccessMessage(statusWSO,"");
+    }
+
+    public AppointmentWSO getAppointment(Long appointmentId){
+        AppointmentEntity appointment = patientDao.getAppointment(appointmentId);
+        if(null == appointment)
+            throw new NoRecordFoundException("Noe record found for the given id="+ appointmentId);
+        return DataMapper.transform(appointment);
+    }
+
+    public List<AppointmentWSO> getAppointments(Map<String,String> filterParam)throws Exception{
+        List<AppointmentEntity> appointments = patientDao.getAppointments(filterParam);
+        return DataMapper.transformAppointments(appointments);
+    }
+    
+    
 }

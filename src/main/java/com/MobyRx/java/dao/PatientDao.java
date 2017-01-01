@@ -1,5 +1,6 @@
 package com.MobyRx.java.dao;
 
+import com.MobyRx.java.entity.patient.AppointmentEntity;
 import com.MobyRx.java.entity.patient.PatientProfileEntity;
 
 import java.util.List;
@@ -16,5 +17,10 @@ public interface PatientDao extends BaseDao{
 
 	List<PatientProfileEntity> searchPatient(Map<String, String> queryParam);
 
- 
+    Integer getNextToken(Long doctorId,  Long clinicId);
+    
+    AppointmentEntity getAppointment(Long appointId);
+    
+    List<AppointmentEntity> getAppointments(Map<String,String> filterMap);
+
 }

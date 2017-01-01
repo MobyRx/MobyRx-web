@@ -3,29 +3,16 @@ package com.MobyRx.java.service.converter;
 import com.MobyRx.java.entity.common.AccountEntity;
 import com.MobyRx.java.entity.common.AddressEntity;
 import com.MobyRx.java.entity.common.PrescriptionEntity;
-import com.MobyRx.java.entity.common.PrescriptionItemEntity;
 import com.MobyRx.java.entity.doctor.DoctorProfileEntity;
 import com.MobyRx.java.entity.master.ServiceEntity;
 import com.MobyRx.java.entity.master.SpecializationEntity;
-import com.MobyRx.java.entity.type.BloodGroup;
+import com.MobyRx.java.entity.patient.AppointmentEntity;
 import com.MobyRx.java.entity.type.PrescriptionStatus;
 import com.MobyRx.java.entity.type.PrescriptionType;
-import com.MobyRx.java.service.wso.AccountWSO;
-import com.MobyRx.java.service.wso.AddressWSO;
-import com.MobyRx.java.service.wso.BloodGroupWSO;
-import com.MobyRx.java.service.wso.DoctorWSO;
-import com.MobyRx.java.service.wso.DoseWSO;
-import com.MobyRx.java.service.wso.DurationWSO;
-import com.MobyRx.java.service.wso.PrescriptionItemWSO;
-import com.MobyRx.java.service.wso.PrescriptionStatusWSO;
-import com.MobyRx.java.service.wso.PrescriptionTypeWSO;
-import com.MobyRx.java.service.wso.PrescriptionWSO;
+import com.MobyRx.java.service.wso.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -204,4 +191,24 @@ public class DataMapper {
 	}
 
 
+    public static List<AppointmentWSO> transformAppointments(List<AppointmentEntity> appointments){
+        List<AppointmentWSO> appointmentWSOs = new ArrayList<AppointmentWSO>();
+        for(AppointmentEntity appointment : appointments){
+            appointmentWSOs.add(transform(appointment));
+        }
+        return appointmentWSOs;
+    }
+
+    public static AppointmentWSO transform(AppointmentEntity appointment){
+        AppointmentWSO appointmentWSO = new AppointmentWSO();
+        appointmentWSO.setId(appointment.getId());
+        appointmentWSO.setDoctor(new EntityReference(appointment.getDoctor().getId(),appointment.getDoctor().getName()));
+        appointmentWSO.setPatient(new EntityReference(appointment.getPatient().getId(),appointment.getPatient().getName()));
+        appointmentWSO.setClinic(new EntityReference(appointment.getClinic().getId(),appointment.getClinic().getName()));
+        appointmentWSO.setAppointmentOn(appointment.getAppointmentOn());
+        appointmentWSO.setTime(appointment.getTime());
+        appointmentWSO.setToken(appointment.getToken());
+        appointmentWSO.setStatus(appointment.getStatus().name());
+        return appointmentWSO;
+    }
 }

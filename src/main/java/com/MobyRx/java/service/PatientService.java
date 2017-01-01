@@ -2,9 +2,8 @@ package com.MobyRx.java.service;
 
 import com.MobyRx.java.bl.CommonBL;
 import com.MobyRx.java.bl.PatientBL;
-import com.MobyRx.java.entity.common.AccountEntity;
 import com.MobyRx.java.entity.patient.PatientProfileEntity;
-import com.MobyRx.java.entity.type.AccountType;
+import com.MobyRx.java.service.wso.AppointmentWSO;
 import com.MobyRx.java.service.wso.DataMapper;
 import com.MobyRx.java.service.wso.PatientProfileWSO;
 import com.MobyRx.java.service.wso.StatusWSO;
@@ -84,6 +83,34 @@ public class PatientService extends BaseService {
     }
 
 
+    @POST
+    @Path("/appointment")
+    public Response appointment(AppointmentWSO appointmentWSO , @Context UriInfo uriInfo) throws Exception{
+        StatusWSO statusWSO = new StatusWSO();
+        this.patientBL.appointment(appointmentWSO, statusWSO);
+        return sendResponse(statusWSO);
+    }
+
+    @PUT
+    @Path("/appointment/{appointmentId}/status")
+    public Response updateAppointment(@PathParam("appointmentId")Long appointmentId,  @QueryParam("status")String status, @Context UriInfo uriInfo) throws Exception{
+        StatusWSO statusWSO = new StatusWSO();
+        this.patientBL.updateAppointmentStatus(appointmentId, status, statusWSO);
+        return sendResponse(statusWSO);
+    }
+
+    @GET
+    @Path("/appointment/{appointmentId}")
+    public Response getAppointment(@PathParam("appointmentId")Long appointmentId, @Context UriInfo uriInfo) throws Exception{
+        return sendResponse(this.patientBL.getAppointment(appointmentId));
+    }
+
+    @GET
+    @Path("/appointment")
+    public Response getAppointments(@Context UriInfo uriInfo) throws Exception{
+        Map<String, String> queryParam = getQueryParamAsStringMap(uriInfo);
+        return sendResponse(this.patientBL.getAppointments(queryParam));
+    }
 
 }
 
