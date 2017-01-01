@@ -64,11 +64,13 @@ public class PatientDaoImpl extends BaseDaoImpl implements PatientDao {
     @Override
     public List<AppointmentEntity> getAppointments(Map<String,String> filterMap) {
         Criteria criteria = getCurrentSession().createCriteria(AppointmentEntity.class);
-        for(String key : filterMap.keySet())
-            criteria.add(Restrictions.eq(key, filterMap.get(key)));
+        for(String key : filterMap.keySet()){
+            if(key.contains("."))
+                criteria.add(Restrictions.eq(key, Long.parseLong(filterMap.get(key))));
+            else
+                criteria.add(Restrictions.eq(key, filterMap.get(key)));
+        }
         return criteria.list();
     }
-
-    
 
 }
