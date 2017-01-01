@@ -15,6 +15,8 @@ import com.MobyRx.java.entity.type.AppointmentStatus;
 import com.MobyRx.java.exception.NoRecordFoundException;
 import com.MobyRx.java.service.converter.DataMapper;
 import com.MobyRx.java.service.wso.*;
+import com.MobyRx.java.util.ValidatorUtil;
+import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -149,6 +151,11 @@ public class PatientBLImpl extends CommonBLImpl implements PatientBL{
 
 
     public void appointment(AppointmentWSO appointmentWSO, StatusWSO statusWSO) throws Exception {
+        ValidatorUtil.validate(appointmentWSO, statusWSO);
+        if(statusWSO.hasError()){
+            saveErrorMessage(statusWSO, HttpStatus.SC_BAD_REQUEST);
+            return;
+        }
         AppointmentEntity appointment = new AppointmentEntity();
         appointment.setAppointmentOn(appointmentWSO.getAppointmentOn());
         appointment.setTime(appointmentWSO.getTime());

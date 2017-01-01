@@ -1,9 +1,6 @@
 package com.MobyRx.java.util;
 
-import com.MobyRx.java.service.wso.ClinicWSO;
-import com.MobyRx.java.service.wso.DrugWSO;
-import com.MobyRx.java.service.wso.StatusWSO;
-import com.MobyRx.java.service.wso.UserWSO;
+import com.MobyRx.java.service.wso.*;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -88,6 +85,19 @@ public class ValidatorUtil {
         	status.setCode(400);
             status.addError("Invalid PhoneNumber");
         }
+    }
+
+    public static void validate(AppointmentWSO appointmentWSO, StatusWSO status){
+        if(null == appointmentWSO.getAppointmentOn()){
+            status.addError("Appointment On Required");
+        }
+        if(StringUtils.isEmpty(appointmentWSO.getTime()))
+            status.addError("Appointment time Required");
+        if(null==appointmentWSO.getDoctor())
+            status.addError("Doctor id Required");
+
+        if(null==appointmentWSO.getClinic())
+            status.addError("Clinic id Required");
     }
    
     public static boolean isValidEmail(String email) {

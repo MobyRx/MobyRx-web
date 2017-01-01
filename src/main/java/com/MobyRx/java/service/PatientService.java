@@ -3,10 +3,7 @@ package com.MobyRx.java.service;
 import com.MobyRx.java.bl.CommonBL;
 import com.MobyRx.java.bl.PatientBL;
 import com.MobyRx.java.entity.patient.PatientProfileEntity;
-import com.MobyRx.java.service.wso.AppointmentWSO;
-import com.MobyRx.java.service.wso.DataMapper;
-import com.MobyRx.java.service.wso.PatientProfileWSO;
-import com.MobyRx.java.service.wso.StatusWSO;
+import com.MobyRx.java.service.wso.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +84,8 @@ public class PatientService extends BaseService {
     @Path("/appointment")
     public Response appointment(AppointmentWSO appointmentWSO , @Context UriInfo uriInfo) throws Exception{
         StatusWSO statusWSO = new StatusWSO();
+        /*TODO: patient details has to update with logged in user details*/
+        appointmentWSO.setPatient(new EntityReference(1L));
         this.patientBL.appointment(appointmentWSO, statusWSO);
         return sendResponse(statusWSO);
     }

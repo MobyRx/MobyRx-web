@@ -16,6 +16,10 @@ public class EntityReference {
     public EntityReference() {
     }
 
+    public EntityReference(Long id) {
+        this.id = id;
+    }
+
     public EntityReference(Long id, String name) {
         this.id = id;
         this.name = name;

@@ -46,8 +46,9 @@ public class UserBLImpl extends CommonBLImpl implements UserBL {
 
 	public void save(UserWSO userWSO,StatusWSO statusWSO) throws Exception{
         ValidatorUtil.validate(userWSO,statusWSO);
-		if(statusWSO.getCode()==HttpStatus.SC_BAD_REQUEST){
-			return;
+		if(statusWSO.hasError()){
+            saveErrorMessage(statusWSO, HttpStatus.SC_BAD_REQUEST);
+            return;
 		}
         UserEntity user = new UserEntity();
         user.setEmail(userWSO.getEmail());
