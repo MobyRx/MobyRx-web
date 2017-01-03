@@ -54,14 +54,14 @@ public class PatientDaoImpl extends BaseDaoImpl implements PatientDao {
         return null!=lastToken?lastToken+1:1;
     }
 
-    @Override
+    
     public AppointmentEntity getAppointment(Long appointId) {
         Criteria criteria = getCurrentSession().createCriteria(AppointmentEntity.class)
                 .add(Restrictions.eq("id", appointId));
         return (AppointmentEntity)criteria.uniqueResult();
     }
 
-    @Override
+   
     public List<AppointmentEntity> getAppointments(Map<String,String> filterMap) {
         Criteria criteria = getCurrentSession().createCriteria(AppointmentEntity.class);
         for(String key : filterMap.keySet()){
