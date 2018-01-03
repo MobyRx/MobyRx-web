@@ -28,6 +28,7 @@ public class DoctorWSO {
     private Set<AccountWSO> clinic;
     private boolean verified = false;
     private Set<String> specializations;
+    private Map<String, String> availability;
 
     public Long getId() {
         return id;
@@ -153,5 +154,19 @@ public class DoctorWSO {
         if(null==getSpecializations())
             setSpecializations(new HashSet<String>());
         getSpecializations().add(name);
+    }
+
+    public Map<String, String> getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(Map<String, String> availability) {
+        this.availability = availability;
+    }
+    
+    public void putAvailability(String day, String time){
+        if(null == getAvailability())
+            setAvailability(new HashMap<String, String>());
+        getAvailability().put(day,time);
     }
 }
